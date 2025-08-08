@@ -27,5 +27,6 @@ void GameScene::Delete() {
 void GameScene::DrawImGui() {
 	ImGui::Begin("GameScene");
 	ImGui::Text("Test");
+	ImGui::Checkbox("isFinished", &isFinish);
 	ImGui::End();
 }
