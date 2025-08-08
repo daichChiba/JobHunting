@@ -16,10 +16,31 @@
     <Filter Include="シェーダー ファイル">
       <UniqueIdentifier>{718c7f4c-fc51-40ad-a221-b9456a7a1a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{a7332e7c-3be4-440c-b8fc-b2eab9e0900d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{a5eff3c0-041a-40ef-a74b-9a6503c2ca17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\scenes">
+      <UniqueIdentifier>{f0bd3a7d-246a-4a38-9f83-f99902c58d2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\scenes">
+      <UniqueIdentifier>{5999b3e1-3eca-4515-880f-ddb46351517b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\scenes\ResetScene.cpp">
+      <Filter>ソース ファイル\Scene\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\scenes\GameScene.cpp">
+      <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,5 +91,16 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\scenes\ResetScene.h">
+      <Filter>ヘッダー ファイル\Scene\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\scenes\GameScene.h">
+      <Filter>ヘッダー ファイル\Scene\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
