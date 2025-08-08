@@ -90,6 +90,8 @@ Matrix4x4 MakeOrthographicMatrix(float left, float top, float right, float botto
 // 透視投影行列の作成
 Matrix4x4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip);
 
+Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
+
 // 座標変換（w除算なし）
 Vector3 Transform(const Vector3& v, const Matrix4x4& m);
 // 座標変換（w除算あり）

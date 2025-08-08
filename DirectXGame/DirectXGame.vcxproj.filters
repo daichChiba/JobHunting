@@ -28,6 +28,18 @@
     <Filter Include="ヘッダー ファイル\Scene\scenes">
       <UniqueIdentifier>{5999b3e1-3eca-4515-880f-ddb46351517b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ect">
+      <UniqueIdentifier>{5925b329-81ce-4032-a221-e074ede0721d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game">
+      <UniqueIdentifier>{aa33ca78-84e0-421b-b235-67918e9f7643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player">
+      <UniqueIdentifier>{af5a601b-346d-430e-96b9-e72fde5dd0b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{b4a5ef0a-6809-416f-aafb-7d8c8e253243}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +53,15 @@
     </ClCompile>
     <ClCompile Include="Scene\scenes\GameScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ect\worldTransfromEX.cpp">
+      <Filter>ソース ファイル\ect</Filter>
+    </ClCompile>
+    <ClCompile Include="ect\MathUtilityEX.cpp">
+      <Filter>ソース ファイル\ect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\Player.cpp">
+      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Scene\scenes\GameScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\Player.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
