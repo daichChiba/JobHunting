@@ -34,7 +34,7 @@ public:
 	void DrawImGui() override;
 
 private:
-	//Player player_;
+	Player player_;
 
 private:
 	KamataEngine::Camera* camera_;

@@ -5,8 +5,12 @@ using namespace KamataEngine;
 Player::Player() {}
 Player::~Player() {}
 void Player::Initialize() {
-	model_->StaticInitialize();
-	model_ = Model::CreateFromOBJ("Player", true);
+	//model_->StaticInitialize();
+	//model_ = Model::CreateFromOBJ("Player", true);
+	Model* model = nullptr;
+	model = Model::CreateFromOBJ("Player", true);
+
+	model_ = model;
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = pos_;

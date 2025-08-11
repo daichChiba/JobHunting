@@ -1,24 +1,24 @@
 #include "GameScene.h"
 
 using namespace KamataEngine;
-GameScene::GameScene() {
+GameScene::GameScene() {}
 
-}
-
-GameScene::~GameScene() {
-
-}
+GameScene::~GameScene() {}
 
 void GameScene::Initialize() {
 	camera_ = new Camera();
 	camera_->Initialize();
 	camera_->farZ = 1000.0f;
-	//player_.Initialize();
+	player_.Initialize();
 }
 
 void GameScene::Update() {
 	camera_->UpdateMatrix();
-	//player_.Update();
+	player_.Update();
+
+	if (input_->GetInstance()->PushKey(DIK_RETURN)) {
+		isFinish = true;
+	}
 }
 
 void GameScene::Draw() {
@@ -30,8 +30,6 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-
-
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -47,7 +45,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	//player_.Draw(*camera_);
+	player_.Draw(*camera_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -56,8 +54,6 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw();
-
-
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
@@ -69,14 +65,12 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::Delete() {
-	//player_.Delete();
-}
+void GameScene::Delete() { player_.Delete(); }
 
 void GameScene::DrawImGui() {
 	ImGui::Begin("GameScene");
-	ImGui::Text("Test");
-	ImGui::Checkbox("isFinished", &isFinish);
-	//player_.DrawImGui();
+	 ImGui::Text("Test");
+	 ImGui::Checkbox("isFinished", &isFinish);
+	 player_.DrawImGui();
 	ImGui::End();
 }

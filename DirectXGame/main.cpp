@@ -58,11 +58,12 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 		// ここに描画処理を記述する
 
+		// シーンの描画
+		scene->Draw();
 		// ImGui描画
 		imguiManager_->Draw();
 
-		// シーンの描画
-		scene->Draw();
+
 
 		// 描画終了
 		dxCommon->PostDraw();
