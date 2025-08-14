@@ -1,7 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
-#include "../Player/Player.h"
 
+class Player;
 class GameSceneManager {
 public:
 	/// <summary>
@@ -26,7 +26,7 @@ public:
 	void Delete();
 
 private:
-	Player player_;
+	Player* player_;
 
 private:
 	KamataEngine::Camera* camera_;
