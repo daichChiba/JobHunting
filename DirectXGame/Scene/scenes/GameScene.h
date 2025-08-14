@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene.h"
-#include "Game/Player/Player.h"
+#include "Game/Manager/GameSceneManager.h"
 
 class GameScene : public Scene {
 public:
@@ -34,8 +34,5 @@ public:
 	void DrawImGui() override;
 
 private:
-	Player player_;
-
-private:
-	KamataEngine::Camera* camera_;
+	GameSceneManager gameSceneManager_;
 };

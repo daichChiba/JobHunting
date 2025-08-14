@@ -40,6 +40,15 @@
     <Filter Include="ソース ファイル\Game">
       <UniqueIdentifier>{b4a5ef0a-6809-416f-aafb-7d8c8e253243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Manager">
+      <UniqueIdentifier>{6580bbc8-7191-43b9-ae80-04b5cb758fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player">
+      <UniqueIdentifier>{e67d80b0-4dea-414f-8e1a-ebb9e26a669e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Manager">
+      <UniqueIdentifier>{33cd119c-3b5a-491f-a230-b8d62f2cfbdf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,8 +69,11 @@
     <ClCompile Include="ect\MathUtilityEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Manager\GameSceneManager.cpp">
+      <Filter>ソース ファイル\Game\Manager</Filter>
+    </ClCompile>
     <ClCompile Include="Game\Player\Player.cpp">
-      <Filter>ソース ファイル\Game</Filter>
+      <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="Game\Player\Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Manager\GameSceneManager.h">
+      <Filter>ヘッダー ファイル\Game\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
