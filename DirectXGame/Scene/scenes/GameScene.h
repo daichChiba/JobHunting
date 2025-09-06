@@ -32,9 +32,12 @@ public:
 	/// ImGui描画
 	/// </summary>
 	void DrawImGui() override;
+	SceneID NextScene() const override;
+
 
 private:
 	Player player_;
+	SceneID nextScene_;
 
 private:
 	KamataEngine::Camera* camera_;

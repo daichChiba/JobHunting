@@ -1,7 +1,10 @@
 #pragma once
 #include "KamataEngine.h"
+#include "Scene/manager/SceneID.h"
 class Scene {
 public:
+	virtual ~Scene() = default;
+
 	/// <summary>
 	/// Sceneクラスのセットアップ
 	/// </summary>
@@ -28,7 +31,8 @@ public:
 	/// </summary>
 	virtual void DrawImGui();
 
-
+	// 追加：終了したら次に遷移するシーンID
+	virtual SceneID NextScene() const = 0;
 
 	// シーン終了
 	bool IsFinish() { return isFinish; }

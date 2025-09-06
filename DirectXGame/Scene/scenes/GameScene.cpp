@@ -18,6 +18,7 @@ void GameScene::Update() {
 
 	if (input_->GetInstance()->PushKey(DIK_RETURN)) {
 		isFinish = true;
+		nextScene_ = SceneID::Reset;
 	}
 }
 
@@ -73,4 +74,8 @@ void GameScene::DrawImGui() {
 	 ImGui::Checkbox("isFinished", &isFinish);
 	 player_.DrawImGui();
 	ImGui::End();
+}
+
+SceneID GameScene::NextScene() const {
+	return nextScene_;
 }

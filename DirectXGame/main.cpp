@@ -1,17 +1,8 @@
-#include "Scene/scenes/GameScene.h"
-#include "Scene/scenes/ResetScene.h"
+#include "Scene/manager/SceneID.h"
+#include "Scene/manager/SceneManager.h"
 #include <KamataEngine.h>
 #include <Windows.h>
 #include <map>
-
-enum class SelectScene {
-	Reset,
-	Game,
-};
-
-Scene* scene = nullptr;
-
-void SceneChange(SelectScene& scene_);
 
 using namespace KamataEngine;
 // Windowsアプリでのエントリーポイント(main関数)
@@ -22,10 +13,9 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// DirectXCommonインスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
-	scene = new GameScene;
-	scene->SetUp();
-
-	SelectScene sceneSelect = SelectScene::Game;
+	// シーンマネージャー
+	SceneManager sceneManager_;
+	sceneManager_.ChangeScene(SceneID::Reset);
 
 #pragma region 汎用機能初期化
 	// ImGuiManagerインスタンスの取得
@@ -43,12 +33,12 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		}
 
 		// シーンの更新
-		scene->Update();
+		sceneManager_.Update();
 
 		// ImGui受付開始
 		imguiManager_->Begin();
 
-		scene->DrawImGui();
+		sceneManager_.DrawImGui();
 
 		// ImGui受付開始
 		imguiManager_->End();
@@ -59,7 +49,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// ここに描画処理を記述する
 
 		// シーンの描画
-		scene->Draw();
+		sceneManager_.Draw();
+
 		// ImGui描画
 		imguiManager_->Draw();
 
@@ -68,16 +59,10 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// 描画終了
 		dxCommon->PostDraw();
 
-		if (scene->IsFinish()) {
-			SceneChange(sceneSelect);
-		}
 	}
 	// シーンのリソースを削除
-	scene->Delete();
 
-	delete scene;
 	// ゲームシーンの解放
-	scene = nullptr;
 
 	// エンジンの終了処理
 	Finalize();
@@ -85,23 +70,3 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	return 0;
 }
 
-void SceneChange(SelectScene& scene_) {
-	// シーンを切り替える順番
-	std::map<SelectScene, SelectScene> selectScene{
-	    {SelectScene::Reset, SelectScene::Game },
-	    {SelectScene::Game,  SelectScene::Reset},
-	};
-	// シーンの切り替え
-	scene_ = selectScene[scene_];
-	// シーンのリソースを削除
-	scene->Delete();
-	delete scene;
-	// シーンに該当する関数を生成
-	std::map<SelectScene, Scene*> sceneNext{
-	    {SelectScene::Reset, new ResetScene()},
-        {SelectScene::Game,  new GameScene() }
-    };
-	// シーンを生成する
-	scene = sceneNext[scene_];
-	scene->SetUp();
-}
