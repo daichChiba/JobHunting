@@ -10,10 +10,13 @@ void SceneManager::ChangeScene(SceneID nextScene) {
 	switch (nextScene) {
 	case SceneID::Game:
 		currentScene_ = std::make_unique<GameScene>();
+		SetInformation();
 
 		break;
 	case SceneID::Reset:
 		currentScene_ = std::make_unique<ResetScene>();
+		SetInformation();
+
 		break;
 	}
 
@@ -31,6 +34,7 @@ void SceneManager::Update() {
 	// シーン終了が指示されたら、ゲーム <-> リセットを交互に切替
 	if (currentScene_->IsFinish()) {
 		SceneID next = currentScene_->NextScene();
+		GetInformation();
 		ChangeScene(next);
 	}
 }
@@ -43,4 +47,17 @@ void SceneManager::DrawImGui() {
 	if (currentScene_) {
 		currentScene_->DrawImGui();
 	}
+}
+
+void SceneManager::SetInformation() {
+	// stageの数値と文字列を引き継ぐ
+	currentScene_->SetStageNum(stageNum);
+	currentScene_->SetEreaNum(ereaNum);
+	currentScene_->SetStage(stage);
+}
+
+void SceneManager::GetInformation() {
+	stageNum = currentScene_->GetStageNum();
+	ereaNum = currentScene_->GetEreaNum();
+	stage = currentScene_->GetStage();
 }

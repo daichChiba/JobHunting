@@ -1,6 +1,8 @@
 #pragma once
 #include "../Scene.h"
 #include "Game/Player/Player.h"
+#include "Game/Stage/StageManager.h"
+#include "Game/Stage/StageID.h"
 
 class GameScene : public Scene {
 public:
@@ -34,10 +36,15 @@ public:
 	void DrawImGui() override;
 	SceneID NextScene() const override;
 
-
 private:
 	Player player_;
 	SceneID nextScene_;
+
+	StageManager* stageManager_;
+
+	int ereaNum = 1;
+	int stageNum = 1;
+	std::string stage = "Tutorial";
 
 private:
 	KamataEngine::Camera* camera_;

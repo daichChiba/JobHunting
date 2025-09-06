@@ -10,11 +10,17 @@ void GameScene::Initialize() {
 	camera_->Initialize();
 	camera_->farZ = 1000.0f;
 	player_.Initialize();
+
+	stageManager_ = new StageManager();
+	stageManager_->Initialize(ereaNum, stageNum, stage);
+
 }
 
 void GameScene::Update() {
 	camera_->UpdateMatrix();
 	player_.Update();
+
+	stageManager_->Update();
 
 	if (input_->GetInstance()->PushKey(DIK_RETURN)) {
 		isFinish = true;
@@ -48,6 +54,8 @@ void GameScene::Draw() {
 
 	player_.Draw(*camera_);
 
+	stageManager_->Draw(camera_);
+
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -73,6 +81,7 @@ void GameScene::DrawImGui() {
 	 ImGui::Text("Test");
 	 ImGui::Checkbox("isFinished", &isFinish);
 	 player_.DrawImGui();
+	 ImGui::Text("%d_%d", ereaNum, stageNum);
 	ImGui::End();
 }
 

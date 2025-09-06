@@ -156,12 +156,15 @@
   <ItemGroup>
     <ClCompile Include="ect\MathUtilityEX.cpp" />
     <ClCompile Include="ect\worldTransfromEX.cpp" />
+    <ClCompile Include="Game\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="Scene\manager\SceneManager.cpp" />
     <ClCompile Include="Scene\scenes\GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\scenes\ResetScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Game\Stage\stages\Stage.cpp" />
+    <ClCompile Include="Game\Stage\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -180,6 +183,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <None Include="Resources\Json\Stage.json" />
     <None Include="Resources\shaders\Obj.hlsli" />
     <None Include="Resources\shaders\Primitive.hlsli" />
     <None Include="Resources\shaders\Shape.hlsli">
@@ -261,12 +265,16 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\LoadJsonFile\FileJson.h" />
     <ClInclude Include="Game\Player\Player.h" />
+    <ClInclude Include="Game\Stage\StageID.h" />
     <ClInclude Include="Scene\manager\SceneID.h" />
     <ClInclude Include="Scene\manager\SceneManager.h" />
     <ClInclude Include="Scene\scenes\GameScene.h" />
     <ClInclude Include="Scene\scenes\ResetScene.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Game\Stage\stages\Stage.h" />
+    <ClInclude Include="Game\Stage\StageManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
