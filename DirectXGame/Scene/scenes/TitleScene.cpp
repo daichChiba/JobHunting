@@ -1,35 +1,32 @@
-#include "GameScene.h"
+#include "TitleScene.h"
 
 using namespace KamataEngine;
-GameScene::GameScene() {}
+TitleScene::TitleScene() {}
 
-GameScene::~GameScene() {}
+TitleScene::~TitleScene() {}
 
-void GameScene::Initialize() {
-	camera_ = new Camera();
-	camera_->Initialize();
-	camera_->farZ = 1000.0f;
-	mapChip_.Initialize(filePath, erea, stage);
-	player_.Initialize(mapChip_);
+void TitleScene::Initialize() {
+	backScreenTh_ = TextureManager::Load("Titel/backScreen.png");
+	backScreenSpite = Sprite::Create(backScreenTh_, Vector2(0.0f, 0.0f));
+	titelTh_ = TextureManager::Load("Titel/titel.png");
+	titelSpite = Sprite::Create(titelTh_, Vector2(0.0f, 0.0f));
+	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.png");
+	pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, Vector2(0.0f, 0.0f));
 }
 
-void GameScene::Update() {
-	camera_->UpdateMatrix();
-	player_.Update();
-
-	mapChip_.Update();
-
-	if (input_->GetInstance()->PushKey(DIK_RETURN)) {
+void TitleScene::Update() {
+	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
 		isFinish = true;
-		nextScene_ = SceneID::Title;
+		nextScene_ = SceneID::Reset;
 	}
 }
 
-void GameScene::Draw() {
-
-#pragma region 背景スプライト描画
+void TitleScene::Draw() {
 	// 背景スプライト描画前処理
 	Sprite::PreDraw();
+
+
+	backScreenSpite->Draw();
 
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
@@ -49,11 +46,6 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	player_.Draw(*camera_);
-
-	mapChip_.MapDraw(*camera_);
-	// 3Dオブジェクト描画後処理
-	Model::PostDraw();
 #pragma endregion
 
 #pragma region 前景スプライト描画
@@ -64,21 +56,24 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
+	titelSpite->Draw();
+
+	pushToSpaceSpite->Draw();
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
 #pragma endregion
 }
 
-void GameScene::Delete() { player_.Delete(); }
+void TitleScene::Delete() {}
 
-void GameScene::DrawImGui() {
-	ImGui::Begin("GameScene");
+void TitleScene::DrawImGui() {
+	ImGui::Begin("TitelScene");
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
-	player_.DrawImGui();
-	mapChip_.DrawImGui();
+
 	ImGui::End();
 }
 
-SceneID GameScene::NextScene() const { return nextScene_; }
+SceneID TitleScene::NextScene() const { return nextScene_; }

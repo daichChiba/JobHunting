@@ -1,6 +1,7 @@
 #pragma once
 #include "../Scene.h"
 #include "Game/Player/Player.h"
+#include "Game/MapChip/MapChip.h"
 
 class GameScene : public Scene {
 public:
@@ -38,6 +39,8 @@ public:
 private:
 	Player player_;
 	SceneID nextScene_;
+
+	MapChip mapChip_;
 
 private:
 	KamataEngine::Camera* camera_;

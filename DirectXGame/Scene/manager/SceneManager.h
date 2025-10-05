@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene/scenes/GameScene.h"
 #include "Scene/scenes/ResetScene.h"
+#include "Scene/scenes/TitleScene.h"
 #include "Scene/manager/SceneID.h"
 #include <KamataEngine.h>
 class SceneManager {
@@ -29,6 +30,15 @@ public:
 
 
 private:
+	void SetInformation();
+
+	void GetInformation();
+
+
 	std::unique_ptr<Scene> currentScene_;
 	SceneID currentSceneID_;
+
+	std::string filePath = "Resources/Json/Stage.json";
+	std::string erea = "erea1";
+	std::string stage = "1_1";
 };

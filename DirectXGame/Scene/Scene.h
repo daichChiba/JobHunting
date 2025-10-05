@@ -37,14 +37,23 @@ public:
 	// シーン終了
 	bool IsFinish() { return isFinish; }
 
-private:
+	void SetFilePath(std::string filePath_) { filePath = filePath_; }
+	void SetErea(std::string erea_) { erea = erea_; }
+	void SetStage(std::string stage_) { stage = stage_; }
 
+	std::string GetFilePath() { return filePath; }
+	std::string GetErea() { return erea; }
+	std::string GetStage() { return stage; }
+
+private:
 protected:
 	KamataEngine::DirectXCommon* dxCommon_ = nullptr;
 	KamataEngine::Input* input_ = nullptr;
 	KamataEngine::Audio* audio_ = nullptr;
 
-	
+	std::string filePath = "";
+	std::string erea = "";
+	std::string stage = "";
 
 	bool isFinish;
 };

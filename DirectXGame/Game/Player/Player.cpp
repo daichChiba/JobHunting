@@ -1,21 +1,22 @@
 #include "Player.h"
+#include "../MapChip/MapChip.h"
 
 using namespace KamataEngine;
 
 Player::Player() {}
 Player::~Player() {}
-void Player::Initialize() {
+void Player::Initialize(MapChip mapchip) {
 	//model_->StaticInitialize();
 	//model_ = Model::CreateFromOBJ("Player", true);
 	Model* model = nullptr;
 	model = Model::CreateFromOBJ("Player", true);
-
 	model_ = model;
 
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = pos_;
+	SetUpPos(mapchip);
+	//worldTransform_.translation_ = pos_;
 	worldTransform_.rotation_.y = 1.0f;
-	worldTransform_.scale_ = {4.0f, 4.0f, 4.0f};
+	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
 }
 void Player::Update() {
 	worldTransform_.translation_ = pos_;
@@ -45,4 +46,9 @@ void Player::Move() {
 	} else if (Input::GetInstance()->PushKey(DIK_S)) {
 		pos_.y -= playerSpeed;
 	}
+}
+
+void Player::SetUpPos(MapChip mapChip) {
+	//worldTransform_.translation_ = mapChip.GetPlayerPos();
+	pos_ = mapChip.GetPlayerPos();
 }

@@ -13,7 +13,7 @@ void ResetScene::Initialize() {
 }
 
 void ResetScene::Update() {
-	if (input_->GetInstance()->PushKey(DIK_SPACE)) {
+	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
 		isFinish = true;
 		nextScene_ = SceneID::Game;
 	}

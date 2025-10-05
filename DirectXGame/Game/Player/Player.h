@@ -1,5 +1,6 @@
 #pragma once
 #include "KamataEngine.h"
+class MapChip;
 class Player {
 public:
 	/// <summary>
@@ -13,7 +14,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(MapChip mapchip);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -36,6 +37,8 @@ private:
 	/// 移動処理
 	/// </summary>
 	void Move();
+
+	void SetUpPos(MapChip mapChip);
 
 	KamataEngine::Vector3 pos_;
 	const float playerSpeed = 0.1f;

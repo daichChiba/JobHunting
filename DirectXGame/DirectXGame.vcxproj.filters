@@ -40,6 +40,24 @@
     <Filter Include="ソース ファイル\Game">
       <UniqueIdentifier>{b4a5ef0a-6809-416f-aafb-7d8c8e253243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Manager">
+      <UniqueIdentifier>{e00c3507-5dde-40b7-8b63-517ec5ca388c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Manager">
+      <UniqueIdentifier>{ec2b4c95-271e-47e2-82e3-979c5a814c1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\MapChip">
+      <UniqueIdentifier>{9d300bea-ccc7-480a-9355-9fb330c52a1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\MapChip">
+      <UniqueIdentifier>{c7f99e59-bb31-4124-9c92-737ebbf9cb79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\LoadJson">
+      <UniqueIdentifier>{5f57a51f-19d2-41f4-9869-a606a2d61e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\LoadJson">
+      <UniqueIdentifier>{26e72f7a-4699-45bc-b488-29545fd18d5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,6 +80,21 @@
     </ClCompile>
     <ClCompile Include="Game\Player\Player.cpp">
       <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\manager\SceneManager.cpp">
+      <Filter>ソース ファイル\Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MapChip\MapChip.cpp">
+      <Filter>ソース ファイル\Game\MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\LoadJsonFile\FileJson.cpp">
+      <Filter>ソース ファイル\Game\LoadJson</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\scenes\TitleScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ect\InputEX.cpp">
+      <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +145,7 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
+    <None Include="Resources\Json\Stage.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\Scene.h">
@@ -125,6 +159,24 @@
     </ClInclude>
     <ClInclude Include="Game\Player\Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\manager\SceneID.h">
+      <Filter>ヘッダー ファイル\Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\manager\SceneManager.h">
+      <Filter>ヘッダー ファイル\Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MapChip\MapChip.h">
+      <Filter>ヘッダー ファイル\Game\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MapChip\MapChipID.h">
+      <Filter>ヘッダー ファイル\Game\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\LoadJsonFile\FileJson.h">
+      <Filter>ヘッダー ファイル\Game\LoadJson</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\scenes\TitleScene.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
