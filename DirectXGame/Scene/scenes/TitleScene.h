@@ -1,4 +1,5 @@
 #pragma once
+#include "../../Game/LoadJsonFile/FileJson.h"
 #include "../Scene.h"
 class TitleScene : public Scene {
 public:
@@ -12,6 +13,8 @@ public:
 	SceneID NextScene() const override;
 
 private:
+	Vector2 ChangeToVector2(std::string stringPos);
+private:
 	SceneID nextScene_;
 
 	uint32_t backScreenTh_;
@@ -22,5 +25,31 @@ private:
 	KamataEngine::Sprite* titelSpite;
 	KamataEngine::Sprite* pushToSpaceSpite;
 
-	
+	KamataEngine::Vector2 backScreenPos;
+	KamataEngine::Vector2 titelPos;
+	KamataEngine::Vector2 pushToSpacePos;
+	KamataEngine::Vector2 stopTitelPos;
+
+	FileJson::FileAccessor* fileAccessor_;
+	//std::string file = "../../Resources/Json/Titel.json";
+	std::string fileMain = "title";
+
+	bool isJump = false;
+
+	bool isSave = false;
+	bool isMove = true;
+
+	int jumpCount = 0;
+
+	int buttonCount = 0;
+	// 表示させる際の上限
+	const int kDrawCount_ = 30;
+	// 一秒あたりのフレーム数
+	const int kCountFrame_ = 60;
+
+	const int kJumpCount = 60;
+	const int kResetCount = 0;
+	float resetSpeed;
+
+	float speed;
 };

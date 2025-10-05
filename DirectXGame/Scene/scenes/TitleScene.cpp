@@ -1,20 +1,64 @@
 #include "TitleScene.h"
 
 using namespace KamataEngine;
+using namespace FileJson;
 TitleScene::TitleScene() {}
 
 TitleScene::~TitleScene() {}
 
 void TitleScene::Initialize() {
+	fileAccessor_ = new FileAccessor(file);
+	speed = fileAccessor_->Read(fileMain, "speed", float());
+	resetSpeed = speed;
+	backScreenPos = ChangeToVector2("backScreenPos");
+	titelPos = ChangeToVector2("titelPos");
+	pushToSpacePos = ChangeToVector2("pushToSpacePos");
+	stopTitelPos = ChangeToVector2("stopTitelPos");
+
 	backScreenTh_ = TextureManager::Load("Titel/backScreen.png");
-	backScreenSpite = Sprite::Create(backScreenTh_, Vector2(0.0f, 0.0f));
+	backScreenSpite = Sprite::Create(backScreenTh_, backScreenPos);
+	backScreenSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+
 	titelTh_ = TextureManager::Load("Titel/titel.png");
-	titelSpite = Sprite::Create(titelTh_, Vector2(0.0f, 0.0f));
+	titelSpite = Sprite::Create(titelTh_, titelPos);
+	titelSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+
 	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.png");
-	pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, Vector2(0.0f, 0.0f));
+	pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, pushToSpacePos);
+	pushToSpaceSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 }
 
 void TitleScene::Update() {
+	titelSpite->SetPosition(titelPos);
+	backScreenSpite->SetPosition(backScreenPos);
+	pushToSpaceSpite->SetPosition(pushToSpacePos);
+	buttonCount++;
+	if(isMove){
+		if (!isJump) {
+			if (titelPos.y < stopTitelPos.y) {
+				titelPos.y += speed;
+				speed += speed;
+			} else {
+				isJump = true;
+				speed = resetSpeed;
+			}
+		}
+
+		if (isJump) {
+			if (jumpCount < kJumpCount) {
+				jumpCount++;
+				titelPos.y -= speed;
+			} else {
+				isJump = false;
+				jumpCount = kResetCount;
+				speed = resetSpeed;
+			}
+		}
+
+		if (true) {
+		}
+	}
+
 	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
 		isFinish = true;
 		nextScene_ = SceneID::Reset;
@@ -24,7 +68,6 @@ void TitleScene::Update() {
 void TitleScene::Draw() {
 	// 背景スプライト描画前処理
 	Sprite::PreDraw();
-
 
 	backScreenSpite->Draw();
 
@@ -58,7 +101,9 @@ void TitleScene::Draw() {
 
 	titelSpite->Draw();
 
-	pushToSpaceSpite->Draw();
+	if (buttonCount % kCountFrame_ >= kDrawCount_) {
+		pushToSpaceSpite->Draw();
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -72,8 +117,27 @@ void TitleScene::DrawImGui() {
 	ImGui::Begin("TitelScene");
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
-
+	ImGui::Checkbox("isSave", &isSave);
+	ImGui::Checkbox("isMove", &isMove);
+	ImGui::Checkbox("isJump", &isJump);
+	ImGui::DragFloat2("backScreenPos", &backScreenPos.x);
+	ImGui::DragFloat2("titelPos", &titelPos.x);
+	ImGui::DragFloat2("pushToSpacePos", &pushToSpacePos.x);
+	ImGui::DragFloat2("stopTitelPos", &stopTitelPos.x);
 	ImGui::End();
+	if (isSave) {
+		fileAccessor_->WriteVector3(fileMain, "backScreenPos", Vector3(backScreenPos.x, backScreenPos.y, 0.0f));
+		fileAccessor_->WriteVector3(fileMain, "titelPos", Vector3(titelPos.x, titelPos.y, 0.0f));
+		fileAccessor_->WriteVector3(fileMain, "pushToSpacePos", Vector3(pushToSpacePos.x, pushToSpacePos.y, 0.0f));
+		fileAccessor_->Save();
+		isSave = false;
+	}
 }
 
 SceneID TitleScene::NextScene() const { return nextScene_; }
+
+Vector2 TitleScene::ChangeToVector2(std::string stringPos) {
+	Vector3 pos_ = fileAccessor_->ReadVector3(fileMain, stringPos, Vector3());
+	Vector2 pos = Vector2(pos_.x, pos_.y);
+	return pos;
+}

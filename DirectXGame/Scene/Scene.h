@@ -55,5 +55,8 @@ protected:
 	std::string erea = "";
 	std::string stage = "";
 
+	std::string file = "Resources/Json/Titel.json";
+	
+
 	bool isFinish;
 };

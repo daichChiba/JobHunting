@@ -145,7 +145,12 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
-    <None Include="Resources\Json\Stage.json" />
+    <None Include="Resources\Json\Titel.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Resources\Json\Stage.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\Scene.h">
