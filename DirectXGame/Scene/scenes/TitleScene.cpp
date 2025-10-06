@@ -129,6 +129,7 @@ void TitleScene::DrawImGui() {
 		fileAccessor_->WriteVector3(fileMain, "backScreenPos", Vector3(backScreenPos.x, backScreenPos.y, 0.0f));
 		fileAccessor_->WriteVector3(fileMain, "titelPos", Vector3(titelPos.x, titelPos.y, 0.0f));
 		fileAccessor_->WriteVector3(fileMain, "pushToSpacePos", Vector3(pushToSpacePos.x, pushToSpacePos.y, 0.0f));
+		fileAccessor_->WriteVector3(fileMain, "stopTitelPos", Vector3(stopTitelPos.x, stopTitelPos.y, 0.0f));
 		fileAccessor_->Save();
 		isSave = false;
 	}
