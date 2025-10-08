@@ -58,6 +58,9 @@
     <Filter Include="ヘッダー ファイル\Game\LoadJson">
       <UniqueIdentifier>{26e72f7a-4699-45bc-b488-29545fd18d5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Player">
+      <UniqueIdentifier>{47688da9-866b-4e33-bada-3771c4d11861}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,9 +81,6 @@
     <ClCompile Include="ect\MathUtilityEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Player\Player.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\manager\SceneManager.cpp">
       <Filter>ソース ファイル\Scene\Manager</Filter>
     </ClCompile>
@@ -90,11 +90,14 @@
     <ClCompile Include="Game\LoadJsonFile\FileJson.cpp">
       <Filter>ソース ファイル\Game\LoadJson</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\scenes\TitleScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ect\InputEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\Player.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\scenes\TitleScene.cpp">
+      <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +184,7 @@
       <Filter>ヘッダー ファイル\Game\LoadJson</Filter>
     </ClInclude>
     <ClInclude Include="Scene\scenes\TitleScene.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
