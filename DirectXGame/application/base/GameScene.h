@@ -1,5 +1,5 @@
 #pragma once
-#include "../Scene.h"
+#include "Scene/Scene.h"
 #include "Game/Player/Player.h"
 #include "Game/MapChip/MapChip.h"
 

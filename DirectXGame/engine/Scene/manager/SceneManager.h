@@ -1,5 +1,5 @@
 #pragma once
-#include "Scene/scenes/GameScene.h"
+#include "GameScene.h"
 #include "Scene/scenes/ResetScene.h"
 #include "Scene/scenes/TitleScene.h"
 #include "Scene/manager/SceneID.h"

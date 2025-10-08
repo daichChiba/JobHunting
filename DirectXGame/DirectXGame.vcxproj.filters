@@ -66,13 +66,13 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Scene.cpp">
+    <ClCompile Include="engine\Scene\Scene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\scenes\ResetScene.cpp">
+    <ClCompile Include="engine\Scene\scenes\ResetScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\scenes\GameScene.cpp">
+    <ClCompile Include="application\base\GameScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
     <ClCompile Include="ect\worldTransfromEX.cpp">
@@ -81,22 +81,22 @@
     <ClCompile Include="ect\MathUtilityEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\manager\SceneManager.cpp">
+    <ClCompile Include="engine\Scene\manager\SceneManager.cpp">
       <Filter>ソース ファイル\Scene\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\MapChip\MapChip.cpp">
+    <ClCompile Include="engine\Game\MapChip\MapChip.cpp">
       <Filter>ソース ファイル\Game\MapChip</Filter>
     </ClCompile>
-    <ClCompile Include="Game\LoadJsonFile\FileJson.cpp">
+    <ClCompile Include="engine\Game\LoadJsonFile\FileJson.cpp">
       <Filter>ソース ファイル\Game\LoadJson</Filter>
     </ClCompile>
     <ClCompile Include="ect\InputEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Player\Player.cpp">
+    <ClCompile Include="engine\Game\Player\Player.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\scenes\TitleScene.cpp">
+    <ClCompile Include="engine\Scene\scenes\TitleScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,34 +156,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scene\Scene.h">
+    <ClInclude Include="engine\Scene\Scene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\scenes\ResetScene.h">
+    <ClInclude Include="engine\Scene\scenes\ResetScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\scenes\GameScene.h">
+    <ClInclude Include="application\base\GameScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Player\Player.h">
+    <ClInclude Include="engine\Game\Player\Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\manager\SceneID.h">
+    <ClInclude Include="engine\Scene\manager\SceneID.h">
       <Filter>ヘッダー ファイル\Scene\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\manager\SceneManager.h">
+    <ClInclude Include="engine\Scene\manager\SceneManager.h">
       <Filter>ヘッダー ファイル\Scene\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\MapChip\MapChip.h">
+    <ClInclude Include="engine\Game\MapChip\MapChip.h">
       <Filter>ヘッダー ファイル\Game\MapChip</Filter>
     </ClInclude>
-    <ClInclude Include="Game\MapChip\MapChipID.h">
+    <ClInclude Include="engine\Game\MapChip\MapChipID.h">
       <Filter>ヘッダー ファイル\Game\MapChip</Filter>
     </ClInclude>
-    <ClInclude Include="Game\LoadJsonFile\FileJson.h">
+    <ClInclude Include="engine\Game\LoadJsonFile\FileJson.h">
       <Filter>ヘッダー ファイル\Game\LoadJson</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\scenes\TitleScene.h">
+    <ClInclude Include="engine\Scene\scenes\TitleScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
   </ItemGroup>
