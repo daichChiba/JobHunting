@@ -61,6 +61,12 @@
     <Filter Include="ソース ファイル\Game\Player">
       <UniqueIdentifier>{47688da9-866b-4e33-bada-3771c4d11861}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scene\Fade">
+      <UniqueIdentifier>{5fbfe427-2f28-489d-a7b3-9f30904c6815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Fade">
+      <UniqueIdentifier>{b969e78e-7747-476b-bb83-daaa129fb965}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -97,6 +103,12 @@
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
     <ClCompile Include="engine\Scene\scenes\TitleScene.cpp">
+      <Filter>ソース ファイル\Scene\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Scene\fade\Fade.cpp">
+      <Filter>ソース ファイル\Scene\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Scene\scenes\DemoScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -184,6 +196,15 @@
       <Filter>ヘッダー ファイル\Game\LoadJson</Filter>
     </ClInclude>
     <ClInclude Include="engine\Scene\scenes\TitleScene.h">
+      <Filter>ヘッダー ファイル\Scene\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Scene\fade\FadeID.h">
+      <Filter>ヘッダー ファイル\Scene\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Scene\fade\Fade.h">
+      <Filter>ヘッダー ファイル\Scene\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Scene\scenes\DemoScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
   </ItemGroup>

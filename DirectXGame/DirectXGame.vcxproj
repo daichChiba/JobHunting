@@ -154,6 +154,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\Scene\scenes\DemoScene.cpp" />
     <ClCompile Include="ect\InputEX.cpp" />
     <ClCompile Include="ect\MathUtilityEX.cpp" />
     <ClCompile Include="ect\worldTransfromEX.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="engine\Game\MapChip\MapChip.cpp" />
     <ClCompile Include="engine\Scene\manager\SceneManager.cpp" />
     <ClCompile Include="application\base\GameScene.cpp" />
+    <ClCompile Include="engine\Scene\fade\Fade.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\Scene\scenes\ResetScene.cpp" />
     <ClCompile Include="engine\Scene\Scene.cpp" />
@@ -267,6 +269,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\Scene\scenes\DemoScene.h" />
     <ClInclude Include="engine\Game\LoadJsonFile\FileJson.h" />
     <ClInclude Include="engine\Game\Player\Player.h" />
     <ClInclude Include="engine\Game\MapChip\MapChip.h" />
@@ -277,6 +280,8 @@
     <ClInclude Include="engine\Scene\scenes\ResetScene.h" />
     <ClInclude Include="engine\Scene\Scene.h" />
     <ClInclude Include="engine\Scene\scenes\TitleScene.h" />
+    <ClInclude Include="engine\Scene\fade\FadeID.h" />
+    <ClInclude Include="engine\Scene\fade\Fade.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

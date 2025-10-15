@@ -6,6 +6,11 @@ void Scene::SetUp() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	fade_ = new Fade();
+	fade_->Initialize();
+	fade_->Start(FadeID::FadeIn, 1);
+	isStart = true;
+
 	Initialize();
 }
 

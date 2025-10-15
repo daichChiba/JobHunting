@@ -13,7 +13,8 @@ public:
 	SceneID NextScene() const override;
 
 private:
-	Vector2 ChangeToVector2(std::string stringPos);
+	KamataEngine::Vector2 ChangeToVector2(std::string stringPos);
+
 private:
 	SceneID nextScene_;
 
@@ -52,4 +53,7 @@ private:
 	float resetSpeed;
 
 	float speed;
+
+	float fadeTime_ = 1.0f;
+
 };

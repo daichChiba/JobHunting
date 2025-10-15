@@ -20,6 +20,11 @@ void SceneManager::ChangeScene(SceneID nextScene) {
 		currentScene_ = std::make_unique<ResetScene>();
 		SetInformation();
 		break;
+
+	case SceneID::Demo:
+		currentScene_ = std::make_unique<DemoScene>();
+		SetInformation();
+		break;
 	}
 
 	currentSceneID_ = nextScene;
@@ -55,10 +60,12 @@ void SceneManager::SetInformation() {
 	currentScene_->SetFilePath(filePath);
 	currentScene_->SetErea(erea);
 	currentScene_->SetStage(stage);
+	currentScene_->SetTitelFilePath(titelFilePath);
 }
 
 void SceneManager::GetInformation() {
 	currentScene_->GetFilePath();
 	currentScene_->GetErea();
 	currentScene_->GetStage();
+	currentScene_->GetTitelFilePath();
 }

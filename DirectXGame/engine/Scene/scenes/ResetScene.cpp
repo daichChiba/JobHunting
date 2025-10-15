@@ -1,16 +1,10 @@
 #include "ResetScene.h"
 
-ResetScene::ResetScene() {
+ResetScene::ResetScene() {}
 
-}
+ResetScene::~ResetScene() {}
 
-ResetScene::~ResetScene() {
-
-}
-
-void ResetScene::Initialize() {
-
-}
+void ResetScene::Initialize() {}
 
 void ResetScene::Update() {
 	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
@@ -19,20 +13,17 @@ void ResetScene::Update() {
 	}
 }
 
-void ResetScene::Draw() {
+void ResetScene::Draw() {}
 
-}
-
-void ResetScene::Delete() {
-
-}
+void ResetScene::Delete() {}
 
 void ResetScene::DrawImGui() {
+#ifdef _DEBUG
+
 	ImGui::Begin("ResetScene");
 	ImGui::Text("Test");
 	ImGui::End();
+#endif // _DEBUG
 }
 
-SceneID ResetScene::NextScene() const {
-	return nextScene_;
-}
+SceneID ResetScene::NextScene() const { return nextScene_; }

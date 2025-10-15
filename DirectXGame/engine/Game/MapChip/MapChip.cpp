@@ -39,9 +39,13 @@ void MapChip::MapDraw(Camera& camera) {
 }
 
 void MapChip::DrawImGui() {
+#ifdef _DEBUG
+
 	ImGui::DragFloat3("BlockSize", &BlockSize.x);
 	fileAccessor_->WriteVector3(erea_, "BlockSize", BlockSize);
 	fileAccessor_->Save();
+#endif // _DEBUG
+
 }
 
 KamataEngine::Vector3 MapChip::GetPlayerPos() {

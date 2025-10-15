@@ -73,12 +73,16 @@ void GameScene::Draw() {
 void GameScene::Delete() { player_.Delete(); }
 
 void GameScene::DrawImGui() {
+#ifdef _DEBUG
+
 	ImGui::Begin("GameScene");
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
 	player_.DrawImGui();
 	mapChip_.DrawImGui();
 	ImGui::End();
+#endif // _DEBUG
+
 }
 
 SceneID GameScene::NextScene() const { return nextScene_; }

@@ -32,7 +32,11 @@ void Player::Delete() {
 }
 void Player::DrawImGui() {
 	//このまま記入しても大丈夫
+#ifdef _DEBUG
+
+
 	ImGui::Text("PlayerTest");
+#endif // _DEBUG
 }
 
 void Player::Move() {

@@ -3,6 +3,7 @@
 #include "Scene/scenes/ResetScene.h"
 #include "Scene/scenes/TitleScene.h"
 #include "Scene/manager/SceneID.h"
+#include "Scene/scenes/DemoScene.h"
 #include <KamataEngine.h>
 class SceneManager {
 public:
@@ -41,4 +42,6 @@ private:
 	std::string filePath = "Resources/Json/Stage.json";
 	std::string erea = "erea1";
 	std::string stage = "1_1";
+
+	std::string titelFilePath = "Resources/Json/Titel.json";
 };

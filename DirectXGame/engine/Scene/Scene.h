@@ -1,6 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 #include "Scene/manager/SceneID.h"
+#include "fade/Fade.h"
 class Scene {
 public:
 	virtual ~Scene() = default;
@@ -40,10 +41,12 @@ public:
 	void SetFilePath(std::string filePath_) { filePath = filePath_; }
 	void SetErea(std::string erea_) { erea = erea_; }
 	void SetStage(std::string stage_) { stage = stage_; }
+	void SetTitelFilePath(std::string filePath_) { titelFilePath_ = filePath_; }
 
 	std::string GetFilePath() { return filePath; }
 	std::string GetErea() { return erea; }
 	std::string GetStage() { return stage; }
+	std::string GetTitelFilePath() { return titelFilePath_; }
 
 private:
 protected:
@@ -55,8 +58,11 @@ protected:
 	std::string erea = "";
 	std::string stage = "";
 
-	std::string file = "Resources/Json/Titel.json";
-	
+	std::string titelFilePath_ = "";
+
+	Fade* fade_ = nullptr;
+
+	bool isStart = false;
 
 	bool isFinish;
 };
