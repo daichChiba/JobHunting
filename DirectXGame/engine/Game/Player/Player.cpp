@@ -17,6 +17,7 @@ void Player::Initialize(MapChip mapchip) {
 	//worldTransform_.translation_ = pos_;
 	worldTransform_.rotation_.y = 1.0f;
 	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
+
 }
 void Player::Update() {
 	worldTransform_.translation_ = pos_;
