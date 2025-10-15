@@ -6,17 +6,34 @@
 class MapChip {
 public:
 	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	MapChip();
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~MapChip();
+	/// <summary>
 	/// 初期化
 	/// </summary>
 	/// <param name="file"></param>
 	void Initialize(std::string file, std::string erea, std::string stage);
-
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
-
+	/// <summary>
+	/// マップ描画
+	/// </summary>
+	/// <param name="camera"></param>
 	void MapDraw(KamataEngine::Camera& camera);
-
+	/// <summary>
+	/// ImGui描画
+	/// </summary>
 	void DrawImGui();
 
 	struct Rect {
@@ -34,7 +51,15 @@ public:
 		KamataEngine::Model* model;
 	};
 
+	/// <summary>
+	/// ブロックのサイズを取得します。
+	/// </summary>
+	/// <returns></returns>
 	KamataEngine::Vector3 GetBlockSize() { return BlockSize; }
+	/// <summary>
+	/// プレイヤーの現在位置を取得します。
+	/// </summary>
+	/// <returns></returns>
 	KamataEngine::Vector3 GetPlayerPos();
 
 private:
@@ -47,7 +72,6 @@ private:
 	std::vector<std::vector<int>> csvData_;
 	std::string directory = "";
 	MapChipData mapChipData_;
-	// std::unique_ptr<FileJson::FileAccessor> fileAccessor_;
 
 	std::string erea_ = "";
 

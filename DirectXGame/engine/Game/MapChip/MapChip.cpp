@@ -7,6 +7,8 @@
 
 using namespace KamataEngine;
 using namespace FileJson;
+MapChip::MapChip() {}
+MapChip::~MapChip() {}
 void MapChip::Initialize(std::string file, std::string erea, std::string stage) {
 	directory = file;
 	fileAccessor_ = new FileAccessor(file);
