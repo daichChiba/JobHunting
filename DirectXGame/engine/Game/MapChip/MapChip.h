@@ -62,6 +62,8 @@ public:
 	/// <returns></returns>
 	KamataEngine::Vector3 GetPlayerPos();
 
+	MapChipIndex GetMapChipIndex(const Vector2& position);
+
 private:
 	void MapCreate();
 	void SetModel();
