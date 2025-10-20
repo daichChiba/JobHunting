@@ -37,7 +37,6 @@ private:
 
 	bool isJump = false;
 
-	bool isSave = false;
 	bool isMove = true;
 
 	int jumpCount = 0;

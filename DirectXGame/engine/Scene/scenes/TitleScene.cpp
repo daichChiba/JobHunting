@@ -131,7 +131,14 @@ void TitleScene::DrawImGui() {
 	ImGui::Begin("TitelScene");
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
-	ImGui::Checkbox("isSave", &isSave);
+	if (ImGui::Button("save")) {
+		fileAccessor_->WriteVector3(fileMain, "backScreenPos", Vector3(backScreenPos.x, backScreenPos.y, 0.0f));
+		fileAccessor_->WriteVector3(fileMain, "titelPos", Vector3(titelPos.x, titelPos.y, 0.0f));
+		fileAccessor_->WriteVector3(fileMain, "pushToSpacePos", Vector3(pushToSpacePos.x, pushToSpacePos.y, 0.0f));
+		fileAccessor_->WriteVector3(fileMain, "stopTitelPos", Vector3(stopTitelPos.x, stopTitelPos.y, 0.0f));
+		fileAccessor_->Write(fileMain, std::to_string(speed) /*"speed"*/, speed);
+		fileAccessor_->Save();
+	}
 	ImGui::Checkbox("isMove", &isMove);
 	// ImGui::Checkbox("isJump", &isJump);
 	ImGui::DragFloat2("backScreenPos", &backScreenPos.x);
@@ -141,15 +148,7 @@ void TitleScene::DrawImGui() {
 	ImGui::DragFloat("Speed", &speed);
 	ImGui::End();
 #endif // _DEBUG
-	if (isSave) {
-		fileAccessor_->WriteVector3(fileMain, "backScreenPos", Vector3(backScreenPos.x, backScreenPos.y, 0.0f));
-		fileAccessor_->WriteVector3(fileMain, "titelPos", Vector3(titelPos.x, titelPos.y, 0.0f));
-		fileAccessor_->WriteVector3(fileMain, "pushToSpacePos", Vector3(pushToSpacePos.x, pushToSpacePos.y, 0.0f));
-		fileAccessor_->WriteVector3(fileMain, "stopTitelPos", Vector3(stopTitelPos.x, stopTitelPos.y, 0.0f));
-		fileAccessor_->Write(fileMain, std::to_string(speed) /*"speed"*/, speed);
-		fileAccessor_->Save();
-		isSave = false;
-	}
+
 }
 
 SceneID TitleScene::NextScene() const { return nextScene_; }

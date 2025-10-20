@@ -67,6 +67,15 @@
     <Filter Include="ヘッダー ファイル\Scene\Fade">
       <UniqueIdentifier>{b969e78e-7747-476b-bb83-daaa129fb965}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Camera">
+      <UniqueIdentifier>{25f08c48-e4ed-4b6c-ad13-75f18d36f117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Camera">
+      <UniqueIdentifier>{7d96ef63-630e-43df-b91f-eac5ead15ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ect">
+      <UniqueIdentifier>{ec010d50-cdbd-426a-8af4-5d8374f01278}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,10 +90,10 @@
     <ClCompile Include="application\base\GameScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ect\worldTransfromEX.cpp">
+    <ClCompile Include="engine\ect\worldTransfromEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="ect\MathUtilityEX.cpp">
+    <ClCompile Include="engine\ect\MathUtilityEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
     <ClCompile Include="engine\Scene\manager\SceneManager.cpp">
@@ -96,7 +105,7 @@
     <ClCompile Include="engine\Game\LoadJsonFile\FileJson.cpp">
       <Filter>ソース ファイル\Game\LoadJson</Filter>
     </ClCompile>
-    <ClCompile Include="ect\InputEX.cpp">
+    <ClCompile Include="engine\ect\InputEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
     <ClCompile Include="engine\Game\Player\Player.cpp">
@@ -112,7 +121,10 @@
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
     <ClCompile Include="engine\Game\Camera\GameCamera.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\ect\Easings.cpp">
+      <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +181,9 @@
     <None Include="Resources\Json\Stage.json">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="Resources\Json\GameCamera.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\Scene\Scene.h">
@@ -210,8 +225,11 @@
     <ClInclude Include="engine\Scene\scenes\DemoScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="GameCamera.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="engine\Game\Camera\GameCamera.h">
+      <Filter>ヘッダー ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\ect\Easings.h">
+      <Filter>ヘッダー ファイル\ect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

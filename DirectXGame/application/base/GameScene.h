@@ -2,6 +2,7 @@
 #include "Scene/Scene.h"
 #include "Game/Player/Player.h"
 #include "Game/MapChip/MapChip.h"
+#include "Game/Camera/GameCamera.h"
 
 class GameScene : public Scene {
 public:
@@ -43,5 +44,5 @@ private:
 	MapChip mapChip_;
 
 private:
-	KamataEngine::Camera* camera_;
+	GameCamera* camera_;
 };

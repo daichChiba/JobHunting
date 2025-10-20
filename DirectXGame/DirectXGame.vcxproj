@@ -154,10 +154,11 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\ect\Easings.cpp" />
     <ClCompile Include="engine\Scene\scenes\DemoScene.cpp" />
-    <ClCompile Include="ect\InputEX.cpp" />
-    <ClCompile Include="ect\MathUtilityEX.cpp" />
-    <ClCompile Include="ect\worldTransfromEX.cpp" />
+    <ClCompile Include="engine\ect\InputEX.cpp" />
+    <ClCompile Include="engine\ect\MathUtilityEX.cpp" />
+    <ClCompile Include="engine\ect\worldTransfromEX.cpp" />
     <ClCompile Include="engine\Game\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="engine\Game\Player\Player.cpp" />
     <ClCompile Include="engine\Game\MapChip\MapChip.cpp" />
@@ -187,6 +188,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <None Include="Resources\Json\GameCamera.json" />
     <None Include="Resources\Json\Stage.json" />
     <None Include="Resources\Json\Titel.json" />
     <None Include="Resources\shaders\Obj.hlsli" />
@@ -270,6 +272,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\ect\Easings.h" />
     <ClInclude Include="engine\Scene\scenes\DemoScene.h" />
     <ClInclude Include="engine\Game\LoadJsonFile\FileJson.h" />
     <ClInclude Include="engine\Game\Player\Player.h" />
@@ -283,7 +286,7 @@
     <ClInclude Include="engine\Scene\scenes\TitleScene.h" />
     <ClInclude Include="engine\Scene\fade\FadeID.h" />
     <ClInclude Include="engine\Scene\fade\Fade.h" />
-    <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="engine\Game\Camera\GameCamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

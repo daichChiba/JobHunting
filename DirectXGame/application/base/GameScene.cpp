@@ -6,15 +6,14 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {}
 
 void GameScene::Initialize() {
-	camera_ = new Camera();
+	camera_ = new GameCamera();
 	camera_->Initialize();
-	camera_->farZ = 1000.0f;
 	mapChip_.Initialize(filePath, erea, stage);
 	player_.Initialize(mapChip_);
 }
 
 void GameScene::Update() {
-	camera_->UpdateMatrix();
+	camera_->Update();
 	player_.Update();
 
 	mapChip_.Update();
@@ -49,9 +48,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	player_.Draw(*camera_);
+	player_.Draw(*camera_->GetCamera());
 
-	mapChip_.MapDraw(*camera_);
+	mapChip_.MapDraw(*camera_->GetCamera());
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -81,6 +80,8 @@ void GameScene::DrawImGui() {
 	player_.DrawImGui();
 	mapChip_.DrawImGui();
 	ImGui::End();
+	camera_->ImGuiDraw();
+
 #endif // _DEBUG
 
 }
