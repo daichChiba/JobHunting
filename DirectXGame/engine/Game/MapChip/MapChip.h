@@ -64,6 +64,8 @@ public:
 
 	MapChipIndex GetMapChipIndex(const Vector2& position);
 
+	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
+
 private:
 	void MapCreate();
 	void SetModel();

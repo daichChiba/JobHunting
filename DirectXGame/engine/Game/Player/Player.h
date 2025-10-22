@@ -32,6 +32,8 @@ public:
 	/// </summary>
 	void DrawImGui();
 
+	void SetIsMove(bool isMove_) { isMove = isMove_; }
+
 private:
 	/// <summary>
 	/// 移動処理
@@ -42,6 +44,8 @@ private:
 
 	KamataEngine::Vector3 pos_;
 	const float playerSpeed = 0.1f;
+
+	bool isMove = true;
 
 private:
 	KamataEngine::WorldTransform worldTransform_;

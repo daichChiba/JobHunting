@@ -26,7 +26,7 @@ void DemoScene::Update() {
 	if (!isStart) {
 		if (fade_->IsFinished() == true) {
 			isFinish = true;
-			nextScene_ = SceneID::Title;
+			nextScene_ = SceneID::Game;
 		}
 	}
 	fade_->Update();
@@ -81,6 +81,7 @@ void DemoScene::Draw() {
 
 void DemoScene::Delete() {
 	//
+	delete fade_;
 }
 
 void DemoScene::DrawImGui() {

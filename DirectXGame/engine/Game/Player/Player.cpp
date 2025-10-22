@@ -21,7 +21,10 @@ void Player::Initialize(MapChip mapchip) {
 }
 void Player::Update() {
 	worldTransform_.translation_ = pos_;
-	Move();
+	if(isMove){
+		Move();
+	}
+
 	worldTransform_.UpdateMatrix();
 }
 void Player::Draw(Camera& camera) {

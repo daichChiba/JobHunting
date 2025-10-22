@@ -1,8 +1,8 @@
 #pragma once
-#include "Scene/Scene.h"
-#include "Game/Player/Player.h"
-#include "Game/MapChip/MapChip.h"
 #include "Game/Camera/GameCamera.h"
+#include "Game/MapChip/MapChip.h"
+#include "Game/Player/Player.h"
+#include "Scene/Scene.h"
 
 class GameScene : public Scene {
 public:
@@ -36,13 +36,24 @@ public:
 	void DrawImGui() override;
 	SceneID NextScene() const override;
 
-
 private:
 	Player player_;
 	SceneID nextScene_;
 
 	MapChip mapChip_;
+	GameCamera* camera_;
 
 private:
-	GameCamera* camera_;
+	FileJson::FileAccessor* fileAccessor_ = nullptr;
+
+	int startCount_;
+	int count_;
+	bool isStart;
+
+	int gameCount_;
+
+	bool isFadeStart;
+
+	uint32_t countTh_[4];
+	KamataEngine::Sprite* countSprite_[4];
 };
