@@ -14,6 +14,12 @@ struct CollisionMapInfo {
 	bool hitWall = false;
 	KamataEngine::Vector3 move;
 };
+enum class MoveKeys { Up, Down, Left, Right, Num };
+
+struct Moves {
+	MoveKeys moveKey_;
+	bool isMove = false;
+};
 
 enum class Corner {
 	kRightBottom,
@@ -64,7 +70,11 @@ private:
 	/// <summary>
 	/// 移動処理
 	/// </summary>
-	void Move();
+	void InputMove();
+	/// <summary>
+	///
+	/// </summary>
+	void UpdateVelocity();
 	/// <summary>
 	///
 	/// </summary>
@@ -99,7 +109,11 @@ private:
 	KamataEngine::Vector3 size_;
 	// 当たり判定の余白
 	float kBlank;
-	float playerSpeed;
+	float speedX;
+
+	float kDeceleration; // 横移動の減速速度
+	float kLimitXSpeed; // 横移動の最大速度
+	float kJumpAcceleration;//ジャンプ力
 
 	KamataEngine::Vector3 velocity_;
 
@@ -112,4 +126,5 @@ private:
 	LRDirection lrDirection_ = LRDirection::kRight;
 
 	bool onGround_;
+	Moves moveKey;
 };

@@ -16,7 +16,10 @@
       "y": 1.0,
       "z": 0.0
     },
-    "speed": 0.1,
-    "kBlank": 0.04
+    "speedX": 0.1,
+    "kBlank": 0.04,
+    "kDeceleration": 0.2,
+    "kLimitXSpeed": 0.5,
+    "kJumpAcceleration": 30.0
   }
 }
