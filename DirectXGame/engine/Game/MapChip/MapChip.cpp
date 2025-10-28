@@ -47,7 +47,6 @@ void MapChip::DrawImGui() {
 	fileAccessor_->WriteVector3(erea_, "BlockSize", BlockSize);
 	fileAccessor_->Save();
 #endif // _DEBUG
-
 }
 
 KamataEngine::Vector3 MapChip::GetPlayerPos() {
@@ -62,6 +61,42 @@ KamataEngine::Vector3 MapChip::GetPlayerPos() {
 		}
 	}
 	return playerPos;
+}
+
+MapChipID MapChip::GetMapChipID(const KamataEngine::Vector3 pos) {
+	//
+	MapChipIndex index = GetMapChipIndex(pos);
+	if (index.y < 0 || index.y >= mapChipData_.data.size()) {
+		if (index.x < 0 || index.x >= mapChipData_.data[0].size()) {
+			return MapChipID::kBlank;
+		}
+	}
+	return mapChipData_.data[index.y][index.x];
+}
+
+MapChipID MapChip::GetMapChipID(const MapChipIndex& index) {
+	//
+	return mapChipData_.data[index.y][index.y];
+}
+
+MapChip::Rect MapChip::GetMapRect(const Vector3 pos) {
+	//
+	MapChipIndex index = GetMapChipIndex(pos);
+	Rect rect;
+	rect.top = index.y * BlockSize.y;
+	rect.bottom = rect.top + BlockSize.x;
+	rect.left = index.x * BlockSize.x;
+	rect.right = rect.left + BlockSize.x;
+	return rect;
+}
+
+MapChip::MapChipIndex MapChip::GetMapChipIndex(const Vector3& pos) {
+	MapChipIndex index;
+	index.x = static_cast<int>(pos.x / BlockSize.x);
+	index.y = GetMaxMapSize().x - 1 - static_cast<int>(pos.y / BlockSize.y);
+	index.x = std::clamp<int>(index.x, 0, static_cast<int>(mapChipData_.data[0].size()) - 1);
+	index.y = std::clamp<int>(index.y, 0, static_cast<int>(mapChipData_.data.size()) - 1);
+	return index;
 }
 
 void MapChip::MapCreate() {

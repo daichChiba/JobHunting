@@ -40,7 +40,7 @@ private:
 	SceneID currentSceneID_;
 
 	std::string filePath = "Resources/Json/Stage.json";
-	std::string erea = "erea1";
+	std::string erea = "stage_1";
 	std::string stage = "1_1";
 
 	std::string titelFilePath = "Resources/Json/Titel.json";

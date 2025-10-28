@@ -65,7 +65,7 @@ void GameScene::Update() {
 			if (!isFadeStart) {
 				fade_->Start(FadeID::FadeOut, 1);
 			}
-			isFadeStart = true;
+			isFadeStart = false;
 		}
 		if (isFadeStart) {
 			if (fade_->IsFinished()) {
@@ -146,7 +146,7 @@ void GameScene::DrawImGui() {
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
 	player_.DrawImGui();
-	mapChip_.DrawImGui();
+
 	ImGui::DragInt("CameraCount", &count_);
 	ImGui::Checkbox("isStart", &isStart);
 	if (ImGui::Button("restart")) {
@@ -159,7 +159,7 @@ void GameScene::DrawImGui() {
 	}
 	ImGui::End();
 	camera_->ImGuiDraw();
-
+	mapChip_.DrawImGui();
 #endif // _DEBUG
 }
 

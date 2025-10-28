@@ -1,6 +1,9 @@
 #pragma once
 #include "KamataEngine.h"
 class MapChip;
+
+
+
 class Player {
 public:
 	/// <summary>

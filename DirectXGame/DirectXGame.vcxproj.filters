@@ -231,5 +231,8 @@
     <ClInclude Include="engine\ect\Easings.h">
       <Filter>ヘッダー ファイル\ect</Filter>
     </ClInclude>
+    <ClInclude Include="engine\ect\IntVector2.h">
+      <Filter>ヘッダー ファイル\ect</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

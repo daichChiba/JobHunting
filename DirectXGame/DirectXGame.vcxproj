@@ -273,6 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\ect\Easings.h" />
+    <ClInclude Include="engine\ect\IntVector2.h" />
     <ClInclude Include="engine\Scene\scenes\DemoScene.h" />
     <ClInclude Include="engine\Game\LoadJsonFile\FileJson.h" />
     <ClInclude Include="engine\Game\Player\Player.h" />

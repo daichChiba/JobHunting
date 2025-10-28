@@ -2,6 +2,7 @@
 #include "../LoadJsonFile/FileJson.h"
 #include "MapChipID.h"
 #include <KamataEngine.h>
+#include "engine/ect/IntVector2.h"
 
 class MapChip {
 public:
@@ -62,7 +63,41 @@ public:
 	/// <returns></returns>
 	KamataEngine::Vector3 GetPlayerPos();
 
-	MapChipIndex GetMapChipIndex(const Vector2& position);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <returns></returns>
+	MapChipID GetMapChipID(const KamataEngine::Vector3 pos);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="index"></param>
+	/// <returns></returns>
+	MapChipID GetMapChipID(const MapChipIndex& index);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <returns></returns>
+	Rect GetMapRect(const Vector3 pos);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <returns></returns>
+	MapChipIndex GetMapChipIndex(const Vector3& pos);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>MapChipの範囲(大きさ)</returns>
+	IntVector2 GetMaxMapSize() {
+		return IntVector2(
+			static_cast<int>(mapChipData_.data[0].size()),
+			static_cast<int>(mapChipData_.data.size())
+		);
+	}
+
 
 	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
 
