@@ -125,7 +125,9 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Model* model_ = nullptr;
 
-	std::unique_ptr<MapChip> mapchipData_;
+	CollisionMapInfo info_;
+
+	std::unique_ptr<MapChip> mapChipData_;
 	LRDirection lrDirection_ = LRDirection::kRight;
 
 	bool onGround_;

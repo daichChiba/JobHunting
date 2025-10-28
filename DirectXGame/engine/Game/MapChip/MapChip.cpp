@@ -56,7 +56,7 @@ KamataEngine::Vector3 MapChip::GetObjectPos(const MapChipID id_) {
 		for (uint32_t x = 0; x < csvData_[y].size(); x++) {
 			if (mapChipData_.data[y][x] == id_) {
 
-				playerPos = {1.0f * x, 1.0f * (csvData_.size() - 1 - y), 0};
+				playerPos = {BlockSize.x * 1.0f * x, BlockSize.y * 1.0f * (csvData_.size() - 1 - y), 0};
 			}
 		}
 	}
@@ -66,17 +66,15 @@ KamataEngine::Vector3 MapChip::GetObjectPos(const MapChipID id_) {
 MapChipID MapChip::GetMapChipID(const KamataEngine::Vector3 pos) {
 	//
 	MapChipIndex index = GetMapChipIndex(pos);
-	if (index.y < 0 || index.y >= mapChipData_.data.size()) {
-		if (index.x < 0 || index.x >= mapChipData_.data[0].size()) {
-			return MapChipID::kBlank;
-		}
+	if (index.y < 0 || index.y >= static_cast<int>(mapChipData_.data.size()) || index.x < 0 || index.x >= static_cast<int>(mapChipData_.data[0].size())) {
+		return MapChipID::kBlank;
 	}
 	return mapChipData_.data[index.y][index.x];
 }
 
 MapChipID MapChip::GetMapChipID(const MapChipIndex& index) {
 	//
-	return mapChipData_.data[index.y][index.y];
+	return mapChipData_.data[index.y][index.x];
 }
 
 MapChip::Rect MapChip::GetMapRect(const Vector3 pos) {
@@ -84,7 +82,7 @@ MapChip::Rect MapChip::GetMapRect(const Vector3 pos) {
 	MapChipIndex index = GetMapChipIndex(pos);
 	Rect rect;
 	rect.top = index.y * BlockSize.y;
-	rect.bottom = rect.top + BlockSize.x;
+	rect.bottom = rect.top + BlockSize.y;
 	rect.left = index.x * BlockSize.x;
 	rect.right = rect.left + BlockSize.x;
 	return rect;
@@ -93,7 +91,7 @@ MapChip::Rect MapChip::GetMapRect(const Vector3 pos) {
 MapChip::MapChipIndex MapChip::GetMapChipIndex(const Vector3& pos) {
 	MapChipIndex index;
 	index.x = static_cast<int>(pos.x / BlockSize.x);
-	index.y = GetMaxMapSize().x - 1 - static_cast<int>(pos.y / BlockSize.y);
+	index.y = GetMaxMapSize().y - 1 - static_cast<int>(pos.y / BlockSize.y);
 	index.x = std::clamp<int>(index.x, 0, static_cast<int>(mapChipData_.data[0].size()) - 1);
 	index.y = std::clamp<int>(index.y, 0, static_cast<int>(mapChipData_.data.size()) - 1);
 	return index;
