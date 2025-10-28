@@ -28,6 +28,8 @@ void Player::Initialize(MapChip mapchip) {
 	kDeceleration = fileAccessor_->Read(fileMain, "kDeceleration", float());
 	kLimitXSpeed = fileAccessor_->Read(fileMain, "kLimitXSpeed", float());
 	kJumpAcceleration = fileAccessor_->Read(fileMain, "kJumpAcceleration", float());
+	kGroundSearchHeight = fileAccessor_->Read(fileMain, "kGroundSearchHeight", float());
+	kAttenuationLanding = fileAccessor_->Read(fileMain, "kAttenuationLanding", float());
 
 	// 後で消す
 	worldTransform_.rotation_ = fileAccessor_->ReadVector3(fileMain, "rotation", Vector3());
@@ -91,7 +93,7 @@ void Player::UpdateVelocity() {
 				velocity_.x = 0.0f;
 			}
 
-			if (moveKey.moveKey_==MoveKeys::Up) {
+			if (moveKey.moveKey_ == MoveKeys::Up) {
 				velocity_.y += kJumpAcceleration / 60.0f;
 			}
 		}
@@ -104,14 +106,49 @@ void Player::SetUpPos() {
 	worldTransform_.translation_ = pos_;
 }
 
-// void Player::UpdateOnGround(const CollisionMapInfo& info) {
-//	//
-// }
+void Player::UpdateOnGround(const CollisionMapInfo& info) {
+	//
+	if (onGround_) {
+		// 　ジャンプ開始
+		if (velocity_.y > 0.0f) {
+			onGround_ = false;
+		} else {
+			Vector3 newPos = worldTransform_.translation_ + info.move;
+			bool ground = false;
+
+			// 右下点の判定
+			Vector3 rightBottomPos = CornerPos(newPos, Corner::kRightBottom);
+			if (mapchipData_->GetMapChipID(rightBottomPos + Vector3(0, -kGroundSearchHeight, 0)) == MapChipID::kBlock) {
+				ground = true;
+			}
+			// 左下点の判定
+			Vector3 leftBottomPos = CornerPos(newPos, Corner::kLeftBottom);
+			if (mapchipData_->GetMapChipID(leftBottomPos + Vector3(0, -kGroundSearchHeight, 0)) == MapChipID::kBlock) {
+				ground = true;
+			}
+
+			if (!ground) {
+				onGround_ = false;
+			}
+		}
+	} else {
+		if (info.landing) {
+			velocity_.x *= (1.0f - kAttenuationLanding);
+			velocity_.y = 0.0f;
+			onGround_ = true;
+		}
+	}
+}
 //
-// KamataEngine::Vector3 Player::CornerPos(const KamataEngine::Vector3& center, Corner corner) {
-//	//
-//	return KamataEngine::Vector3();
-// }
+ KamataEngine::Vector3 Player::CornerPos(const KamataEngine::Vector3& center, Corner corner) {
+	Vector3 offsetTable[] = {
+	    {+size_.x / 2.0f, -size_.y / 2.0f, 0}, // kRightBottom
+	    {-size_.x / 2.0f, -size_.y / 2.0f, 0}, // kLeftBottom
+	    {+size_.x / 2.0f, +size_.y / 2.0f, 0}, // kRightTop
+	    {-size_.x / 2.0f, +size_.y / 2.0f, 0}  // kLeftTop
+	};
+	return center + offsetTable[static_cast<uint32_t>(corner)];
+ }
 //
 // void Player::CheckMapCollision(CollisionMapInfo& info) {
 //	//

@@ -95,7 +95,7 @@ private:
 
 	void CheckMapCollision(CollisionMapInfo& info);
 	void CheckMapCollisionUp(CollisionMapInfo& info);
-	void CheckmapCollisionDown(CollisionMapInfo& info);
+	void CheckMapCollisionDown(CollisionMapInfo& info);
 	void CheckMapCollisionRight(CollisionMapInfo& info);
 	void CheckMapCollisionLeft(CollisionMapInfo& info);
 
@@ -114,6 +114,9 @@ private:
 	float kDeceleration; // 横移動の減速速度
 	float kLimitXSpeed; // 横移動の最大速度
 	float kJumpAcceleration;//ジャンプ力
+
+	float kGroundSearchHeight;
+	float kAttenuationLanding;
 
 	KamataEngine::Vector3 velocity_;
 
