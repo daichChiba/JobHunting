@@ -1,8 +1,28 @@
 #pragma once
 #include "KamataEngine.h"
+#include "engine/Game/LoadJsonFile/FileJson.h"
 class MapChip;
 
+enum class LRDirection {
+	kRight,
+	kLeft,
+};
 
+struct CollisionMapInfo {
+	bool ceiling = false;
+	bool landing = false;
+	bool hitWall = false;
+	KamataEngine::Vector3 move;
+};
+
+enum class Corner {
+	kRightBottom,
+	kLeftBottom,
+	kRightTop,
+	kLeftTop,
+
+	kNumCorner
+};
 
 class Player {
 public:
@@ -25,7 +45,7 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw(KamataEngine::Camera& camera);
+	void Draw(const KamataEngine::Camera& camera);
 	/// <summary>
 	/// 削除
 	/// </summary>
@@ -37,20 +57,59 @@ public:
 
 	void SetIsMove(bool isMove_) { isMove = isMove_; }
 
+	const KamataEngine::WorldTransform& worldTransform() const { return worldTransform_; }
+	const KamataEngine::Vector3& GetVelocity() const { return velocity_; }
+
 private:
 	/// <summary>
 	/// 移動処理
 	/// </summary>
 	void Move();
+	/// <summary>
+	///
+	/// </summary>
+	/// <param name="mapChip">mapChip</param>
+	void SetUpPos();
+	/// <summary>
+	///
+	/// </summary>
+	/// <param name="info"></param>
+	void UpdateOnGround(const CollisionMapInfo& info);
+	/// <summary>
+	///
+	/// </summary>
+	/// <param name="center"></param>
+	/// <param name="corner"></param>
+	/// <returns></returns>
+	KamataEngine::Vector3 CornerPos(const KamataEngine::Vector3& center, Corner corner);
 
-	void SetUpPos(MapChip mapChip);
+	void CheckMapCollision(CollisionMapInfo& info);
+	void CheckMapCollisionUp(CollisionMapInfo& info);
+	void CheckmapCollisionDown(CollisionMapInfo& info);
+	void CheckMapCollisionRight(CollisionMapInfo& info);
+	void CheckMapCollisionLeft(CollisionMapInfo& info);
+
+private:
+	const std::string filePath = "Resources/Json/Player.json";
+	std::string fileMain = "Player";
+
+	FileJson::FileAccessor* fileAccessor_ = nullptr;
 
 	KamataEngine::Vector3 pos_;
-	const float playerSpeed = 0.1f;
+	KamataEngine::Vector3 size_;
+	// 当たり判定の余白
+	float kBlank;
+	float playerSpeed;
+
+	KamataEngine::Vector3 velocity_;
 
 	bool isMove = true;
 
-private:
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Model* model_ = nullptr;
+
+	std::unique_ptr<MapChip> mapchipData_;
+	LRDirection lrDirection_ = LRDirection::kRight;
+
+	bool onGround_;
 };

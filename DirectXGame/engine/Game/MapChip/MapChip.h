@@ -58,10 +58,10 @@ public:
 	/// <returns></returns>
 	KamataEngine::Vector3 GetBlockSize() { return BlockSize; }
 	/// <summary>
-	/// プレイヤーの現在位置を取得します。
+	/// オブジェクトのの現在位置を取得します。
 	/// </summary>
 	/// <returns></returns>
-	KamataEngine::Vector3 GetPlayerPos();
+	KamataEngine::Vector3 GetObjectPos(const MapChipID id_);
 
 	/// <summary>
 	/// 

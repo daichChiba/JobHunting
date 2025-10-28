@@ -2,32 +2,45 @@
 #include "../MapChip/MapChip.h"
 
 using namespace KamataEngine;
+using namespace FileJson;
+using namespace MathUtility;
 
 Player::Player() {}
 Player::~Player() {}
 void Player::Initialize(MapChip mapchip) {
 	//model_->StaticInitialize();
 	//model_ = Model::CreateFromOBJ("Player", true);
+
+	fileAccessor_ = new FileAccessor(filePath);
+
+
 	Model* model = nullptr;
 	model = Model::CreateFromOBJ("Player", true);
 	model_ = model;
 
 	worldTransform_.Initialize();
-	SetUpPos(mapchip);
-	//worldTransform_.translation_ = pos_;
-	worldTransform_.rotation_.y = 1.0f;
-	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
 
+	//worldTransform_.translation_ = pos_;
+
+	worldTransform_.scale_ = fileAccessor_->ReadVector3(fileMain, "scale", Vector3());
+	playerSpeed = fileAccessor_->Read(fileMain, "speed", float());
+	size_ = fileAccessor_->ReadVector3(fileMain, "size", Vector3());
+	kBlank = fileAccessor_->Read(fileMain, "kBlank", float());
+
+	// 後で消す
+	worldTransform_.rotation_ = fileAccessor_->ReadVector3(fileMain, "rotation", Vector3());
+
+	mapchipData_ = std::unique_ptr<MapChip>(new MapChip(mapchip));
+	SetUpPos();
 }
 void Player::Update() {
-	worldTransform_.translation_ = pos_;
 	if(isMove){
 		Move();
 	}
 
 	worldTransform_.UpdateMatrix();
 }
-void Player::Draw(Camera& camera) {
+void Player::Draw(const Camera& camera) {
 	model_->Draw(worldTransform_, camera);
 }
 void Player::Delete() {
@@ -44,6 +57,8 @@ void Player::DrawImGui() {
 }
 
 void Player::Move() {
+	worldTransform_.translation_ = pos_;
+
 	if (Input::GetInstance()->PushKey(DIK_D)) {
 		pos_.x += playerSpeed;
 	} else if (Input::GetInstance()->PushKey(DIK_A)) {
@@ -56,7 +71,37 @@ void Player::Move() {
 	}
 }
 
-void Player::SetUpPos(MapChip mapChip) {
+void Player::SetUpPos() {
 	//worldTransform_.translation_ = mapChip.GetPlayerPos();
-	pos_ = mapChip.GetPlayerPos();
+	pos_ = mapchipData_->GetObjectPos(MapChipID::PlayerStart);
+	worldTransform_.translation_ = pos_;
 }
+
+//void Player::UpdateOnGround(const CollisionMapInfo& info) {
+//	//
+//}
+//
+//KamataEngine::Vector3 Player::CornerPos(const KamataEngine::Vector3& center, Corner corner) {
+//	//
+//	return KamataEngine::Vector3();
+//}
+//
+//void Player::CheckMapCollision(CollisionMapInfo& info) {
+//	//
+//}
+//
+//void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
+//	//
+//}
+//
+//void Player::CheckmapCollisionDown(CollisionMapInfo& info) {
+//	//
+//}
+//
+//void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
+//	//
+//}
+//
+//void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
+//	//
+//}

@@ -184,6 +184,9 @@
     <None Include="Resources\Json\GameCamera.json">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="Resources\Json\Player.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\Scene\Scene.h">

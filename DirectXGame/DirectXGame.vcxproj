@@ -189,6 +189,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">true</ExcludedFromBuild>
     </FxCompile>
     <None Include="Resources\Json\GameCamera.json" />
+    <None Include="Resources\Json\Player.json" />
     <None Include="Resources\Json\Stage.json" />
     <None Include="Resources\Json\Titel.json" />
     <None Include="Resources\shaders\Obj.hlsli" />
