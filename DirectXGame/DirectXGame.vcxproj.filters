@@ -126,6 +126,9 @@
     <ClCompile Include="engine\ect\Easings.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
+    <ClCompile Include="engine\Scene\scenes\GameOverScene.cpp">
+      <Filter>ソース ファイル\Scene\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -236,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="engine\ect\IntVector2.h">
       <Filter>ヘッダー ファイル\ect</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Scene\scenes\GameOverScene.h">
+      <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

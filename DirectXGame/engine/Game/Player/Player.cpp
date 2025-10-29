@@ -39,7 +39,13 @@ void Player::Initialize(MapChip mapchip) {
 	SetUpPos();
 }
 void Player::Update() {
+
+
 	if (isMove) {
+		if (Input::GetInstance()->PushKey(DIK_R)) {
+			isAlive_ = false;
+		}
+
 		InputMove();
 		UpdateVelocity();
 
@@ -68,7 +74,11 @@ void Player::Update() {
 
 	worldTransform_.UpdateMatrix();
 }
-void Player::Draw(const Camera& camera) { model_->Draw(worldTransform_, camera); }
+void Player::Draw(const Camera& camera) {
+	if (isAlive_) {
+		model_->Draw(worldTransform_, camera);
+	}
+}
 void Player::Delete() {
 	delete model_;
 	model_ = nullptr;

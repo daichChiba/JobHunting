@@ -4,4 +4,5 @@ enum class SceneID {
 	Reset,
 	Game,
 	Demo,
+	Over,
 };

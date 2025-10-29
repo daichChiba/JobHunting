@@ -65,12 +65,14 @@ void GameScene::Update() {
 			if (!isFadeStart) {
 				fade_->Start(FadeID::FadeOut, 1);
 			}
-			isFadeStart = false;
+			if (!player_.GetIsAlive()) {
+				isFadeStart = true;
+			}
 		}
 		if (isFadeStart) {
 			if (fade_->IsFinished()) {
 				isFinish = true;
-				nextScene_ = SceneID::Title;
+				nextScene_ = SceneID::Over;
 			}
 		}
 	}

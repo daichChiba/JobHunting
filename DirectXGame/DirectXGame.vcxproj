@@ -166,6 +166,7 @@
     <ClCompile Include="application\base\GameScene.cpp" />
     <ClCompile Include="engine\Scene\fade\Fade.cpp" />
     <ClCompile Include="engine\Game\Camera\GameCamera.cpp" />
+    <ClCompile Include="engine\Scene\scenes\GameOverScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\Scene\scenes\ResetScene.cpp" />
     <ClCompile Include="engine\Scene\Scene.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="engine\Scene\fade\FadeID.h" />
     <ClInclude Include="engine\Scene\fade\Fade.h" />
     <ClInclude Include="engine\Game\Camera\GameCamera.h" />
+    <ClInclude Include="engine\Scene\scenes\GameOverScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

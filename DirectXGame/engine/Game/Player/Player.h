@@ -65,6 +65,10 @@ public:
 
 	const KamataEngine::WorldTransform& worldTransform() const { return worldTransform_; }
 	const KamataEngine::Vector3& GetVelocity() const { return velocity_; }
+	const KamataEngine::Vector3& GetPos() const { return worldTransform_.translation_; }
+
+
+	bool GetIsAlive() { return isAlive_; }
 
 private:
 	/// <summary>
@@ -132,4 +136,5 @@ private:
 
 	bool onGround_;
 	Moves moveKey;
+	bool isAlive_ = true;
 };

@@ -4,6 +4,7 @@
 #include "Scene/scenes/TitleScene.h"
 #include "Scene/manager/SceneID.h"
 #include "Scene/scenes/DemoScene.h"
+#include "Scene/scenes/GameOverScene.h"
 #include <KamataEngine.h>
 class SceneManager {
 public:
