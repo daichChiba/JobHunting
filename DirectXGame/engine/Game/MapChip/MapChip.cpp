@@ -97,6 +97,13 @@ MapChip::MapChipIndex MapChip::GetMapChipIndex(const Vector3& pos) {
 	return index;
 }
 
+IntVector2 MapChip::GetMaxMapSize() {
+	return IntVector2(
+		static_cast<int>(mapChipData_.data[0].size()),
+		static_cast<int>(mapChipData_.data.size())
+	);
+}
+
 void MapChip::MapCreate() {
 	// worldTransform をステージサイズにリサイズ
 	worldTransform_.resize(csvData_.size());

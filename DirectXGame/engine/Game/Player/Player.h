@@ -66,6 +66,8 @@ public:
 	const KamataEngine::WorldTransform& worldTransform() const { return worldTransform_; }
 	const KamataEngine::Vector3& GetVelocity() const { return velocity_; }
 
+	void SetMapChip(MapChip* mapchip_) { mapChipData_ =  }
+
 private:
 	/// <summary>
 	/// 移動処理
@@ -98,6 +100,8 @@ private:
 	void CheckMapCollisionDown(CollisionMapInfo& info);
 	void CheckMapCollisionRight(CollisionMapInfo& info);
 	void CheckMapCollisionLeft(CollisionMapInfo& info);
+
+	//std::unique_ptr<MapChip> Set(new MapChip());
 
 private:
 	const std::string filePath = "Resources/Json/Player.json";

@@ -145,7 +145,6 @@ void GameScene::DrawImGui() {
 	ImGui::Begin("GameScene");
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
-	player_.DrawImGui();
 
 	ImGui::DragInt("CameraCount", &count_);
 	ImGui::Checkbox("isStart", &isStart);
@@ -160,6 +159,8 @@ void GameScene::DrawImGui() {
 	ImGui::End();
 	camera_->ImGuiDraw();
 	mapChip_.DrawImGui();
+	player_.DrawImGui();
+
 #endif // _DEBUG
 }
 

@@ -91,12 +91,7 @@ public:
 	/// 
 	/// </summary>
 	/// <returns>MapChipの範囲(大きさ)</returns>
-	IntVector2 GetMaxMapSize() {
-		return IntVector2(
-			static_cast<int>(mapChipData_.data[0].size()),
-			static_cast<int>(mapChipData_.data.size())
-		);
-	}
+	IntVector2 GetMaxMapSize();
 
 
 	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }

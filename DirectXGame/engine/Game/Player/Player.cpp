@@ -53,6 +53,8 @@ void Player::Update() {
 
 		info_ = collisionMapInfo;
 
+		worldTransform_.translation_ += velocity_;
+
 		// 天井接触による落下開始
 		if (collisionMapInfo.ceiling) {
 			velocity_.y = 0;
@@ -76,23 +78,28 @@ void Player::Delete() {
 void Player::DrawImGui() {
 	// このまま記入しても大丈夫
 #ifdef _DEBUG
-
+	ImGui::Begin("player");
 	ImGui::Text("PlayerTest");
 	ImGui::Checkbox("collisionMapInfo.ceiling", &info_.ceiling);
 	ImGui::Checkbox("collisionMapInfo.landing", &info_.landing);
 	ImGui::Checkbox("collisionMapInfo.hitwall", &info_.hitWall);
+	ImGui::Checkbox("isMove", &isMove);
+	ImGui::Checkbox("onGround", &onGround_);
+	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("size", &size_.x);
+	ImGui::DragFloat3("velocity", &velocity_.x);
 	if (ImGui::Button("save")) {
 		fileAccessor_->WriteVector3(fileMain, "size", size_);
 		fileAccessor_->Save();
 	}
+	ImGui::End();
 
 #endif // _DEBUG
 }
 
 void Player::InputMove() {
 	worldTransform_.translation_ = pos_;
-	moveKey.isMove = false;
+	/*moveKey.isMove = false;*/
 
 	if (Input::GetInstance()->PushKey(DIK_D)) {
 		moveKey.moveKey_ = MoveKeys::Right;
@@ -105,8 +112,8 @@ void Player::InputMove() {
 		moveKey.moveKey_ = MoveKeys::Up;
 		moveKey.isMove = true;
 	} else if (Input::GetInstance()->PushKey(DIK_S)) {
-		moveKey.moveKey_ = MoveKeys::Down;
-		moveKey.isMove = true;
+		//moveKey.moveKey_ = MoveKeys::Down;
+		//moveKey.isMove = true;
 	}
 }
 
@@ -219,7 +226,7 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	}
 
 	if (hit) {
-		info.move.y = std::max(0.0f, (rect.bottom - (worldTransform_.translation_.y + size_.y / 2.0f + kBlank)));
+		info.move.y = std::max(0.0f, (rect.top - (worldTransform_.translation_.y + size_.y / 2.0f + kBlank)));
 		info.ceiling = true;
 	}
 }
@@ -252,7 +259,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	}
 
 	if (hit) {
-		info.move.y = std::min(0.0f, rect.top - (worldTransform_.translation_.y - size_.y / 2.0f - kBlank));
+		info.move.y = std::max(0.0f, rect.bottom - (worldTransform_.translation_.y - size_.y / 2.0f - kBlank));
 		info.landing = true;
 	}
 }
@@ -285,7 +292,7 @@ void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	}
 
 	if (hit) {
-		info.move.x = std::min(0.0f, rect.left - (worldTransform_.translation_.x + size_.x / 2.0f + kBlank));
+		info.move.x = std::max(0.0f, rect.right - (worldTransform_.translation_.x + size_.x / 2.0f + kBlank));
 		info.hitWall = true;
 	}
 }
@@ -318,7 +325,7 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	}
 
 	if (hit) {
-		info.move.x = std::max(0.0f, rect.right - (worldTransform_.translation_.x - size_.x / 2.0f - kBlank));
+		info.move.x = std::max(0.0f, rect.left - (worldTransform_.translation_.x - size_.x / 2.0f - kBlank));
 		info.hitWall = true;
 	}
 }

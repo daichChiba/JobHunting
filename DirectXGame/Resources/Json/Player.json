@@ -20,7 +20,7 @@
     "kBlank": 0.04,
     "kDeceleration": 0.2,
     "kLimitXSpeed": 0.5,
-    "kJumpAcceleration": 30.0,
+    "kJumpAcceleration": 5.0,
     "kGroundSearchHeight": 0.06,
     "kAttenuationLanding": 0.06
   }
