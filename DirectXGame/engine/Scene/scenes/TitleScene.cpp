@@ -40,7 +40,7 @@ void TitleScene::Update() {
 	if (!isStart) {
 		if (fade_->IsFinished() == true) {
 			isFinish = true;
-			nextScene_ = SceneID::Over;
+			nextScene_ = SceneID::Demo;
 		}
 	}
 
