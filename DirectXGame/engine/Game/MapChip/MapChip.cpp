@@ -50,17 +50,17 @@ void MapChip::DrawImGui() {
 }
 
 KamataEngine::Vector3 MapChip::GetObjectPos(const MapChipID id_) {
-	Vector3 playerPos = {};
+	Vector3 Pos = {};
 	for (uint32_t y = 0; y < csvData_.size(); y++) {
 		mapChipData_.data[y].resize(csvData_[y].size());
 		for (uint32_t x = 0; x < csvData_[y].size(); x++) {
 			if (mapChipData_.data[y][x] == id_) {
 
-				playerPos = {BlockSize.x * 1.0f * x, BlockSize.y * 1.0f * (csvData_.size() - 1 - y), 0};
+				Pos = {BlockSize.x * 1.0f * x, BlockSize.y * 1.0f * (csvData_.size() - 1 - y), 0};
 			}
 		}
 	}
-	return playerPos;
+	return Pos;
 }
 
 MapChipID MapChip::GetMapChipID(const KamataEngine::Vector3 pos) {

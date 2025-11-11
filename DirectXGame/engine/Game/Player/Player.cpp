@@ -102,6 +102,7 @@ void Player::DrawImGui() {
 void Player::InputMove() {
 	// worldTransform_.translation_ = pos_;
 	moveKey.isMove = false;
+	moveKey.moveKey_ = MoveKeys::Num;
 
 	if (Input::GetInstance()->PushKey(DIK_D)) {
 		moveKey.moveKey_ = MoveKeys::Right;
@@ -122,9 +123,9 @@ void Player::InputMove() {
 void Player::UpdateVelocity() {
 	if (onGround_) {
 		// 地面にいるときの横入力は直接キー状態で判断する方が確実（InputMoveでのフラグでも可）
-		if (Input::GetInstance()->PushKey(DIK_D)) {
+		if (moveKey.moveKey_==MoveKeys::Right) {
 			velocity_.x += speedX;
-		} else if (Input::GetInstance()->PushKey(DIK_A)) {
+		} else if (moveKey.moveKey_ == MoveKeys::Left) {
 			velocity_.x -= speedX;
 		} else {
 			// 入力がないときは常に減速させる
@@ -138,7 +139,7 @@ void Player::UpdateVelocity() {
 		}
 
 		// ジャンプは独立してキーで判定
-		if (Input::GetInstance()->PushKey(DIK_W)) {
+		if (moveKey.moveKey_==MoveKeys::Up) {
 			velocity_.y += kJumpAcceleration / 60.0f;
 		}
 	} else {
@@ -270,7 +271,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	}
 
 	if (hit) {
-		info.move.y = std::max(0.0f, rect.bottom - (worldTransform_.translation_.y - size_.y / 2.0f - kBlank));
+		info.move.y = std::min(0.0f, rect.bottom - (worldTransform_.translation_.y - size_.y / 2.0f - kBlank));
 		info.landing = true;
 	}
 }
@@ -303,7 +304,7 @@ void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	}
 
 	if (hit) {
-		info.move.x = std::max(0.0f, rect.right - (worldTransform_.translation_.x + size_.x / 2.0f + kBlank));
+		info.move.x = std::min(0.0f, rect.right - (worldTransform_.translation_.x + size_.x / 2.0f + kBlank));
 		info.hitWall = true;
 	}
 }
@@ -336,7 +337,7 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	}
 
 	if (hit) {
-		info.move.x = std::max(0.0f, rect.left - (worldTransform_.translation_.x - size_.x / 2.0f - kBlank));
+		info.move.x = std::min(0.0f, rect.left - (worldTransform_.translation_.x - size_.x / 2.0f - kBlank));
 		info.hitWall = true;
 	}
 }
