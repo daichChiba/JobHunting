@@ -66,7 +66,7 @@ public:
 	const KamataEngine::WorldTransform& worldTransform() const { return worldTransform_; }
 	const KamataEngine::Vector3& GetVelocity() const { return velocity_; }
 
-	void SetMapChip(MapChip* mapchip_) { mapChipData_ =  }
+	void SetMapChip(MapChip* mapchip_) { mapChipData_.reset(mapchip_); }
 
 private:
 	/// <summary>
@@ -121,6 +121,8 @@ private:
 
 	float kGroundSearchHeight;
 	float kAttenuationLanding;
+	float kGravityAcceleration;
+	float kLimitFallSpeed;
 
 	KamataEngine::Vector3 velocity_;
 

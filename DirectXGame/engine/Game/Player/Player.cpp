@@ -31,6 +31,8 @@ void Player::Initialize(MapChip mapchip) {
 	kJumpAcceleration = fileAccessor_->Read(fileMain, "kJumpAcceleration", float());
 	kGroundSearchHeight = fileAccessor_->Read(fileMain, "kGroundSearchHeight", float());
 	kAttenuationLanding = fileAccessor_->Read(fileMain, "kAttenuationLanding", float());
+	kGravityAcceleration = fileAccessor_->Read(fileMain, "kGravityAcceleration", float());
+	kLimitFallSpeed = fileAccessor_->Read(fileMain, "kLimitFallSpeed", float());
 
 	// 後で消す
 	worldTransform_.rotation_ = fileAccessor_->ReadVector3(fileMain, "rotation", Vector3());
@@ -53,7 +55,7 @@ void Player::Update() {
 
 		info_ = collisionMapInfo;
 
-		worldTransform_.translation_ += velocity_;
+		// worldTransform_.translation_ += velocity_;
 
 		// 天井接触による落下開始
 		if (collisionMapInfo.ceiling) {
@@ -83,7 +85,7 @@ void Player::DrawImGui() {
 	ImGui::Checkbox("collisionMapInfo.ceiling", &info_.ceiling);
 	ImGui::Checkbox("collisionMapInfo.landing", &info_.landing);
 	ImGui::Checkbox("collisionMapInfo.hitwall", &info_.hitWall);
-	ImGui::Checkbox("isMove", &isMove);
+	ImGui::Checkbox("isMove", &moveKey.isMove);
 	ImGui::Checkbox("onGround", &onGround_);
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("size", &size_.x);
@@ -98,8 +100,8 @@ void Player::DrawImGui() {
 }
 
 void Player::InputMove() {
-	worldTransform_.translation_ = pos_;
-	/*moveKey.isMove = false;*/
+	// worldTransform_.translation_ = pos_;
+	moveKey.isMove = false;
 
 	if (Input::GetInstance()->PushKey(DIK_D)) {
 		moveKey.moveKey_ = MoveKeys::Right;
@@ -112,38 +114,47 @@ void Player::InputMove() {
 		moveKey.moveKey_ = MoveKeys::Up;
 		moveKey.isMove = true;
 	} else if (Input::GetInstance()->PushKey(DIK_S)) {
-		//moveKey.moveKey_ = MoveKeys::Down;
-		//moveKey.isMove = true;
+		// moveKey.moveKey_ = MoveKeys::Down;
+		// moveKey.isMove = true;
 	}
 }
 
 void Player::UpdateVelocity() {
 	if (onGround_) {
-		if (moveKey.isMove) {
-			if (moveKey.moveKey_ == MoveKeys::Right) {
-				velocity_.x += speedX;
-			} else if (moveKey.moveKey_ == MoveKeys::Left) {
-				velocity_.x -= speedX;
-			} else {
-				velocity_.x *= (1.0f - kDeceleration);
-			}
-			velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
-
-			if (std::abs(velocity_.x) <= 0.01f) {
-				velocity_.x = 0.0f;
-			}
-
-			if (moveKey.moveKey_ == MoveKeys::Up) {
-				velocity_.y += kJumpAcceleration / 60.0f;
-			}
+		// 地面にいるときの横入力は直接キー状態で判断する方が確実（InputMoveでのフラグでも可）
+		if (Input::GetInstance()->PushKey(DIK_D)) {
+			velocity_.x += speedX;
+		} else if (Input::GetInstance()->PushKey(DIK_A)) {
+			velocity_.x -= speedX;
+		} else {
+			// 入力がないときは常に減速させる
+			velocity_.x *= (1.0f - kDeceleration);
 		}
+
+		velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
+
+		if (std::abs(velocity_.x) <= 0.01f) {
+			velocity_.x = 0.0f;
+		}
+
+		// ジャンプは独立してキーで判定
+		if (Input::GetInstance()->PushKey(DIK_W)) {
+			velocity_.y += kJumpAcceleration / 60.0f;
+		}
+	} else {
+		// 空中の重力（横加速は入れない。必要なら空中横入力を許可する実装に変える）
+		velocity_ += Vector3(0, -kGravityAcceleration / 60.0f, 0);
+		velocity_.y = std::max(velocity_.y, -kLimitFallSpeed);
 	}
 }
-
 void Player::SetUpPos() {
 	// worldTransform_.translation_ = mapChip.GetPlayerPos();
 	pos_ = mapChipData_->GetObjectPos(MapChipID::PlayerStart);
 	worldTransform_.translation_ = pos_;
+
+	velocity_ = Vector3Zero();
+
+	onGround_ = true;
 }
 
 void Player::UpdateOnGround(const CollisionMapInfo& info) {

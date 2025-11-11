@@ -34,6 +34,7 @@ void GameScene::Update() {
 
 	camera_->Update();
 	player_.Update();
+	//player_.SetMapChip(&mapChip_);
 
 	mapChip_.Update();
 
