@@ -1,6 +1,9 @@
 #define NOMINMAX
 #include "Player.h"
 #include "../MapChip/MapChip.h"
+#include "Game/Object/Goal/Goal.h"
+#include <algorithm>
+
 
 using namespace KamataEngine;
 using namespace FileJson;
@@ -8,11 +11,14 @@ using namespace MathUtility;
 
 Player::Player() {}
 Player::~Player() {}
-void Player::Initialize(MapChip mapchip) {
+
+void Player::Initialize(MapChip* mapchip) {
 	// model_->StaticInitialize();
 	// model_ = Model::CreateFromOBJ("Player", true);
 
 	fileAccessor_ = new FileAccessor(filePath);
+
+	mapChipData_ = mapchip;
 
 	Model* model = nullptr;
 	model = Model::CreateFromOBJ("Player", true);
@@ -21,53 +27,35 @@ void Player::Initialize(MapChip mapchip) {
 	worldTransform_.Initialize();
 
 	// worldTransform_.translation_ = pos_;
+	worldTransform_.translation_ = mapChipData_->GetObjectPos(MapChipID::PlayerStart);
 
 	worldTransform_.scale_ = fileAccessor_->ReadVector3(fileMain, "scale", Vector3());
-	speedX = fileAccessor_->Read(fileMain, "speedX", float());
 	size_ = fileAccessor_->ReadVector3(fileMain, "size", Vector3());
-	kBlank = fileAccessor_->Read(fileMain, "kBlank", float());
-	kDeceleration = fileAccessor_->Read(fileMain, "kDeceleration", float());
+	kAcceleration = fileAccessor_->Read(fileMain, "kAcceleration", float());
 	kLimitXSpeed = fileAccessor_->Read(fileMain, "kLimitXSpeed", float());
+	kAttenuation = fileAccessor_->Read(fileMain, "kAttenuation", float());
 	kJumpAcceleration = fileAccessor_->Read(fileMain, "kJumpAcceleration", float());
-	kGroundSearchHeight = fileAccessor_->Read(fileMain, "kGroundSearchHeight", float());
-	kAttenuationLanding = fileAccessor_->Read(fileMain, "kAttenuationLanding", float());
 	kGravityAcceleration = fileAccessor_->Read(fileMain, "kGravityAcceleration", float());
 	kLimitFallSpeed = fileAccessor_->Read(fileMain, "kLimitFallSpeed", float());
+	kBlank = fileAccessor_->Read(fileMain, "kBlank", float());
+	kAttennuationShift = fileAccessor_->Read(fileMain, "kAttennuationShift", float());
+	kAttennuationLanding = fileAccessor_->Read(fileMain, "kAttennuationLanding", float());
 
 	// 後で消す
 	worldTransform_.rotation_ = fileAccessor_->ReadVector3(fileMain, "rotation", Vector3());
-
-	mapChipData_ = std::unique_ptr<MapChip>(new MapChip(mapchip));
-	SetUpPos();
 }
 void Player::Update() {
 	if (isMove) {
 		InputMove();
-		UpdateVelocity();
 
-		CollisionMapInfo collisionMapInfo = {};
+		CollisionMapInfo collisionMapInfo;
+
 		collisionMapInfo.move = velocity_;
-		collisionMapInfo.landing = false;
-		collisionMapInfo.hitWall = false;
-		collisionMapInfo.ceiling = false;
+
 		CheckMapCollision(collisionMapInfo);
-		worldTransform_.translation_ += collisionMapInfo.move;
 
-		info_ = collisionMapInfo;
-
-		// worldTransform_.translation_ += velocity_;
-
-		// 天井接触による落下開始
-		if (collisionMapInfo.ceiling) {
-			velocity_.y = 0;
-		}
-		// 壁接触による減速
-		if (collisionMapInfo.hitWall) {
-			velocity_.x *= (1.0f - speedX);
-		}
-
-		// onGroundの更新
-		UpdateOnGround(collisionMapInfo);
+		CheckMapCollisionHit(collisionMapInfo);
+		CellingSwitch(collisionMapInfo);
 	}
 
 	worldTransform_.UpdateMatrix();
@@ -85,13 +73,15 @@ void Player::DrawImGui() {
 	ImGui::Checkbox("collisionMapInfo.ceiling", &info_.ceiling);
 	ImGui::Checkbox("collisionMapInfo.landing", &info_.landing);
 	ImGui::Checkbox("collisionMapInfo.hitwall", &info_.hitWall);
-	ImGui::Checkbox("isMove", &moveKey.isMove);
 	ImGui::Checkbox("onGround", &onGround_);
+	ImGui::Checkbox("isGoal", &isGoal_);
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("size", &size_.x);
 	ImGui::DragFloat3("velocity", &velocity_.x);
+	ImGui::DragFloat("kBlank", &kBlank);
 	if (ImGui::Button("save")) {
 		fileAccessor_->WriteVector3(fileMain, "size", size_);
+		fileAccessor_->Write(fileMain, "kBlank", kBlank);
 		fileAccessor_->Save();
 	}
 	ImGui::End();
@@ -99,98 +89,82 @@ void Player::DrawImGui() {
 #endif // _DEBUG
 }
 
-void Player::InputMove() {
-	// worldTransform_.translation_ = pos_;
-	moveKey.isMove = false;
-	moveKey.moveKey_ = MoveKeys::Num;
+KamataEngine::Vector3 Player::GetWorldPos() {
+	Vector3 worldPos;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
-	if (Input::GetInstance()->PushKey(DIK_D)) {
-		moveKey.moveKey_ = MoveKeys::Right;
-		moveKey.isMove = true;
-	} else if (Input::GetInstance()->PushKey(DIK_A)) {
-		moveKey.moveKey_ = MoveKeys::Left;
-		moveKey.isMove = true;
-	}
-	if (Input::GetInstance()->PushKey(DIK_W)) {
-		moveKey.moveKey_ = MoveKeys::Up;
-		moveKey.isMove = true;
-	} else if (Input::GetInstance()->PushKey(DIK_S)) {
-		// moveKey.moveKey_ = MoveKeys::Down;
-		// moveKey.isMove = true;
-	}
+	return worldPos;
 }
 
-void Player::UpdateVelocity() {
+AABB Player::GetAABB() {
+	Vector3 worldPos = GetWorldPos();
+
+	AABB aabb;
+
+	aabb.min = {worldPos.x - size_.x / 2.0f, worldPos.y - size_.y / 2.0f, worldPos.z - size_.x / 2.0f};
+	aabb.max = {worldPos.x + size_.x / 2.0f, worldPos.y + size_.y / 2.0f, worldPos.z + size_.x / 2.0f};
+
+	return aabb;
+}
+
+void Player::OnCollision(const Goal* goal_) {
+	(void) goal_;
+
+	isGoal_ = true;
+}
+
+void Player::InputMove() {
 	if (onGround_) {
-		// 地面にいるときの横入力は直接キー状態で判断する方が確実（InputMoveでのフラグでも可）
-		if (moveKey.moveKey_==MoveKeys::Right) {
-			velocity_.x += speedX;
-		} else if (moveKey.moveKey_ == MoveKeys::Left) {
-			velocity_.x -= speedX;
+		// 左右移動
+		if (Input::GetInstance()->PushKey(DIK_D) || Input::GetInstance()->PushKey(DIK_A)) {
+			Vector3 acceleration = {};
+
+			if (Input::GetInstance()->PushKey(DIK_D)) {
+				// 左移動中の右入力
+				if (velocity_.x < 0.0f) {
+					// 速度と逆方向に入力中は急ブレーキ
+					velocity_.x *= (1.0f - kAcceleration);
+				}
+				acceleration.x += kAcceleration;
+
+			} else if (Input::GetInstance()->PushKey(DIK_A)) {
+
+				// 右移動中の左入力
+				if (velocity_.x > 0.0f) {
+					// 速度と逆方向に入力中は急ブレーキ
+					velocity_.x *= (1.0f - kAcceleration);
+				}
+
+				acceleration.x -= kAcceleration;
+			}
+
+			velocity_ += acceleration;
+
+			velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
 		} else {
-			// 入力がないときは常に減速させる
-			velocity_.x *= (1.0f - kDeceleration);
+			velocity_.x *= (1.0f - kAttenuation);
+		}
+		if (Input::GetInstance()->PushKey(DIK_W)) {
+			velocity_ += Vector3(0, kJumpAcceleration, 0);
+		}
+		// ジャンプ開始
+		if (velocity_.y > 0.0f) {
+			// 空中状態に移行
+			onGround_ = false;
 		}
 
-		velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
-
-		if (std::abs(velocity_.x) <= 0.01f) {
-			velocity_.x = 0.0f;
-		}
-
-		// ジャンプは独立してキーで判定
-		if (moveKey.moveKey_==MoveKeys::Up) {
-			velocity_.y += kJumpAcceleration / 60.0f;
-		}
 	} else {
-		// 空中の重力（横加速は入れない。必要なら空中横入力を許可する実装に変える）
-		velocity_ += Vector3(0, -kGravityAcceleration / 60.0f, 0);
+		// 落下速度
+		velocity_ += Vector3(0, -kGravityAcceleration, 0);
+		// 落下速度制限
 		velocity_.y = std::max(velocity_.y, -kLimitFallSpeed);
 	}
 }
-void Player::SetUpPos() {
-	// worldTransform_.translation_ = mapChip.GetPlayerPos();
-	pos_ = mapChipData_->GetObjectPos(MapChipID::PlayerStart);
-	worldTransform_.translation_ = pos_;
 
-	velocity_ = Vector3Zero();
 
-	onGround_ = true;
-}
 
-void Player::UpdateOnGround(const CollisionMapInfo& info) {
-	//
-	if (onGround_) {
-		// 　ジャンプ開始
-		if (velocity_.y > 0.0f) {
-			onGround_ = false;
-		} else {
-			Vector3 newPos = worldTransform_.translation_ + info.move;
-			bool ground = false;
-
-			// 右下点の判定
-			Vector3 rightBottomPos = CornerPos(newPos, Corner::kRightBottom);
-			if (mapChipData_->GetMapChipID(rightBottomPos + Vector3(0, -kGroundSearchHeight, 0)) == MapChipID::kBlock) {
-				ground = true;
-			}
-			// 左下点の判定
-			Vector3 leftBottomPos = CornerPos(newPos, Corner::kLeftBottom);
-			if (mapChipData_->GetMapChipID(leftBottomPos + Vector3(0, -kGroundSearchHeight, 0)) == MapChipID::kBlock) {
-				ground = true;
-			}
-
-			if (!ground) {
-				onGround_ = false;
-			}
-		}
-	} else {
-		if (info.landing) {
-			velocity_.x *= (1.0f - kAttenuationLanding);
-			velocity_.y = 0.0f;
-			onGround_ = true;
-		}
-	}
-}
 //
 KamataEngine::Vector3 Player::CornerPos(const KamataEngine::Vector3& center, Corner corner) {
 	Vector3 offsetTable[] = {
@@ -211,67 +185,68 @@ void Player::CheckMapCollision(CollisionMapInfo& info) {
 }
 
 void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
-	if (info.move.y <= 0.0f) {
+	if (info.move.y <= 0) {
 		return;
 	}
 
-	Vector3 nextPos = worldTransform_.translation_ + info.move;
+	std::array<Vector3, kNumCorner> NewPos;
+
+	for (uint32_t i = 0; i < NewPos.size(); ++i) {
+		NewPos[i] = CornerPos(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+	}
+
+	MapChipID mapChipID_;
 	bool hit = false;
+
 	MapChip::MapChipIndex indexSet;
-	MapChip::Rect rect{};
-
-	// 右上と左上の角の位置
-	Vector3 rightTopCorner = CornerPos(nextPos, Corner::kRightTop);
-	Vector3 leftTopCorner = CornerPos(nextPos, Corner::kLeftTop);
-
-	// 右上点の判定
-	indexSet = mapChipData_->GetMapChipIndex(rightTopCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(NewPos[kLeftTop]);
+	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
+	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(rightTopCorner);
 	}
-	// 左上点の判定
-	indexSet = mapChipData_->GetMapChipIndex(leftTopCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(NewPos[kRightTop]);
+	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
+	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(leftTopCorner);
 	}
-
 	if (hit) {
-		info.move.y = std::max(0.0f, (rect.top - (worldTransform_.translation_.y + size_.y / 2.0f + kBlank)));
+		indexSet = mapChipData_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(0, +size_.y / 2.0f, 0));
+		MapChip::Rect rect = mapChipData_->GetRectByIndex(indexSet);
+		info.move.y = std::max(0.0f, rect.bottom - worldTransform_.translation_.y - (size_.y / 2.0f + kBlank));
+		// 天井に当たったことを記録する
 		info.ceiling = true;
 	}
 }
 
 void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
-	//
 	if (info.move.y >= 0) {
 		return;
 	}
-	Vector3 nextPos = worldTransform_.translation_ + info.move;
+
+	std::array<Vector3, kNumCorner> newPos;
+
+	for (uint32_t i = 0; i < newPos.size(); ++i) {
+		newPos[i] = CornerPos(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+	}
+
+	MapChipID MapChipID;
 	bool hit = false;
 	MapChip::MapChipIndex indexSet;
-	MapChip::Rect rect{};
-
-	// 右下と左下の角の位置
-	Vector3 rightBottomCorner = CornerPos(nextPos, Corner::kRightBottom);
-	Vector3 leftBottomCorner = CornerPos(nextPos, Corner::kLeftBottom);
-
-	// 右下点の判定
-	indexSet = mapChipData_->GetMapChipIndex(rightBottomCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kLeftBottom]);
+	MapChipID = mapChipData_->GetMapChipID(indexSet);
+	if (MapChipID == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(rightBottomCorner);
 	}
-	// 左下点の判定
-	indexSet = mapChipData_->GetMapChipIndex(leftBottomCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kRightBottom]);
+	MapChipID = mapChipData_->GetMapChipID(indexSet);
+	if (MapChipID == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(leftBottomCorner);
 	}
 
 	if (hit) {
-		info.move.y = std::min(0.0f, rect.bottom - (worldTransform_.translation_.y - size_.y / 2.0f - kBlank));
+		indexSet = mapChipData_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(0, +size_.y / 2.0f, 0));
+		MapChip::Rect rect = mapChipData_->GetRectByIndex(indexSet);
+		info.move.y = std::max(0.0f, rect.bottom - worldTransform_.translation_.y - (size_.y / 2.0f + kBlank));
 		info.landing = true;
 	}
 }
@@ -281,31 +256,31 @@ void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 		return;
 	}
 
-	Vector3 nextPos = worldTransform_.translation_ + info.move;
+	std::array<Vector3, kNumCorner> newPos;
+
+	for (uint32_t i = 0; i < newPos.size(); ++i) {
+		newPos[i] = CornerPos(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+	}
+
+	MapChipID mapChipID_;
 	bool hit = false;
 	MapChip::MapChipIndex indexSet;
-	MapChip::Rect rect{};
-
-	// 右上と右下の角の位置
-	Vector3 rightTopCorner = CornerPos(nextPos, Corner::kRightTop);
-	Vector3 rightBottomCorner = CornerPos(nextPos, Corner::kRightBottom);
-
-	// 右上点の判定
-	indexSet = mapChipData_->GetMapChipIndex(rightTopCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kRightTop]);
+	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
+	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(rightTopCorner);
 	}
-	// 右下点の判定
-	indexSet = mapChipData_->GetMapChipIndex(rightBottomCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kRightBottom]);
+	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
+	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(rightBottomCorner);
 	}
 
 	if (hit) {
-		info.move.x = std::min(0.0f, rect.right - (worldTransform_.translation_.x + size_.x / 2.0f + kBlank));
-		info.hitWall = true;
+		indexSet = mapChipData_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(+size_.x / 2.0f, 0, 0));
+		MapChip::Rect rect = mapChipData_->GetRectByIndex(indexSet);
+		info.move.x = std::max(0.0f, rect.right - worldTransform_.translation_.x - (size_.x / 2.0f + kBlank));
+		info.ceiling = true;
 	}
 }
 
@@ -314,30 +289,74 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 		return;
 	}
 
-	Vector3 nextPos = worldTransform_.translation_ + info.move;
+	std::array<Vector3, kNumCorner> newPos;
+
+	for (uint32_t i = 0; i < newPos.size(); ++i) {
+		newPos[i] = CornerPos(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+	}
+
+	MapChipID mapChipID_;
 	bool hit = false;
 	MapChip::MapChipIndex indexSet;
-	MapChip::Rect rect{};
-
-	// 左上と左下の角の位置
-	Vector3 leftTopCorner = CornerPos(nextPos, Corner::kLeftTop);
-	Vector3 leftBottomCorner = CornerPos(nextPos, Corner::kLeftBottom);
-
-	// 左上点の判定
-	indexSet = mapChipData_->GetMapChipIndex(leftTopCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kLeftTop]);
+	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
+	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(leftTopCorner);
 	}
-	// 左下点の判定
-	indexSet = mapChipData_->GetMapChipIndex(leftBottomCorner);
-	if (mapChipData_->GetMapChipID(indexSet) == MapChipID::kBlock) {
+	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kLeftBottom]);
+	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
+	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
-		rect = mapChipData_->GetMapRect(leftBottomCorner);
 	}
 
 	if (hit) {
-		info.move.x = std::min(0.0f, rect.left - (worldTransform_.translation_.x - size_.x / 2.0f - kBlank));
-		info.hitWall = true;
+		indexSet = mapChipData_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(+size_.x / 2.0f, 0, 0));
+		MapChip::Rect rect = mapChipData_->GetRectByIndex(indexSet);
+		info.move.x = std::max(0.0f, rect.right - worldTransform_.translation_.x - (size_.x / 2.0f + kBlank));
+		info.ceiling = true;
+	}
+}
+
+void Player::CheckMapCollisionHit(CollisionMapInfo& info) { worldTransform_.translation_ += info.move; }
+
+void Player::CellingSwitch(CollisionMapInfo& info) {
+	if (onGround_) {
+		if (velocity_.y > 0.0f) {
+			onGround_ = false;
+		} else {
+			std::array<Vector3, kNumCorner> newPos;
+
+			for (uint32_t i = 0; i < newPos.size(); ++i) {
+				newPos[i] = CornerPos(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+			}
+
+			MapChipID MapChipID;
+			bool hit = false;
+			MapChip::MapChipIndex indexSet;
+			indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kLeftBottom] + Vector3(0, -kAttennuationShift, 0));
+			MapChipID = mapChipData_->GetMapChipID(indexSet);
+			if (MapChipID == MapChipID::kBlock) {
+				hit = true;
+			}
+			indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kRightBottom] + Vector3(0, -kAttennuationShift, 0));
+			MapChipID = mapChipData_->GetMapChipID(indexSet);
+			if (MapChipID == MapChipID::kBlock) {
+				hit = true;
+			}
+
+			if (!hit) {
+				onGround_ = false;
+			}
+		}
+	} else {
+		if (info.landing) {
+			onGround_ = true;
+
+			velocity_.x *= (1.0f - kAttennuationLanding);
+
+			velocity_.y = 0.0f;
+
+
+		}
 	}
 }

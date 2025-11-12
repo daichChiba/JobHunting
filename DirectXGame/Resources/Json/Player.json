@@ -12,18 +12,20 @@
       "z": 1.0
     },
     "size": {
-      "x": 0.8,
-      "y": 0.8,
+      "x": 0.5,
+      "y": 0.5,
       "z": 0.0
     },
-    "speedX": 0.1,
-    "kBlank": 0.1,
+    "kAcceleration": 0.1,
+    "kBlank": 0.8,
     "kDeceleration": 0.2,
-    "kLimitXSpeed": 0.5,
-    "kJumpAcceleration": 0.5,
+    "kLimitXSpeed": 0.1,
+    "kJumpAcceleration": 0.6,
     "kGroundSearchHeight": 0.06,
-    "kAttenuationLanding": 0.06,
-    "kGravityAcceleration": 0.98,
-    "kLimitFallSpeed": 0.8
+    "kAttenuation": 0.01,
+    "kAttennuationShift": 0.5,
+    "kAttennuationLanding": 0.5,
+    "kGravityAcceleration": 0.05,
+    "kLimitFallSpeed": 0.5
   }
 }

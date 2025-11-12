@@ -36,6 +36,7 @@ public:
 	void CameraNextPos();
 	void SetCameraPos();
 
+
 private:
 	KamataEngine::Camera* camera_;
 
@@ -44,21 +45,19 @@ private:
 
 	FileJson::FileAccessor* fileAccessor_ = nullptr;
 
-	//float count = 0.0f;
-	//const float kCount = 60.0f;
+	// float count = 0.0f;
+	// const float kCount = 60.0f;
 
 	KamataEngine::Vector3 startPos_;
 	KamataEngine::Vector3 targetPos_;
 	//
 	int camera_posType;
 
-	//float target2camera;
+	// float target2camera;
 	static inline const int kMoveTimer = 15;
 	float currentTime; // 現在の経過時間
 	const int cameraTypeMax = 3;
 	bool isMove;
-
-
 
 	// KamataEngine::Vector3
 };

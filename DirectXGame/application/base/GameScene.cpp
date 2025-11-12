@@ -1,6 +1,8 @@
 #include "GameScene.h"
+#include "ect/MathUtilityForText.h"
 
 using namespace KamataEngine;
+using namespace MathUtility;
 using namespace FileJson;
 GameScene::GameScene() {}
 
@@ -10,7 +12,8 @@ void GameScene::Initialize() {
 	camera_ = new GameCamera();
 	camera_->Initialize();
 	mapChip_.Initialize(filePath, erea, stage);
-	player_.Initialize(mapChip_);
+	player_.Initialize(&mapChip_);
+	goal_.Initialize(&mapChip_);
 
 	fileAccessor_ = mapChip_.GetFileAccessor();
 
@@ -34,9 +37,13 @@ void GameScene::Update() {
 
 	camera_->Update();
 	player_.Update();
-	//player_.SetMapChip(&mapChip_);
-
+	// player_.SetMapChip(&mapChip_);
+	goal_.Update();
 	mapChip_.Update();
+
+	if (player_.GetIsGoal()) {
+		isFadeStart = true;
+	}
 
 	if (isStart) {
 		startCount_--;
@@ -66,12 +73,16 @@ void GameScene::Update() {
 			if (!isFadeStart) {
 				fade_->Start(FadeID::FadeOut, 1);
 			}
-			isFadeStart = false;
+			// isFadeStart = false;
 		}
 		if (isFadeStart) {
 			if (fade_->IsFinished()) {
 				isFinish = true;
-				nextScene_ = SceneID::Title;
+				if (player_.GetIsGoal()) {
+					nextScene_ = SceneID::Clear;
+				} else {
+					nextScene_ = SceneID::Title;
+				}
 			}
 		}
 	}
@@ -80,6 +91,7 @@ void GameScene::Update() {
 	//	isFinish = true;
 	//	nextScene_ = SceneID::Title;
 	// }
+	CheckAllCollisions(&player_);
 
 	fade_->Update();
 }
@@ -109,6 +121,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_.Draw(*camera_->GetCamera());
+	goal_.Draw(*camera_->GetCamera());
 
 	mapChip_.MapDraw(*camera_->GetCamera());
 	// 3Dオブジェクト描画後処理
@@ -137,6 +150,7 @@ void GameScene::Draw() {
 
 void GameScene::Delete() {
 	player_.Delete();
+	goal_.Delete();
 	delete fade_;
 }
 
@@ -161,8 +175,18 @@ void GameScene::DrawImGui() {
 	camera_->ImGuiDraw();
 	mapChip_.DrawImGui();
 	player_.DrawImGui();
+	goal_.DrawImGui();
 
 #endif // _DEBUG
 }
 
 SceneID GameScene::NextScene() const { return nextScene_; }
+
+void GameScene::CheckAllCollisions(Player* player) {
+	//
+	AABB playerAABB = player->GetAABB();
+
+	if (IsCollision(playerAABB, goal_.GetAABB())) {
+		player->OnCollision(&goal_);
+	}
+}

@@ -92,7 +92,20 @@ public:
 	/// </summary>
 	/// <returns>MapChipの範囲(大きさ)</returns>
 	IntVector2 GetMaxMapSize();
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="index_"></param>
+	/// <returns></returns>
+	Rect GetRectByIndex(MapChipIndex index_);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="index_"></param>
+	/// <returns></returns>
+	KamataEngine::Vector3 GetMapChipPosByIndex(MapChipIndex index_);
 
+	MapChipIndex GetMapChipIndexSetByPosition(const KamataEngine::Vector3 pos);
 
 	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
 

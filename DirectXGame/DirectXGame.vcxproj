@@ -154,6 +154,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\Scene\scenes\ClearScene.cpp" />
     <ClCompile Include="engine\ect\Easings.cpp" />
     <ClCompile Include="engine\Scene\scenes\DemoScene.cpp" />
     <ClCompile Include="engine\ect\InputEX.cpp" />
@@ -166,10 +167,12 @@
     <ClCompile Include="application\base\GameScene.cpp" />
     <ClCompile Include="engine\Scene\fade\Fade.cpp" />
     <ClCompile Include="engine\Game\Camera\GameCamera.cpp" />
+    <ClCompile Include="engine\Game\Object\Goal\Goal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\Scene\scenes\ResetScene.cpp" />
     <ClCompile Include="engine\Scene\Scene.cpp" />
     <ClCompile Include="engine\Scene\scenes\TitleScene.cpp" />
+    <ClCompile Include="engine\ect\MathUtilityForText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -273,6 +276,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\Scene\scenes\ClearScene.h" />
     <ClInclude Include="engine\ect\Easings.h" />
     <ClInclude Include="engine\ect\IntVector2.h" />
     <ClInclude Include="engine\Scene\scenes\DemoScene.h" />
@@ -289,6 +293,8 @@
     <ClInclude Include="engine\Scene\fade\FadeID.h" />
     <ClInclude Include="engine\Scene\fade\Fade.h" />
     <ClInclude Include="engine\Game\Camera\GameCamera.h" />
+    <ClInclude Include="engine\Game\Object\Goal\Goal.h" />
+    <ClInclude Include="engine\ect\MathUtilityForText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

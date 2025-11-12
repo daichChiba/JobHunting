@@ -73,7 +73,10 @@ MapChipID MapChip::GetMapChipID(const KamataEngine::Vector3 pos) {
 }
 
 MapChipID MapChip::GetMapChipID(const MapChipIndex& index) {
-	//
+	// 境界チェックを追加して範囲外なら kBlank を返す
+	if (index.y < 0 || index.y >= static_cast<int>(mapChipData_.data.size()) || index.x < 0 || index.x >= static_cast<int>(mapChipData_.data[0].size())) {
+		return MapChipID::kBlank;
+	}
 	return mapChipData_.data[index.y][index.x];
 }
 
@@ -92,8 +95,6 @@ MapChip::MapChipIndex MapChip::GetMapChipIndex(const Vector3& pos) {
 	MapChipIndex index;
 	index.x = static_cast<int>(pos.x / BlockSize.x);
 	index.y = GetMaxMapSize().y - 1 - static_cast<int>(pos.y / BlockSize.y);
-	index.x = std::clamp<int>(index.x, 0, static_cast<int>(mapChipData_.data[0].size()) - 1);
-	index.y = std::clamp<int>(index.y, 0, static_cast<int>(mapChipData_.data.size()) - 1);
 	return index;
 }
 
@@ -102,6 +103,29 @@ IntVector2 MapChip::GetMaxMapSize() {
 		static_cast<int>(mapChipData_.data[0].size()),
 		static_cast<int>(mapChipData_.data.size())
 	);
+}
+
+MapChip::Rect MapChip::GetRectByIndex(MapChipIndex index_) {
+	Vector3 center = GetMapChipPosByIndex(index_);
+	Rect rect;
+	rect.left = center.x - BlockSize.x / 2.0f;
+	rect.right = center.x + BlockSize.x / 2.0f;
+	rect.bottom = center.y - BlockSize.y / 2.0f;
+	rect.top = center.y + BlockSize.y / 2.0f;
+
+	return rect;
+}
+
+KamataEngine::Vector3 MapChip::GetMapChipPosByIndex(MapChipIndex index_) { return Vector3(BlockSize.x * index_.x, BlockSize.y * (mapChipData_.data.size() - 1 - index_.y), 0); }
+
+MapChip::MapChipIndex MapChip::GetMapChipIndexSetByPosition(const KamataEngine::Vector3 pos) {
+	MapChipIndex indexSet = {};
+
+	indexSet.x = static_cast<uint32_t>((pos.x + BlockSize.x / 2) / BlockSize.x);
+
+	indexSet.y = GetMaxMapSize().y - 1 - static_cast<uint32_t>((pos.y + BlockSize.y / 2) / BlockSize.y);
+
+	return indexSet;
 }
 
 void MapChip::MapCreate() {
@@ -120,7 +144,8 @@ void MapChip::MapCreate() {
 			} else {
 				mapChipData_.data[y][x] = static_cast<MapChipID>(csvData_[y][x]);
 			}
-			Vector3 BlockPos = {1.0f * x, 1.0f * (csvData_.size() - 1 - y), 0};
+			// BlockSize を使ってワールド座標を決定（以前は 1.0f 固定だった）
+			Vector3 BlockPos = {BlockSize.x * static_cast<float>(x), BlockSize.y * static_cast<float>(csvData_.size() - 1 - y), 0.0f};
 
 			worldTransform_[y][x]->translation_ = BlockPos;
 			worldTransform_[y][x]->Initialize();

@@ -1,6 +1,7 @@
 #pragma once
 #include "Game/Camera/GameCamera.h"
 #include "Game/MapChip/MapChip.h"
+#include "Game/Object/Goal/Goal.h"
 #include "Game/Player/Player.h"
 #include "Scene/Scene.h"
 
@@ -37,8 +38,12 @@ public:
 	SceneID NextScene() const override;
 
 private:
+	void CheckAllCollisions(Player* player);
+
+private:
 	Player player_;
 	SceneID nextScene_;
+	Goal goal_;
 
 	MapChip mapChip_;
 	GameCamera* camera_;

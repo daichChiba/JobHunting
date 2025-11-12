@@ -76,6 +76,18 @@
     <Filter Include="ヘッダー ファイル\ect">
       <UniqueIdentifier>{ec010d50-cdbd-426a-8af4-5d8374f01278}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Object">
+      <UniqueIdentifier>{69b93e7e-0790-4a69-8f1c-359756fd42ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object">
+      <UniqueIdentifier>{42b3fadb-f758-4908-90e4-94f4e5a0afd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\Goal">
+      <UniqueIdentifier>{f4c6236f-31e9-49ba-9c64-fffbafeeb01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object\Goal">
+      <UniqueIdentifier>{c2615873-0507-47bc-a5fa-6c89f53bc4a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -125,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="engine\ect\Easings.cpp">
       <Filter>ソース ファイル\ect</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Object\Goal\Goal.cpp">
+      <Filter>ソース ファイル\Game\Object\Goal</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\ect\MathUtilityForText.cpp">
+      <Filter>ソース ファイル\ect</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Scene\scenes\ClearScene.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +257,15 @@
     </ClInclude>
     <ClInclude Include="engine\ect\IntVector2.h">
       <Filter>ヘッダー ファイル\ect</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Object\Goal\Goal.h">
+      <Filter>ヘッダー ファイル\Game\Object\Goal</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\ect\MathUtilityForText.h">
+      <Filter>ヘッダー ファイル\ect</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Scene\scenes\ClearScene.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,37 +1,33 @@
 #pragma once
 #include "KamataEngine.h"
+#include "ect/AABB.h"
 #include "engine/Game/LoadJsonFile/FileJson.h"
 class MapChip;
-
-enum class LRDirection {
-	kRight,
-	kLeft,
-};
-
-struct CollisionMapInfo {
-	bool ceiling = false;
-	bool landing = false;
-	bool hitWall = false;
-	KamataEngine::Vector3 move;
-};
-enum class MoveKeys { Up, Down, Left, Right, Num };
-
-struct Moves {
-	MoveKeys moveKey_;
-	bool isMove = false;
-};
-
-enum class Corner {
-	kRightBottom,
-	kLeftBottom,
-	kRightTop,
-	kLeftTop,
-
-	kNumCorner
-};
+class Goal;
 
 class Player {
 public:
+	enum class LRDirection {
+		kRight,
+		kLeft,
+	};
+
+	struct CollisionMapInfo {
+		bool ceiling = false;
+		bool landing = false;
+		bool hitWall = false;
+		KamataEngine::Vector3 move;
+	};
+
+	enum Corner {
+		kRightBottom,
+		kLeftBottom,
+		kRightTop,
+		kLeftTop,
+
+		kNumCorner
+	};
+
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -43,7 +39,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(MapChip mapchip);
+	void Initialize(MapChip* mapchip);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -66,27 +62,22 @@ public:
 	const KamataEngine::WorldTransform& worldTransform() const { return worldTransform_; }
 	const KamataEngine::Vector3& GetVelocity() const { return velocity_; }
 
-	void SetMapChip(MapChip* mapchip_) { mapChipData_.reset(mapchip_); }
+	void SetMapChip(MapChip* mapchip_) { mapChipData_ = mapchip_; }
+
+	KamataEngine::Vector3 GetWorldPos();
+
+	AABB GetAABB();
+
+	void OnCollision(const Goal* goal_);
+
+	bool GetIsGoal() { return isGoal_; }
 
 private:
 	/// <summary>
 	/// 移動処理
 	/// </summary>
 	void InputMove();
-	/// <summary>
-	///
-	/// </summary>
-	void UpdateVelocity();
-	/// <summary>
-	///
-	/// </summary>
-	/// <param name="mapChip">mapChip</param>
-	void SetUpPos();
-	/// <summary>
-	///
-	/// </summary>
-	/// <param name="info"></param>
-	void UpdateOnGround(const CollisionMapInfo& info);
+
 	/// <summary>
 	///
 	/// </summary>
@@ -101,7 +92,10 @@ private:
 	void CheckMapCollisionRight(CollisionMapInfo& info);
 	void CheckMapCollisionLeft(CollisionMapInfo& info);
 
-	//std::unique_ptr<MapChip> Set(new MapChip());
+	void CheckMapCollisionHit(CollisionMapInfo& info);
+	void CellingSwitch(CollisionMapInfo& info);
+
+	// std::unique_ptr<MapChip> Set(new MapChip());
 
 private:
 	const std::string filePath = "Resources/Json/Player.json";
@@ -113,17 +107,16 @@ private:
 	KamataEngine::Vector3 size_;
 	// 当たり判定の余白
 	float kBlank;
-	float speedX;
-
-	float kDeceleration; // 横移動の減速速度
-	float kLimitXSpeed; // 横移動の最大速度
-	float kJumpAcceleration;//ジャンプ力
-
-	float kGroundSearchHeight;
-	float kAttenuationLanding;
+	float kAcceleration;
+	float kLimitXSpeed;
+	float kAttenuation;
+	float kJumpAcceleration;
 	float kGravityAcceleration;
 	float kLimitFallSpeed;
+	float kAttennuationShift;
+	float kAttennuationLanding;
 
+	// 速度
 	KamataEngine::Vector3 velocity_;
 
 	bool isMove = true;
@@ -133,9 +126,9 @@ private:
 
 	CollisionMapInfo info_;
 
-	std::unique_ptr<MapChip> mapChipData_;
+	MapChip* mapChipData_;
 	LRDirection lrDirection_ = LRDirection::kRight;
 
-	bool onGround_;
-	Moves moveKey;
+	bool onGround_ = true;
+	bool isGoal_ = false;
 };
