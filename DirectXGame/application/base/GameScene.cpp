@@ -43,7 +43,7 @@ void GameScene::Update() {
 	mapChip_.Update();
 
 	if (player_.GetIsGoal()) {
-		isFadeStart = true;
+		//isFadeStart = true;
 	}
 
 	if (isStart) {

@@ -39,6 +39,8 @@ public:
 
 	void SetPlayer(Player* player) { player_ = player; }
 
+private:
+	void SetClearCamera();
 
 private:
 	KamataEngine::Camera* camera_;

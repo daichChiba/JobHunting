@@ -4,7 +4,6 @@
 #include "Game/Object/Goal/Goal.h"
 #include <algorithm>
 
-
 using namespace KamataEngine;
 using namespace FileJson;
 using namespace MathUtility;
@@ -46,16 +45,18 @@ void Player::Initialize(MapChip* mapchip) {
 }
 void Player::Update() {
 	if (isMove) {
-		InputMove();
+		if (!isGoal_) {
+			InputMove();
 
-		CollisionMapInfo collisionMapInfo;
+			CollisionMapInfo collisionMapInfo;
 
-		collisionMapInfo.move = velocity_;
+			collisionMapInfo.move = velocity_;
 
-		CheckMapCollision(collisionMapInfo);
+			CheckMapCollision(collisionMapInfo);
 
-		CheckMapCollisionHit(collisionMapInfo);
-		CellingSwitch(collisionMapInfo);
+			CheckMapCollisionHit(collisionMapInfo);
+			CellingSwitch(collisionMapInfo);
+		}
 	}
 
 	worldTransform_.UpdateMatrix();
@@ -110,7 +111,7 @@ AABB Player::GetAABB() {
 }
 
 void Player::OnCollision(const Goal* goal_) {
-	(void) goal_;
+	(void)goal_;
 
 	isGoal_ = true;
 }
@@ -162,8 +163,6 @@ void Player::InputMove() {
 		velocity_.y = std::max(velocity_.y, -kLimitFallSpeed);
 	}
 }
-
-
 
 //
 KamataEngine::Vector3 Player::CornerPos(const KamataEngine::Vector3& center, Corner corner) {
@@ -355,8 +354,6 @@ void Player::CellingSwitch(CollisionMapInfo& info) {
 			velocity_.x *= (1.0f - kAttennuationLanding);
 
 			velocity_.y = 0.0f;
-
-
 		}
 	}
 }
