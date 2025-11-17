@@ -10,7 +10,7 @@ public:
 
 	void Initilize(MapChip* mapchip);
 	void UpDate();
-	void Draw(KamataEngine::Camera* camera);
+	//void Draw(KamataEngine::Camera* camera);
 	void DrawImGui();
 	void Delete();
 

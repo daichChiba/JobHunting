@@ -11,6 +11,8 @@ void Scene::SetUp() {
 	fade_->Start(FadeID::FadeIn, 1);
 	isStart = true;
 
+	isCleck = false;
+
 	Initialize();
 }
 

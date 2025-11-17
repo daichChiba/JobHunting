@@ -72,6 +72,8 @@ public:
 
 	bool GetIsGoal() { return isGoal_; }
 
+	KamataEngine::Vector3 GetPlayerPos() { return worldTransform_.translation_; }
+
 private:
 	/// <summary>
 	/// 移動処理

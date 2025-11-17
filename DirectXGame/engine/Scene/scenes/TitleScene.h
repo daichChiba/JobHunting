@@ -32,7 +32,7 @@ private:
 	KamataEngine::Vector2 stopTitelPos;
 
 	FileJson::FileAccessor* fileAccessor_;
-	//std::string file = "../../Resources/Json/Titel.json";
+	// std::string file = "../../Resources/Json/Titel.json";
 	std::string fileMain = "title";
 
 	bool isJump = false;
@@ -51,8 +51,8 @@ private:
 	const int kResetCount = 0;
 	float resetSpeed;
 
+
 	float speed;
 
 	float fadeTime_ = 1.0f;
-
 };

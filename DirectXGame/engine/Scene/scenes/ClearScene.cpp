@@ -20,8 +20,11 @@ void ClearScene::Initialize() {
 
 void ClearScene::Update() {
 	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
-		fade_->Start(FadeID::FadeOut, 1);
-		isStart = false;
+		if (!isCleck) {
+			isCleck = true;
+			fade_->Start(FadeID::FadeOut, 1);
+			isStart = false;
+		}
 	}
 	buttonCount++;
 

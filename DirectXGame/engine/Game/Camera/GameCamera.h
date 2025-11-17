@@ -1,6 +1,7 @@
 #pragma once
 #include "../LoadJsonFile/FileJson.h"
 #include <KamataEngine.h>
+class Player;
 class GameCamera {
 public:
 	/// <summary>
@@ -36,9 +37,13 @@ public:
 	void CameraNextPos();
 	void SetCameraPos();
 
+	void SetPlayer(Player* player) { player_ = player; }
+
 
 private:
 	KamataEngine::Camera* camera_;
+
+	KamataEngine::Vector3 startCameraPos_;
 
 	const std::string filePath = "Resources/Json/GameCamera.json";
 	std::string fileMain = "GameCamera";
@@ -60,4 +65,6 @@ private:
 	bool isMove;
 
 	// KamataEngine::Vector3
+
+	Player* player_;
 };

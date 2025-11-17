@@ -1,5 +1,7 @@
 #include "GameCamera.h"
 #include "engine/ect/Easings.h"
+#include "engine/Game/Player/Player.h"
+
 using namespace KamataEngine;
 using namespace FileJson;
 
@@ -12,15 +14,21 @@ GameCamera::~GameCamera() {
 }
 
 void GameCamera::Initialize() {
+
+	
+
 	isMove = false;
 	fileAccessor_ = new FileAccessor(filePath);
 	camera_posType = fileAccessor_->Read(fileMain, "camera_posType", int());
 	targetPos_ = fileAccessor_->ReadVector3(fileMain, "Pos1", Vector3());
+	startCameraPos_ = Vector3(player_->GetPlayerPos().x,player_->GetPlayerPos().y,player_->GetPlayerPos().z-6.0f);
 	// 初期化
 	camera_ = new Camera();
 	camera_->Initialize();
-	camera_->translation_ = fileAccessor_->ReadVector3(fileMain, "Pos0", Vector3());
+	camera_->translation_ = startCameraPos_ /*fileAccessor_->ReadVector3(fileMain, "Pos0", Vector3())*/;
 	camera_->farZ = fileAccessor_->Read(fileMain, "farZ", float());
+	fileAccessor_->WriteVector3(fileMain, "Pos0", startCameraPos_);
+	fileAccessor_->Save();
 }
 void GameCamera::Update() {
 	if (isMove) {
