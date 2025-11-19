@@ -23,6 +23,8 @@ void Player::Initialize(MapChip* mapchip) {
 	model = Model::CreateFromOBJ("Player", true);
 	model_ = model;
 
+
+
 	worldTransform_.Initialize();
 
 	// worldTransform_.translation_ = pos_;
@@ -39,6 +41,8 @@ void Player::Initialize(MapChip* mapchip) {
 	kBlank = fileAccessor_->Read(fileMain, "kBlank", float());
 	kAttennuationShift = fileAccessor_->Read(fileMain, "kAttennuationShift", float());
 	kAttennuationLanding = fileAccessor_->Read(fileMain, "kAttennuationLanding", float());
+	kGoalRotatoMove = fileAccessor_->Read(fileMain, "kGoalRotatoMove", float());
+	goalRotationLimit = fileAccessor_->ReadVector3(fileMain, "goalRotationLimit", Vector3());
 
 	// 後で消す
 	worldTransform_.rotation_ = fileAccessor_->ReadVector3(fileMain, "rotation", Vector3());
@@ -47,16 +51,19 @@ void Player::Update() {
 	if (isMove) {
 		if (!isGoal_) {
 			InputMove();
-
-			CollisionMapInfo collisionMapInfo;
-
-			collisionMapInfo.move = velocity_;
-
-			CheckMapCollision(collisionMapInfo);
-
-			CheckMapCollisionHit(collisionMapInfo);
-			CellingSwitch(collisionMapInfo);
 		}
+	}
+	CollisionMapInfo collisionMapInfo;
+
+	collisionMapInfo.move = velocity_;
+
+	CheckMapCollision(collisionMapInfo);
+
+	CheckMapCollisionHit(collisionMapInfo);
+	CellingSwitch(collisionMapInfo);
+
+	if (isGoal_) {
+		GoalPlayerMove();
 	}
 
 	worldTransform_.UpdateMatrix();
@@ -76,13 +83,19 @@ void Player::DrawImGui() {
 	ImGui::Checkbox("collisionMapInfo.hitwall", &info_.hitWall);
 	ImGui::Checkbox("onGround", &onGround_);
 	ImGui::Checkbox("isGoal", &isGoal_);
+	//ImGui::Checkbox("goalJump_", &goalJump_);
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("size", &size_.x);
 	ImGui::DragFloat3("velocity", &velocity_.x);
 	ImGui::DragFloat("kBlank", &kBlank);
+	ImGui::DragFloat("kGoalRotatoMove", &kGoalRotatoMove);
+	ImGui::DragFloat3("goalRotationLimit", &goalRotationLimit.x);
+	ImGui::DragFloat3("rotate", &worldTransform_.rotation_.x);
 	if (ImGui::Button("save")) {
 		fileAccessor_->WriteVector3(fileMain, "size", size_);
 		fileAccessor_->Write(fileMain, "kBlank", kBlank);
+		fileAccessor_->Write(fileMain, "kGoalRotatoMove", kGoalRotatoMove);
+		fileAccessor_->WriteVector3(fileMain, "goalRotationLimit", goalRotationLimit);
 		fileAccessor_->Save();
 	}
 	ImGui::End();
@@ -113,7 +126,9 @@ AABB Player::GetAABB() {
 void Player::OnCollision(const Goal* goal_) {
 	(void)goal_;
 
-	isGoal_ = true;
+	if (onGround_) {
+		isGoal_ = true;
+	}
 }
 
 void Player::InputMove() {
@@ -355,5 +370,14 @@ void Player::CellingSwitch(CollisionMapInfo& info) {
 
 			velocity_.y = 0.0f;
 		}
+	}
+}
+
+void Player::GoalPlayerMove() {
+	//
+	if (worldTransform_.rotation_.y <= goalRotationLimit.y) {
+		worldTransform_.rotation_.y += kGoalRotatoMove;
+	} else {
+		isRotateGoal = true;
 	}
 }

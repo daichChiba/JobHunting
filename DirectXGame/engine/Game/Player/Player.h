@@ -71,8 +71,13 @@ public:
 	void OnCollision(const Goal* goal_);
 
 	bool GetIsGoal() { return isGoal_; }
+	bool GetIsClear() { return isClear_; }
+
+	bool GetOnGround() { return onGround_; }
 
 	KamataEngine::Vector3 GetPlayerPos() { return worldTransform_.translation_; }
+
+	bool GetIsRotateGoal() { return isRotateGoal; }
 
 private:
 	/// <summary>
@@ -99,6 +104,8 @@ private:
 
 	// std::unique_ptr<MapChip> Set(new MapChip());
 
+	void GoalPlayerMove();
+
 private:
 	const std::string filePath = "Resources/Json/Player.json";
 	std::string fileMain = "Player";
@@ -117,9 +124,12 @@ private:
 	float kLimitFallSpeed;
 	float kAttennuationShift;
 	float kAttennuationLanding;
+	float kGoalRotatoMove;
 
 	// 速度
 	KamataEngine::Vector3 velocity_;
+
+	KamataEngine::Vector3 goalRotationLimit;
 
 	bool isMove = true;
 
@@ -133,4 +143,7 @@ private:
 
 	bool onGround_ = true;
 	bool isGoal_ = false;
+	bool isClear_ = false;
+	bool isRotateGoal = false;
+
 };

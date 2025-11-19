@@ -42,8 +42,8 @@ void GameScene::Update() {
 	goal_.Update();
 	mapChip_.Update();
 
-	if (player_.GetIsGoal()) {
-		//isFadeStart = true;
+	if (player_.GetIsRotateGoal()) {
+		isFadeStart = true;
 	}
 
 	if (isStart) {
