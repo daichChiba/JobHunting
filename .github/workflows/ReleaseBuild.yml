@@ -2,7 +2,7 @@ name: ReleaseBuild
 on: 
  push:
   branches:
-   - HitMap
+   - '**'
 
 env:
  # リポジトリの√ディレクトリを基点としたソリューションファイルの基点
