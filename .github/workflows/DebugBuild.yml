@@ -6,7 +6,7 @@ on:
 
 env:
  # リポジトリの√ディレクトリを基点としたソリューションファイルの基点
- SOLUTION_FILE_PATH: DirectXGame/project/DirectXGame.sln
+ SOLUTION_FILE_PATH: DirectXGame/DirectXGame.sln
  # Visual Studio の構成(Debug / Release)
  CONFIGURATION: Debug
  
