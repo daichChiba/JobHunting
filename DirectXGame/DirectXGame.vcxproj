@@ -173,6 +173,7 @@
     <ClCompile Include="engine\Scene\Scene.cpp" />
     <ClCompile Include="engine\Scene\scenes\TitleScene.cpp" />
     <ClCompile Include="engine\ect\MathUtilityForText.cpp" />
+    <ClCompile Include="engine\Game\Manager\ObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -295,6 +296,7 @@
     <ClInclude Include="engine\Game\Camera\GameCamera.h" />
     <ClInclude Include="engine\Game\Object\Goal\Goal.h" />
     <ClInclude Include="engine\ect\MathUtilityForText.h" />
+    <ClInclude Include="engine\Game\Manager\ObjectManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

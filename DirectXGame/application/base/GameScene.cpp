@@ -9,11 +9,12 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {}
 
 void GameScene::Initialize() {
-	camera_ = new GameCamera();
-	camera_->Initialize();
 	mapChip_.Initialize(filePath, erea, stage);
 	player_.Initialize(&mapChip_);
 	goal_.Initialize(&mapChip_);
+	camera_ = new GameCamera();
+	camera_->SetPlayer(&player_);
+	camera_->Initialize();
 
 	fileAccessor_ = mapChip_.GetFileAccessor();
 
@@ -41,7 +42,7 @@ void GameScene::Update() {
 	goal_.Update();
 	mapChip_.Update();
 
-	if (player_.GetIsGoal()) {
+	if (player_.GetIsRotateGoal()) {
 		isFadeStart = true;
 	}
 

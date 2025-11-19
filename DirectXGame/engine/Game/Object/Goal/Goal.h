@@ -39,5 +39,5 @@ private:
 	KamataEngine::Model* model_ = nullptr;
 	MapChip* mapChipData_;
 
-	KamataEngine::Vector2 size_{1.0f, 1.0f};
+	KamataEngine::Vector2 size_{0.5f, 1.0f};
 };

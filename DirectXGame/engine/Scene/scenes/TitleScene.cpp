@@ -8,8 +8,6 @@ TitleScene::~TitleScene() {}
 
 void TitleScene::Initialize() {
 
-
-
 	fileAccessor_ = new FileAccessor(titelFilePath_);
 	speed = fileAccessor_->Read(fileMain, "speed", float());
 	resetSpeed = speed;
@@ -33,8 +31,11 @@ void TitleScene::Initialize() {
 
 void TitleScene::Update() {
 	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
-		fade_->Start(FadeID::FadeOut, 1);
-		isStart = false;
+		if (!isCleck) {
+			isCleck = true;
+			fade_->Start(FadeID::FadeOut, 1);
+			isStart = false;
+		}
 	}
 
 	if (!isStart) {
@@ -127,7 +128,6 @@ void TitleScene::Delete() { delete fade_; }
 void TitleScene::DrawImGui() {
 #ifdef _DEBUG
 
-
 	ImGui::Begin("TitelScene");
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
@@ -148,7 +148,6 @@ void TitleScene::DrawImGui() {
 	ImGui::DragFloat("Speed", &speed);
 	ImGui::End();
 #endif // _DEBUG
-
 }
 
 SceneID TitleScene::NextScene() const { return nextScene_; }

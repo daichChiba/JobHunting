@@ -1,5 +1,7 @@
 #include "GameCamera.h"
+#include "engine/Game/Player/Player.h"
 #include "engine/ect/Easings.h"
+
 using namespace KamataEngine;
 using namespace FileJson;
 
@@ -12,15 +14,19 @@ GameCamera::~GameCamera() {
 }
 
 void GameCamera::Initialize() {
+
 	isMove = false;
 	fileAccessor_ = new FileAccessor(filePath);
 	camera_posType = fileAccessor_->Read(fileMain, "camera_posType", int());
 	targetPos_ = fileAccessor_->ReadVector3(fileMain, "Pos1", Vector3());
+	startCameraPos_ = Vector3(player_->GetPlayerPos().x, player_->GetPlayerPos().y, player_->GetPlayerPos().z - 6.0f);
 	// 初期化
 	camera_ = new Camera();
 	camera_->Initialize();
-	camera_->translation_ = fileAccessor_->ReadVector3(fileMain, "Pos0", Vector3());
+	camera_->translation_ = startCameraPos_ /*fileAccessor_->ReadVector3(fileMain, "Pos0", Vector3())*/;
 	camera_->farZ = fileAccessor_->Read(fileMain, "farZ", float());
+	fileAccessor_->WriteVector3(fileMain, "Pos0", startCameraPos_);
+	fileAccessor_->Save();
 }
 void GameCamera::Update() {
 	if (isMove) {
@@ -33,7 +39,10 @@ void GameCamera::Update() {
 			isMove = false;
 			currentTime = 0.0f;
 		}
+
 	}
+	SetClearCamera();
+
 
 	// 更新
 	camera_->UpdateMatrix();
@@ -78,7 +87,22 @@ void GameCamera::CameraNextPos() {
 	}
 }
 
-void GameCamera::SetCameraPos() {
-	camera_->translation_ = fileAccessor_->ReadVector3(fileMain, std::string("Pos")
-		+ std::to_string(camera_posType), Vector3());
+void GameCamera::SetCameraPos() { camera_->translation_ = fileAccessor_->ReadVector3(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3()); }
+
+void GameCamera::SetClearCamera() {
+	//
+	startPos_ = camera_->translation_;
+
+
+	if (player_->GetIsGoal()) {
+		float duration = static_cast<float>(kMoveTimer) / 60.0f;
+		if (currentTime < duration) {
+			Vector3 newPos = Easings::EaseInTime(startPos_, targetPos_, currentTime, duration);
+			camera_->translation_ = newPos;
+			currentTime += 1.0f / 60.0f; // 1フレームごとに時間を進める(60fpsを想定)
+		} else {
+			currentTime = 0.0f;
+		}
+		targetPos_ = Vector3(player_->GetPlayerPos().x, player_->GetPlayerPos().y, player_->GetPlayerPos().z - 6.0f);
+	}
 }

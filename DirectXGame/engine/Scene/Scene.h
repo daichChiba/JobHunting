@@ -65,4 +65,6 @@ protected:
 	bool isStart = false;
 
 	bool isFinish;
+
+	bool isCleck ;
 };
