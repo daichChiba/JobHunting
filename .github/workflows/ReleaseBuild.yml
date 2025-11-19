@@ -4,7 +4,6 @@ on:
   branches:
    - '**'
 
-
 env:
  # リポジトリの√ディレクトリを基点としたソリューションファイルの基点
  SOLUTION_FILE_PATH: DirectXGame/DirectXGame.sln
