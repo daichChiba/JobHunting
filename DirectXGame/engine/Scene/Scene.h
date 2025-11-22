@@ -2,6 +2,10 @@
 #include "KamataEngine.h"
 #include "Scene/manager/SceneID.h"
 #include "fade/Fade.h"
+/// <summary>
+/// 全てのシーンに関する基本情報を取り扱うクラス。
+/// シーンに関する情報を統合的に扱う
+/// </summary>
 class Scene {
 public:
 	virtual ~Scene() = default;

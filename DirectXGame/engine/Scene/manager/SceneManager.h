@@ -6,6 +6,10 @@
 #include "Scene/scenes/DemoScene.h"
 #include "Scene/scenes/clearScene.h"
 #include <KamataEngine.h>
+/// <summary>
+/// 全てのシーンの情報を管理するクラス
+/// シーンに関する情報を統合的に管理し扱う
+/// </summary>
 class SceneManager {
 public:
 	SceneManager() = default;

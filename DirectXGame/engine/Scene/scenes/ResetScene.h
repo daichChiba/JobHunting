@@ -1,6 +1,10 @@
 #pragma once
 #include "../Scene.h"
-
+/// <summary>
+/// リセットシーンに関する状況を取得しシーンに反映させるクラス
+/// シーンクラスを基底クラスにリセットシーンを扱う
+/// シーンの情報をリセットするために使っている
+/// </summary>
 class ResetScene : public Scene {
 public:
 	/// <summary>

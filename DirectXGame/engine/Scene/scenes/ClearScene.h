@@ -1,5 +1,9 @@
 #pragma once
 #include "Scene/Scene.h"
+/// <summary>
+/// クリアシーンに関する状況を取得しシーンに反映させるクラス
+/// シーンクラスを基底クラスにクリアシーンを扱う
+/// </summary>
 class ClearScene : public Scene {
 public:
 	/// <summary>

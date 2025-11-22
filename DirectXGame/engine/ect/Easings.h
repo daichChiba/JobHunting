@@ -1,5 +1,9 @@
 #pragma once
 #include "KamataEngine.h"
+/// <summary>
+/// イージングに関するnamespace
+/// イージングに関する関数をここで扱う
+/// </summary>
 namespace Easings {
 /// <summary>
 /// イーズイン

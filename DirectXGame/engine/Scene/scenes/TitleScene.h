@@ -1,6 +1,10 @@
 #pragma once
 #include "../../Game/LoadJsonFile/FileJson.h"
 #include "../Scene.h"
+/// <summary>
+/// タイトルシーンに関する状況を取得しシーンに反映させるクラス
+/// シーンクラスを基底クラスにタイトルシーンを扱う
+/// </summary>
 class TitleScene : public Scene {
 public:
 	TitleScene();

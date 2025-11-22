@@ -4,6 +4,10 @@
 #include <KamataEngine.h>
 #include "engine/ect/IntVector2.h"
 
+/// <summary>
+/// マップチップに関する情報を取り扱うクラス
+/// csvファイルなどの情報を総合的に扱う
+/// </summary>
 class MapChip {
 public:
 	/// <summary>

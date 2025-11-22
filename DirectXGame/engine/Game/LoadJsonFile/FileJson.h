@@ -13,7 +13,10 @@ using json = nlohmann::json;  // nlohmann::json を json という名前で使�
 using namespace KamataEngine; // KamataEngineの名前空間を使用
 
 namespace FileJson { // FileJsonという名前空間を定義
-
+/// <summary>
+/// JSONファイルからの読み取りと書き込みを行うクラス。
+/// プレイヤー情報などのjson情報の読み書きを統合的に扱う
+/// </summary>
 class FileAccessor {
 public:
 	/// <summary>

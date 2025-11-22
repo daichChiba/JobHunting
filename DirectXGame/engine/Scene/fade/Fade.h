@@ -2,6 +2,10 @@
 #include "FadeID.h"
 #include <algorithm>
 #include <KamataEngine.h>
+/// <summary>
+/// フェードの状況を取得して、ゲーム内に反映するクラス
+/// フェードの入出力と描画を統合的に扱う
+/// </summary>
 class Fade {
 public:
 	/// <summary>

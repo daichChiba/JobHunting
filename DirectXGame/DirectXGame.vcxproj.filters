@@ -150,11 +150,11 @@
     <ClCompile Include="engine\ect\MathUtilityForText.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Scene\scenes\ClearScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="engine\Game\Manager\ObjectManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\Managar</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Scene\scenes\ClearScene.cpp">
+      <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -274,10 +274,10 @@
       <Filter>ヘッダー ファイル\ect</Filter>
     </ClInclude>
     <ClInclude Include="engine\Scene\scenes\ClearScene.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
     <ClInclude Include="engine\Game\Manager\ObjectManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

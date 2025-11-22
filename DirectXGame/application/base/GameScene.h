@@ -4,7 +4,10 @@
 #include "Game/Object/Goal/Goal.h"
 #include "Game/Player/Player.h"
 #include "Scene/Scene.h"
-
+/// <summary>
+/// ゲームシーンに関する状況を取得し、シーンに反映させるクラス。
+/// 
+/// </summary>
 class GameScene : public Scene {
 public:
 	/// <summary>

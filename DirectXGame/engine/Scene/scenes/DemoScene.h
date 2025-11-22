@@ -1,7 +1,11 @@
 #pragma once
 #include "Scene/Scene.h"
 
-
+/// <summary>
+/// デモシーンに関する状況を取得しシーンに反映させるクラス
+/// シーンクラスを基底クラスにデモシーンを扱う
+/// ここではシーン切り替えやステージ選択などを実際にできるかこのクラスを使って確かめる
+/// </summary>
 class DemoScene : public Scene {
 public:
 	/// <summary>

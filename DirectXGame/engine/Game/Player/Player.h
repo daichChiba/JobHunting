@@ -4,7 +4,10 @@
 #include "engine/Game/LoadJsonFile/FileJson.h"
 class MapChip;
 class Goal;
-
+/// <summary>
+/// プレイヤーに関する状態を取り扱うクラス
+/// プレイヤーの情報を単一的に扱う。
+/// </summary>
 class Player {
 public:
 	enum class LRDirection {

@@ -2,6 +2,10 @@
 #include "../LoadJsonFile/FileJson.h"
 #include <KamataEngine.h>
 class Player;
+/// <summary>
+/// GameScene時のカメラの情報(カメラの位置など)を取り扱うクラス
+/// カメラに関する入出力を単一的に扱う
+/// </summary>
 class GameCamera {
 public:
 	/// <summary>

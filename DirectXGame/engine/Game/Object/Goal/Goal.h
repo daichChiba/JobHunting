@@ -3,7 +3,10 @@
 #include <KamataEngine.h>
 class MapChip;
 class Player;
-
+/// <summary>
+/// Goalの状況を取得し、ゲーム内に反映させるクラス
+/// プレイヤーや分身がゴールしたかなど総合的に扱う
+/// </summary>
 class Goal {
 public:
 	Goal();
