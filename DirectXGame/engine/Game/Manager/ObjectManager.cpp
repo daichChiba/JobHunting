@@ -20,6 +20,6 @@ void ObjectManager::UpDate() {
 	//
 }
 
-//void ObjectManager::Draw(KamataEngine::Camera* camera) {
-//	//
-//}
+void ObjectManager::Draw(KamataEngine::Camera* camera) {
+	//
+}

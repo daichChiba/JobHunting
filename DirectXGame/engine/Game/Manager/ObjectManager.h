@@ -8,12 +8,15 @@ class MapChip;
 /// </summary>
 class ObjectManager {
 public:
+	/// <summary>
+	/// インストラクタ
+	/// </summary>
 	ObjectManager();
 	~ObjectManager();
 
 	void Initilize(MapChip* mapchip);
 	void UpDate();
-	//void Draw(KamataEngine::Camera* camera);
+	void Draw(KamataEngine::Camera* camera);
 	void DrawImGui();
 	void Delete();
 

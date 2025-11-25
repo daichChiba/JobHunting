@@ -8,7 +8,7 @@
 class ResetScene : public Scene {
 public:
 	/// <summary>
-	///
+	/// インストラクタ
 	/// </summary>
 	ResetScene();
 	/// <summary>
@@ -35,6 +35,10 @@ public:
 	/// ImGui描画
 	/// </summary>
 	void DrawImGui() override;
+	/// <summary>
+	/// 次に表示するシーンを示すSceneIDを返す
+	/// </summary>
+	/// <returns>次のシーンを識別するSceneIDを返す。</returns>
 
 	SceneID NextScene() const override;
 

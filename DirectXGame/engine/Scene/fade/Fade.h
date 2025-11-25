@@ -45,7 +45,7 @@ public:
 	/// <summary>
 	/// フェード終了判定
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>フェードが終了した場合はtrue、それ以外はfalse</returns>
 	bool IsFinished() const;
 
 private:

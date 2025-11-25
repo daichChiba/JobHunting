@@ -12,7 +12,13 @@
 /// </summary>
 class SceneManager {
 public:
+	/// <summary>
+	/// インストラクタ
+	/// </summary>
 	SceneManager() = default;
+	/// <summary>
+	/// 
+	/// </summary>
 	~SceneManager() = default;
 
 	/// <summary>

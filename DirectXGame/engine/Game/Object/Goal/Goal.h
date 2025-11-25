@@ -9,7 +9,13 @@ class Player;
 /// </summary>
 class Goal {
 public:
+	/// <summary>
+	/// インストラクタ
+	/// </summary>
 	Goal();
+	/// <summary>
+	/// 
+	/// </summary>
 	~Goal();
 	/// <summary>
 	/// 初期化
@@ -31,9 +37,15 @@ public:
 	/// ImGui描画
 	/// </summary>
 	void DrawImGui();
-
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
 	KamataEngine::Vector3 GetWorldPos();
-
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
 	AABB GetAABB();
 
 

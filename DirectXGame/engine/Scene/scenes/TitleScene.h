@@ -7,13 +7,38 @@
 /// </summary>
 class TitleScene : public Scene {
 public:
+	/// <summary>
+	/// インストラクタ
+	/// </summary>
 	TitleScene();
+	/// <summary>
+	/// 
+	/// </summary>
 	~TitleScene();
+	/// <summary>
+	/// 
+	/// </summary>
 	void Initialize() override;
+	/// <summary>
+	/// 
+	/// </summary>
 	void Update() override;
+	/// <summary>
+	/// 
+	/// </summary>
 	void Draw() override;
+	/// <summary>
+	/// 
+	/// </summary>
 	void Delete() override;
+	/// <summary>
+	/// 
+	/// </summary>
 	void DrawImGui() override;
+	/// <summary>
+	/// 次に表示するシーンを示すSceneIDを返す
+	/// </summary>
+	/// <returns>次のシーンを識別するSceneIDを返す。</returns>
 	SceneID NextScene() const override;
 
 private:
