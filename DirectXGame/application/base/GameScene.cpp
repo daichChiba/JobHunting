@@ -11,12 +11,13 @@ GameScene::~GameScene() {}
 void GameScene::Initialize() {
 	mapChip_.Initialize(filePath, erea, stage);
 	player_.Initialize(&mapChip_);
-	goal_.Initialize(&mapChip_);
+	//goal_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
 	camera_->SetPlayer(&player_);
 	camera_->Initialize();
 
-	fileAccessor_ = mapChip_.GetFileAccessor();
+	objectManager_ = new ObjectManager();
+	objectManager_->Initilize(&mapChip_);
 
 	for (int i = 0; i < 3; i++) {
 		countTh_[i] = TextureManager::Load(std::string("Count/count_") + std::to_string(3 - i) + std::string(".png"));
@@ -39,8 +40,9 @@ void GameScene::Update() {
 	camera_->Update();
 	player_.Update();
 	// player_.SetMapChip(&mapChip_);
-	goal_.Update();
+	//goal_.Update();
 	mapChip_.Update();
+	objectManager_->UpDate();
 
 	if (player_.GetIsRotateGoal()) {
 		isFadeStart = true;
@@ -92,7 +94,8 @@ void GameScene::Update() {
 	//	isFinish = true;
 	//	nextScene_ = SceneID::Title;
 	// }
-	CheckAllCollisions(&player_);
+	//CheckAllCollisions(&player_);
+	objectManager_->CheckAllCollisions(&player_);
 
 	fade_->Update();
 }
@@ -122,7 +125,8 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_.Draw(*camera_->GetCamera());
-	goal_.Draw(*camera_->GetCamera());
+	//goal_.Draw(*camera_->GetCamera());
+	objectManager_->Draw(*camera_->GetCamera());
 
 	mapChip_.MapDraw(*camera_->GetCamera());
 	// 3Dオブジェクト描画後処理
@@ -151,7 +155,8 @@ void GameScene::Draw() {
 
 void GameScene::Delete() {
 	player_.Delete();
-	goal_.Delete();
+	//goal_.Delete();
+	objectManager_->Delete();
 	delete fade_;
 }
 
@@ -176,18 +181,19 @@ void GameScene::DrawImGui() {
 	camera_->ImGuiDraw();
 	mapChip_.DrawImGui();
 	player_.DrawImGui();
-	goal_.DrawImGui();
+	//goal_.DrawImGui();
+	objectManager_->DrawImGui();
 
 #endif // _DEBUG
 }
 
 SceneID GameScene::NextScene() const { return nextScene_; }
 
-void GameScene::CheckAllCollisions(Player* player) {
-	//
-	AABB playerAABB = player->GetAABB();
-
-	if (IsCollision(playerAABB, goal_.GetAABB())) {
-		player->OnCollision(&goal_);
-	}
-}
+//void GameScene::CheckAllCollisions(Player* player) {
+//	//
+//	AABB playerAABB = player->GetAABB();
+//
+//	if (IsCollision(playerAABB, goal_.GetAABB())) {
+//		player->OnCollision(&goal_);
+//	}
+//}
