@@ -38,14 +38,14 @@ public:
 	/// </summary>
 	void DrawImGui();
 	/// <summary>
-	/// 
+	/// ワールド座標の位置を取得
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>ワールド座標を取得しVector3型で値を返します</returns>
 	KamataEngine::Vector3 GetWorldPos();
 	/// <summary>
-	/// 
+	/// AABBを取得
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>ゴールのAABBを返します。</returns>
 	AABB GetAABB();
 
 

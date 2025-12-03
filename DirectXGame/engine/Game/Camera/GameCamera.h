@@ -29,21 +29,49 @@ public:
 	/// </summary>
 	void ImGuiDraw();
 
+	/// <summary>
+	/// ゲームシーンのカメラのゲッター
+	/// </summary>
+	/// <returns>カメラの情報を取得します。カメラの情報がない場合はnullを返す場合もあります。</returns>
 	KamataEngine::Camera* GetCamera() { return camera_; }
-
+	/// <summary>
+	/// カメラの動きを管理するisMove_のsetter
+	/// </summary>
+	/// <param name="動くかどうか"></param>
 	void SetIsMove(bool isMove_) { isMove = isMove_; }
-
+	/// <summary>
+	/// カメラの設置位置の種類を設定
+	/// </summary>
+	/// <param name="num">カメラ設置位置の種類</param>
 	void SetCamera_PosType(int num) { camera_posType = num; }
-
+	/// <summary>
+	/// カメラの設置位置の最大数の取得
+	/// </summary>
+	/// <returns>カメラの設置位置の最大数を返します。</returns>
 	int GetcameraTypeMax() { return cameraTypeMax; }
+	/// <summary>
+	/// カメラの位置タイプを取得
+	/// </summary>
+	/// <returns>現在のカメラの位置タイプを返します。</returns>
 	int GetCamera_PosType() { return camera_posType; }
-
+	/// <summary>
+	/// カメラの次の移動位置
+	/// </summary>
 	void CameraNextPos();
+	/// <summary>
+	/// カメラの位置を設定
+	/// </summary>
 	void SetCameraPos();
-
+	/// <summary>
+	/// Playerの情報を取得する
+	/// </summary>
+	/// <param name="player">プレイヤーの情報</param>
 	void SetPlayer(Player* player) { player_ = player; }
 
 private:
+	/// <summary>
+	/// ゲームクリアしたときのカメラの動き
+	/// </summary>
 	void SetClearCamera();
 
 private:
