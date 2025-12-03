@@ -1,15 +1,19 @@
 #pragma once
 #include "Scene/Scene.h"
 
-
+/// <summary>
+/// デモシーンに関する状況を取得しシーンに反映させるクラス
+/// シーンクラスを基底クラスにデモシーンを扱う
+/// ここではシーン切り替えやステージ選択などを実際にできるかこのクラスを使って確かめる
+/// </summary>
 class DemoScene : public Scene {
 public:
 	/// <summary>
-	///
+	/// インストラクタ
 	/// </summary>
 	DemoScene();
 	/// <summary>
-	///
+	/// 
 	/// </summary>
 	~DemoScene();
 	/// <summary>
@@ -32,7 +36,10 @@ public:
 	/// ImGui描画
 	/// </summary>
 	void DrawImGui() override;
-
+	/// <summary>
+	/// 次に表示するシーンを示すSceneIDを返す
+	/// </summary>
+	/// <returns>次のシーンを識別するSceneIDを返す。</returns>
 	SceneID NextScene() const override;
 
 private:

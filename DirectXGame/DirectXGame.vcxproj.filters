@@ -67,6 +67,33 @@
     <Filter Include="ヘッダー ファイル\Scene\Fade">
       <UniqueIdentifier>{b969e78e-7747-476b-bb83-daaa129fb965}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Camera">
+      <UniqueIdentifier>{25f08c48-e4ed-4b6c-ad13-75f18d36f117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Camera">
+      <UniqueIdentifier>{7d96ef63-630e-43df-b91f-eac5ead15ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ect">
+      <UniqueIdentifier>{ec010d50-cdbd-426a-8af4-5d8374f01278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object">
+      <UniqueIdentifier>{69b93e7e-0790-4a69-8f1c-359756fd42ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object">
+      <UniqueIdentifier>{42b3fadb-f758-4908-90e4-94f4e5a0afd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\Goal">
+      <UniqueIdentifier>{f4c6236f-31e9-49ba-9c64-fffbafeeb01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object\Goal">
+      <UniqueIdentifier>{c2615873-0507-47bc-a5fa-6c89f53bc4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Managar">
+      <UniqueIdentifier>{3f6fc996-4d2e-439e-9e08-5dbd7af20c42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Manager">
+      <UniqueIdentifier>{6368ac98-86da-439a-8261-237b1ca0d784}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,10 +108,10 @@
     <ClCompile Include="application\base\GameScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ect\worldTransfromEX.cpp">
+    <ClCompile Include="engine\ect\worldTransfromEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="ect\MathUtilityEX.cpp">
+    <ClCompile Include="engine\ect\MathUtilityEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
     <ClCompile Include="engine\Scene\manager\SceneManager.cpp">
@@ -96,7 +123,7 @@
     <ClCompile Include="engine\Game\LoadJsonFile\FileJson.cpp">
       <Filter>ソース ファイル\Game\LoadJson</Filter>
     </ClCompile>
-    <ClCompile Include="ect\InputEX.cpp">
+    <ClCompile Include="engine\ect\InputEX.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
     <ClCompile Include="engine\Game\Player\Player.cpp">
@@ -109,6 +136,24 @@
       <Filter>ソース ファイル\Scene\Fade</Filter>
     </ClCompile>
     <ClCompile Include="engine\Scene\scenes\DemoScene.cpp">
+      <Filter>ソース ファイル\Scene\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Camera\GameCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\ect\Easings.cpp">
+      <Filter>ソース ファイル\ect</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Object\Goal\Goal.cpp">
+      <Filter>ソース ファイル\Game\Object\Goal</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\ect\MathUtilityForText.cpp">
+      <Filter>ソース ファイル\ect</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Manager\ObjectManager.cpp">
+      <Filter>ソース ファイル\Game\Managar</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Scene\scenes\ClearScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -166,6 +211,12 @@
     <None Include="Resources\Json\Stage.json">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="Resources\Json\GameCamera.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Resources\Json\Player.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\Scene\Scene.h">
@@ -206,6 +257,27 @@
     </ClInclude>
     <ClInclude Include="engine\Scene\scenes\DemoScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Camera\GameCamera.h">
+      <Filter>ヘッダー ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\ect\Easings.h">
+      <Filter>ヘッダー ファイル\ect</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\ect\IntVector2.h">
+      <Filter>ヘッダー ファイル\ect</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Object\Goal\Goal.h">
+      <Filter>ヘッダー ファイル\Game\Object\Goal</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\ect\MathUtilityForText.h">
+      <Filter>ヘッダー ファイル\ect</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Scene\scenes\ClearScene.h">
+      <Filter>ヘッダー ファイル\Scene\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Manager\ObjectManager.h">
+      <Filter>ヘッダー ファイル\Game\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,10 +4,21 @@
 #include "Scene/scenes/TitleScene.h"
 #include "Scene/manager/SceneID.h"
 #include "Scene/scenes/DemoScene.h"
+#include "Scene/scenes/clearScene.h"
 #include <KamataEngine.h>
+/// <summary>
+/// 全てのシーンの情報を管理するクラス
+/// シーンに関する情報を統合的に管理し扱う
+/// </summary>
 class SceneManager {
 public:
+	/// <summary>
+	/// インストラクタ
+	/// </summary>
 	SceneManager() = default;
+	/// <summary>
+	/// 
+	/// </summary>
 	~SceneManager() = default;
 
 	/// <summary>
@@ -39,9 +50,11 @@ private:
 	std::unique_ptr<Scene> currentScene_;
 	SceneID currentSceneID_;
 
+
+
 	std::string filePath = "Resources/Json/Stage.json";
-	std::string erea = "erea1";
-	std::string stage = "1_1";
+	std::string erea = "stage_1";
+	std::string stage = "1_3";
 
 	std::string titelFilePath = "Resources/Json/Titel.json";
 };

@@ -25,6 +25,10 @@ void SceneManager::ChangeScene(SceneID nextScene) {
 		currentScene_ = std::make_unique<DemoScene>();
 		SetInformation();
 		break;
+	case SceneID::Clear:
+		currentScene_ = std::make_unique<ClearScene>();
+		SetInformation();
+		break;
 	}
 
 	currentSceneID_ = nextScene;

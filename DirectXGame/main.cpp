@@ -8,14 +8,14 @@ using namespace KamataEngine;
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// エンジンの初期化
-	Initialize(L"LE3D_16_チバ_ダイチ");
+	Initialize(L"LE3C_12_チバ_ダイチ");
 
 	// DirectXCommonインスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
 	// シーンマネージャー
 	SceneManager sceneManager_;
-	sceneManager_.ChangeScene(SceneID::Title);
+	sceneManager_.ChangeScene(SceneID::Game);
 
 #pragma region 汎用機能初期化
 	// ImGuiManagerインスタンスの取得

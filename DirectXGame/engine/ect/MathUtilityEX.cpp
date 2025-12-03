@@ -15,3 +15,4 @@ Matrix4x4 MathUtility::MakeAffineMatrix(const Vector3& scale, const Vector3& rot
 	return ret;
 }
 
+

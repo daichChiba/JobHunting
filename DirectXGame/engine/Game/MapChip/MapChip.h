@@ -2,21 +2,43 @@
 #include "../LoadJsonFile/FileJson.h"
 #include "MapChipID.h"
 #include <KamataEngine.h>
+#include "engine/ect/IntVector2.h"
 
+/// <summary>
+/// マップチップに関する情報を取り扱うクラス
+/// csvファイルなどの情報を総合的に扱う
+/// </summary>
 class MapChip {
 public:
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	MapChip();
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~MapChip();
 	/// <summary>
 	/// 初期化
 	/// </summary>
 	/// <param name="file"></param>
 	void Initialize(std::string file, std::string erea, std::string stage);
-
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
-
+	/// <summary>
+	/// マップ描画
+	/// </summary>
+	/// <param name="camera"></param>
 	void MapDraw(KamataEngine::Camera& camera);
-
+	/// <summary>
+	/// ImGui描画
+	/// </summary>
 	void DrawImGui();
 
 	struct Rect {
@@ -34,8 +56,62 @@ public:
 		KamataEngine::Model* model;
 	};
 
+	/// <summary>
+	/// ブロックのサイズを取得します。
+	/// </summary>
+	/// <returns></returns>
 	KamataEngine::Vector3 GetBlockSize() { return BlockSize; }
-	KamataEngine::Vector3 GetPlayerPos();
+	/// <summary>
+	/// オブジェクトのの現在位置を取得します。
+	/// </summary>
+	/// <returns></returns>
+	KamataEngine::Vector3 GetObjectPos(const MapChipID id_);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <returns></returns>
+	MapChipID GetMapChipID(const KamataEngine::Vector3 pos);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="index"></param>
+	/// <returns></returns>
+	MapChipID GetMapChipID(const MapChipIndex& index);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <returns></returns>
+	Rect GetMapRect(const Vector3 pos);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <returns></returns>
+	MapChipIndex GetMapChipIndex(const Vector3& pos);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>MapChipの範囲(大きさ)</returns>
+	IntVector2 GetMaxMapSize();
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="index_"></param>
+	/// <returns></returns>
+	Rect GetRectByIndex(MapChipIndex index_);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="index_"></param>
+	/// <returns></returns>
+	KamataEngine::Vector3 GetMapChipPosByIndex(MapChipIndex index_);
+
+	MapChipIndex GetMapChipIndexSetByPosition(const KamataEngine::Vector3 pos);
+
+	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
 
 private:
 	void MapCreate();
@@ -47,7 +123,6 @@ private:
 	std::vector<std::vector<int>> csvData_;
 	std::string directory = "";
 	MapChipData mapChipData_;
-	// std::unique_ptr<FileJson::FileAccessor> fileAccessor_;
 
 	std::string erea_ = "";
 

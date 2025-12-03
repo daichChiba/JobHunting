@@ -1,0 +1,59 @@
+#pragma once
+#include "Scene/Scene.h"
+/// <summary>
+/// クリアシーンに関する状況を取得しシーンに反映させるクラス
+/// シーンクラスを基底クラスにクリアシーンを扱う
+/// </summary>
+class ClearScene : public Scene {
+public:
+	/// <summary>
+	/// インストラクタ
+	/// </summary>
+	ClearScene();
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~ClearScene();
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Initialize() override;
+	/// <summary>
+	/// 更新
+	/// </summary>
+	void Update() override;
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw() override;
+	/// <summary>
+	/// 削除
+	/// </summary>
+	void Delete() override;
+	/// <summary>
+	/// ImGui描画
+	/// </summary>
+	void DrawImGui() override;
+	/// <summary>
+	/// 次に表示するシーンを示すSceneIDを返す
+	/// </summary>
+	/// <returns>次のシーンを識別するSceneIDを返す。</returns>
+	SceneID NextScene() const override;
+
+private:
+	uint32_t backScreenTh_;
+	uint32_t pushToSpaceTh_;
+	uint32_t clearTh_;
+
+	KamataEngine::Sprite* backScreenSpite;
+	KamataEngine::Sprite* pushToSpaceSpite;
+	KamataEngine::Sprite* clearSpite;
+
+	int buttonCount = 0;
+	// 表示させる際の上限
+	const int kDrawCount_ = 30;
+	// 一秒あたりのフレーム数
+	const int kCountFrame_ = 60;
+
+	SceneID nextScene_;
+};
