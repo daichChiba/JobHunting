@@ -12,9 +12,6 @@ Player::Player() {}
 Player::~Player() {}
 
 void Player::Initialize(MapChip* mapchip) {
-	// model_->StaticInitialize();
-	// model_ = Model::CreateFromOBJ("Player", true);
-
 	fileAccessor_ = new FileAccessor(filePath);
 
 	mapChipData_ = mapchip;
@@ -26,12 +23,9 @@ void Player::Initialize(MapChip* mapchip) {
 
 
 	worldTransform_.Initialize();
-
-	// worldTransform_.translation_ = pos_;
 	worldTransform_.translation_ = mapChipData_->GetObjectPos(MapChipID::PlayerStart);
-
-	worldTransform_.scale_ = fileAccessor_->ReadVector3(fileMain, "scale", Vector3());
-	size_ = fileAccessor_->ReadVector3(fileMain, "size", Vector3());
+	worldTransform_.scale_ = fileAccessor_->Read(fileMain, "scale", Vector3());
+	size_ = fileAccessor_->Read(fileMain, "size", Vector3());
 	kAcceleration = fileAccessor_->Read(fileMain, "kAcceleration", float());
 	kLimitXSpeed = fileAccessor_->Read(fileMain, "kLimitXSpeed", float());
 	kAttenuation = fileAccessor_->Read(fileMain, "kAttenuation", float());
@@ -42,10 +36,10 @@ void Player::Initialize(MapChip* mapchip) {
 	kAttennuationShift = fileAccessor_->Read(fileMain, "kAttennuationShift", float());
 	kAttennuationLanding = fileAccessor_->Read(fileMain, "kAttennuationLanding", float());
 	kGoalRotatoMove = fileAccessor_->Read(fileMain, "kGoalRotatoMove", float());
-	goalRotationLimit = fileAccessor_->ReadVector3(fileMain, "goalRotationLimit", Vector3());
+	goalRotationLimit = fileAccessor_->Read(fileMain, "goalRotationLimit", Vector3());
 
 	// 後で消す
-	worldTransform_.rotation_ = fileAccessor_->ReadVector3(fileMain, "rotation", Vector3());
+	worldTransform_.rotation_ = fileAccessor_->Read(fileMain, "rotation", Vector3());
 }
 void Player::Update() {
 	if (isMove) {
@@ -92,10 +86,10 @@ void Player::DrawImGui() {
 	ImGui::DragFloat3("goalRotationLimit", &goalRotationLimit.x);
 	ImGui::DragFloat3("rotate", &worldTransform_.rotation_.x);
 	if (ImGui::Button("save")) {
-		fileAccessor_->WriteVector3(fileMain, "size", size_);
+		fileAccessor_->Write(fileMain, "size", size_);
 		fileAccessor_->Write(fileMain, "kBlank", kBlank);
 		fileAccessor_->Write(fileMain, "kGoalRotatoMove", kGoalRotatoMove);
-		fileAccessor_->WriteVector3(fileMain, "goalRotationLimit", goalRotationLimit);
+		fileAccessor_->Write(fileMain, "goalRotationLimit", goalRotationLimit);
 		fileAccessor_->Save();
 	}
 	ImGui::End();

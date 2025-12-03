@@ -78,7 +78,7 @@ void FileAccessor::Save() {
 /// <param name="variableName">JSONファイルの変数名</param>
 /// <param name="defaultValue">値が存在しない場合のデフォルト値</param>
 /// <returns>読み込んだVector3型の値</returns>
-Vector3 FileAccessor::ReadVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& /*defaultValue*/) const {
+Vector3 FileAccessor::Read(const std::string& desiredClass, const std::string& variableName, const Vector3& /*defaultValue*/) const {
 	try {
 		// 指定されたクラスと変数から値を読み込む
 		if (jsonData_.contains(desiredClass) && jsonData_[desiredClass].contains(variableName)) {
@@ -196,7 +196,7 @@ void FileAccessor::WriteCsvData(const std::string& desiredClass, const std::stri
 /// <param name="desiredClass">JSONファイルのクラス名</param>
 /// <param name="variableName">JSONファイルの変数名</param>
 /// <param name="value">書き込むVector3型の値</param>
-void FileAccessor::WriteVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& value) {
+void FileAccessor::Write(const std::string& desiredClass, const std::string& variableName, const Vector3& value) {
 	try {
 		// Vector3をJSONオブジェクトに書き込む
 		jsonData_[desiredClass][variableName]["x"] = value.x;
