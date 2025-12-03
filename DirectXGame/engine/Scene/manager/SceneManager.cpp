@@ -20,35 +20,6 @@ void SceneManager::ChangeScene(SceneID nextScene) {
 		currentScene_.reset();
 	}
 
-	//if (nextScene==SceneID::Title) {
-	//	currentScene_ = std::make_unique<TitleScene>();
-	//	SetInformation();
-	//}
-	//// 新しいシーンを生成
-	//switch (nextScene) {
-	//case SceneID::Title:
-	//	currentScene_ = std::make_unique<TitleScene>();
-	//	SetInformation();
-	//	break;
-	//case SceneID::Game:
-	//	currentScene_ = std::make_unique<GameScene>();
-	//	SetInformation();
-	//	break;
-	//case SceneID::Reset:
-	//	currentScene_ = std::make_unique<ResetScene>();
-	//	SetInformation();
-	//	break;
-
-	//case SceneID::Demo:
-	//	currentScene_ = std::make_unique<DemoScene>();
-	//	SetInformation();
-	//	break;
-	//case SceneID::Clear:
-	//	currentScene_ = std::make_unique<ClearScene>();
-	//	
-	//	break;
-	//}
-
 	//新しいシーンをファクトリから生成
 	//マップから登録済みの生成関数を取得し、実行する
 	currentScene_ = sceneFactory_[nextScene]();
