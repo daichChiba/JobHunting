@@ -41,16 +41,25 @@ public:
 	/// </summary>
 	void DrawImGui();
 
+	/// <summary>
+	/// 矩形の構造体
+	/// </summary>
 	struct Rect {
 		float left;
 		float top;
 		float right;
 		float bottom;
 	};
+	/// <summary>
+	/// マップ上のチップ位置を表す構造体
+	/// </summary>
 	struct MapChipIndex {
 		int x;
 		int y;
 	};
+	/// <summary>
+	/// マップチップのデータを保持する構造体
+	/// </summary>
 	struct MapChipData {
 		std::vector<std::vector<MapChipID>> data;
 		KamataEngine::Model* model;
@@ -68,22 +77,22 @@ public:
 	KamataEngine::Vector3 GetObjectPos(const MapChipID id_);
 
 	/// <summary>
-	/// 
+	/// 指定した位置にいるマップチップの種類を取得
 	/// </summary>
-	/// <param name="pos"></param>
-	/// <returns></returns>
+	/// <param name="pos">マップ上の位置を入力。</param>
+	/// <returns>指定の位置にいるMapChipの種類を返す</returns>
 	MapChipID GetMapChipID(const KamataEngine::Vector3 pos);
 	/// <summary>
-	/// 
+	/// 指定したMapChipIndexに対してマップチップの種類を取得
 	/// </summary>
-	/// <param name="index"></param>
-	/// <returns></returns>
+	/// <param name="index">マップチップの位置を入力</param>
+	/// <returns>指定の位置にいるMapChipの種類を返す</returns>
 	MapChipID GetMapChipID(const MapChipIndex& index);
 	/// <summary>
-	/// 
+	/// マップ上の矩形を取得
 	/// </summary>
-	/// <param name="pos"></param>
-	/// <returns></returns>
+	/// <param name="pos">基準となる位置ベクトル（Vector3）。この位置に対応するマップ矩形が返されます。</param>
+	/// <returns>指定位置に対応するマップの矩形（Rect）。</returns>
 	Rect GetMapRect(const Vector3 pos);
 	/// <summary>
 	/// 

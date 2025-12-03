@@ -13,7 +13,7 @@ public:
 	/// </summary>
 	DemoScene();
 	/// <summary>
-	/// 
+	//  デストラクタ
 	/// </summary>
 	~DemoScene();
 	/// <summary>
