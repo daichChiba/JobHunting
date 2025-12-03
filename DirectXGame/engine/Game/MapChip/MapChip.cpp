@@ -14,7 +14,7 @@ void MapChip::Initialize(std::string file, std::string erea, std::string stage) 
 	fileAccessor_ = new FileAccessor(file);
 	erea_ = erea;
 	csvData_ = fileAccessor_->ReadCsvData(erea, stage);
-	BlockSize = fileAccessor_->ReadVector3(erea, "BlockSize", Vector3());
+	BlockSize = fileAccessor_->Read(erea, "BlockSize", Vector3());
 	MapCreate();
 	SetModel();
 }
@@ -44,7 +44,7 @@ void MapChip::DrawImGui() {
 #ifdef _DEBUG
 
 	ImGui::DragFloat3("BlockSize", &BlockSize.x);
-	fileAccessor_->WriteVector3(erea_, "BlockSize", BlockSize);
+	fileAccessor_->Write(erea_, "BlockSize", BlockSize);
 	fileAccessor_->Save();
 #endif // _DEBUG
 }

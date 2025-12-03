@@ -156,6 +156,9 @@
     <ClCompile Include="engine\Scene\scenes\ClearScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="engine\Game\Player\Clone\PlayerClone.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -278,6 +281,9 @@
     </ClInclude>
     <ClInclude Include="engine\Game\Manager\ObjectManager.h">
       <Filter>ヘッダー ファイル\Game\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Player\Clone\PlayerClone.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

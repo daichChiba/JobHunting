@@ -10,6 +10,7 @@ void TitleScene::Initialize() {
 
 	fileAccessor_ = new FileAccessor(titelFilePath_);
 	speed = fileAccessor_->Read(fileMain, "speed", float());
+	
 	resetSpeed = speed;
 	backScreenPos = ChangeToVector2("backScreenPos");
 	titelPos = ChangeToVector2("titelPos");
@@ -132,10 +133,10 @@ void TitleScene::DrawImGui() {
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
 	if (ImGui::Button("save")) {
-		fileAccessor_->WriteVector3(fileMain, "backScreenPos", Vector3(backScreenPos.x, backScreenPos.y, 0.0f));
-		fileAccessor_->WriteVector3(fileMain, "titelPos", Vector3(titelPos.x, titelPos.y, 0.0f));
-		fileAccessor_->WriteVector3(fileMain, "pushToSpacePos", Vector3(pushToSpacePos.x, pushToSpacePos.y, 0.0f));
-		fileAccessor_->WriteVector3(fileMain, "stopTitelPos", Vector3(stopTitelPos.x, stopTitelPos.y, 0.0f));
+		fileAccessor_->Write(fileMain, "backScreenPos", Vector3(backScreenPos.x, backScreenPos.y, 0.0f));
+		fileAccessor_->Write(fileMain, "titelPos", Vector3(titelPos.x, titelPos.y, 0.0f));
+		fileAccessor_->Write(fileMain, "pushToSpacePos", Vector3(pushToSpacePos.x, pushToSpacePos.y, 0.0f));
+		fileAccessor_->Write(fileMain, "stopTitelPos", Vector3(stopTitelPos.x, stopTitelPos.y, 0.0f));
 		fileAccessor_->Write(fileMain, std::to_string(speed) /*"speed"*/, speed);
 		fileAccessor_->Save();
 	}
@@ -153,7 +154,7 @@ void TitleScene::DrawImGui() {
 SceneID TitleScene::NextScene() const { return nextScene_; }
 
 Vector2 TitleScene::ChangeToVector2(std::string stringPos) {
-	Vector3 pos_ = fileAccessor_->ReadVector3(fileMain, stringPos, Vector3());
+	Vector3 pos_ = fileAccessor_->Read(fileMain, stringPos, Vector3());
 	Vector2 pos = Vector2(pos_.x, pos_.y);
 	return pos;
 }

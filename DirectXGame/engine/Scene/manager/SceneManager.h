@@ -6,6 +6,8 @@
 #include "Scene/scenes/DemoScene.h"
 #include "Scene/scenes/clearScene.h"
 #include <KamataEngine.h>
+
+using SceneCreator = std::function<std::unique_ptr<Scene>()>;
 /// <summary>
 /// 全てのシーンの情報を管理するクラス
 /// シーンに関する情報を統合的に管理し扱う
@@ -15,7 +17,7 @@ public:
 	/// <summary>
 	/// インストラクタ
 	/// </summary>
-	SceneManager() = default;
+	SceneManager() ;
 	/// <summary>
 	/// 
 	/// </summary>
@@ -46,6 +48,7 @@ private:
 
 	void GetInformation();
 
+	std::map<SceneID, SceneCreator> sceneFactory_;
 
 	std::unique_ptr<Scene> currentScene_;
 	SceneID currentSceneID_;

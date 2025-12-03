@@ -18,14 +18,14 @@ void GameCamera::Initialize() {
 	isMove = false;
 	fileAccessor_ = new FileAccessor(filePath);
 	camera_posType = fileAccessor_->Read(fileMain, "camera_posType", int());
-	targetPos_ = fileAccessor_->ReadVector3(fileMain, "Pos1", Vector3());
+	targetPos_ = fileAccessor_->Read(fileMain, "Pos1", Vector3());
 	startCameraPos_ = Vector3(player_->GetPlayerPos().x, player_->GetPlayerPos().y, player_->GetPlayerPos().z - 6.0f);
 	// 初期化
 	camera_ = new Camera();
 	camera_->Initialize();
 	camera_->translation_ = startCameraPos_ /*fileAccessor_->ReadVector3(fileMain, "Pos0", Vector3())*/;
 	camera_->farZ = fileAccessor_->Read(fileMain, "farZ", float());
-	fileAccessor_->WriteVector3(fileMain, "Pos0", startCameraPos_);
+	fileAccessor_->Write(fileMain, "Pos0", startCameraPos_);
 	fileAccessor_->Save();
 }
 void GameCamera::Update() {
@@ -58,18 +58,18 @@ void GameCamera::ImGuiDraw() {
 		// if (listBox_num == 1) {
 		//	fileAccessor_->WriteVector3(fileMain, "1stPos", camera_->translation_);
 		// }
-		fileAccessor_->WriteVector3(fileMain, std::string("Pos") + std::to_string(camera_posType), camera_->translation_);
+		fileAccessor_->Write(fileMain, std::string("Pos") + std::to_string(camera_posType), camera_->translation_);
 		fileAccessor_->Save();
 	};
 	if (ImGui::Button("set")) {
-		camera_->translation_ = fileAccessor_->ReadVector3(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3());
+		camera_->translation_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3());
 	}
 	if (ImGui::Button("Move")) {
 		isMove = true;
 		startPos_ = camera_->translation_;
 		if (camera_posType < cameraTypeMax) {
 			camera_posType += 1;
-			targetPos_ = fileAccessor_->ReadVector3(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3());
+			targetPos_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3());
 		}
 	}
 	ImGui::DragFloat3("pos", &camera_->translation_.x, 0.01f);
@@ -83,11 +83,11 @@ void GameCamera::ImGuiDraw() {
 void GameCamera::CameraNextPos() {
 	startPos_ = camera_->translation_;
 	if (camera_posType < cameraTypeMax) {
-		targetPos_ = fileAccessor_->ReadVector3(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3());
+		targetPos_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3());
 	}
 }
 
-void GameCamera::SetCameraPos() { camera_->translation_ = fileAccessor_->ReadVector3(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3()); }
+void GameCamera::SetCameraPos() { camera_->translation_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(camera_posType), Vector3()); }
 
 void GameCamera::SetClearCamera() {
 	//
