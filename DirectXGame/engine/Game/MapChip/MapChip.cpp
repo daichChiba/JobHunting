@@ -1,4 +1,5 @@
 #include "MapChip.h"
+#include "engine/Game/Object/PushButton/PushButton.h"
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -35,6 +36,12 @@ void MapChip::MapDraw(Camera& camera) {
 		for (uint32_t x = 0; x < csvData_[y].size(); x++) {
 			if (mapChipData_.data[y][x] == MapChipID::kBlock) {
 				mapChipData_.model->Draw(*worldTransform_[y][x], camera);
+			}
+
+			if (pushButton_->IsPushButton()==false) {
+				if (mapChipData_.data[y][x] == MapChipID ::OpenBlock) {
+					mapChipData_.model->Draw(*worldTransform_[y][x], camera);
+				}
 			}
 
 		}

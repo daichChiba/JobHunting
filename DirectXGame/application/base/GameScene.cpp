@@ -19,6 +19,8 @@ void GameScene::Initialize() {
 	objectManager_ = new ObjectManager();
 	objectManager_->Initilize(&mapChip_);
 
+	mapChip_.SetPushButton(&objectManager_->GetPushButton());
+
 	for (int i = 0; i < 3; i++) {
 		countTh_[i] = TextureManager::Load(std::string("Count/count_") + std::to_string(3 - i) + std::string(".png"));
 		countSprite_[i] = Sprite::Create(countTh_[i], Vector2(640.0f, 360.0f));

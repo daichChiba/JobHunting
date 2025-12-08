@@ -54,8 +54,16 @@ public:
 	/// </summary>
 	/// <returns>PushButtonのAABBを返します。</returns>
 	AABB GetAABB();
-
+	/// <summary>
+	/// プレイヤーに当たった時の処理
+	/// </summary>
+	/// <param name="player">playerを入力しする</param>
 	void OnCollision(const Player* player);
+	/// <summary>
+	/// ボタンを切り替える
+	/// </summary>
+	/// <param name="pushButton_">ボタンを押したならtrue、押していないのであればfalseに設定する</param>
+	void SetInPushButton(bool pushButton_) { isPushButton = pushButton_; }
 
 private:
 	KamataEngine::Model* model_[2] = {nullptr};

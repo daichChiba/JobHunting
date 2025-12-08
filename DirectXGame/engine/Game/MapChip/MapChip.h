@@ -126,6 +126,8 @@ public:
 
 	void SetPushButton(PushButton* pushButton) { pushButton_ = pushButton; } 
 
+	PushButton* GetPushButton() { return pushButton_; }
+
 private:
 	void MapCreate();
 	void SetModel();

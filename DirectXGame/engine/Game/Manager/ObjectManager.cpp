@@ -52,5 +52,7 @@ void ObjectManager::CheckAllCollisions(Player* player) {
 
 	if (IsCollision(playerAABB,pushButton_.GetAABB())) {
 		pushButton_.OnCollision(player);
+	} else {
+		pushButton_.SetInPushButton(false);
 	}
 }
