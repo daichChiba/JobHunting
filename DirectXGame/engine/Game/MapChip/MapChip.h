@@ -4,6 +4,8 @@
 #include <KamataEngine.h>
 #include "engine/ect/IntVector2.h"
 
+class PushButton;
+
 /// <summary>
 /// マップチップに関する情報を取り扱うクラス
 /// csvファイルなどの情報を総合的に扱う
@@ -122,6 +124,8 @@ public:
 
 	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
 
+	void SetPushButton(PushButton* pushButton) { pushButton_ = pushButton; } 
+
 private:
 	void MapCreate();
 	void SetModel();
@@ -139,4 +143,6 @@ private:
 
 	// ワールドトランスフォーム
 	std::vector<std::vector<WorldTransform*>> worldTransform_;
+
+	PushButton* pushButton_;
 };

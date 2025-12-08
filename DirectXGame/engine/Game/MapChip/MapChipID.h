@@ -4,7 +4,7 @@ enum class MapChipID{
 	kBlock,
 	kGoal,
 	PlayerStart,
-	None,
 	Button,
-
+	OpenBlock,
+	None,
 };

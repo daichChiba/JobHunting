@@ -36,6 +36,7 @@ void MapChip::MapDraw(Camera& camera) {
 			if (mapChipData_.data[y][x] == MapChipID::kBlock) {
 				mapChipData_.model->Draw(*worldTransform_[y][x], camera);
 			}
+
 		}
 	}
 }

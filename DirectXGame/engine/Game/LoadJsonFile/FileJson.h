@@ -47,7 +47,7 @@ public:
 	template<typename T> void Write(const std::string& desiredClass, const std::string& variableName, const T& value);
 
 	/// <summary>
-	/// Vector3型データを読み込むための特殊化関数
+	/// Vector3型データを読み込む
 	/// </summary>
 	/// <param name="desiredClass">JSONファイルのクラス名</param>
 	/// <param name="variableName">JSONファイルの変数名</param>
@@ -56,7 +56,7 @@ public:
 	Vector3 Read(const std::string& desiredClass, const std::string& variableName, const Vector3& defaultValue) const;
 
 	/// <summary>
-	/// Vector3型データを書き込むための特殊化関数
+	/// Vector3型データを書き込む
 	/// </summary>
 	/// <param name="desiredClass">JSONファイルのクラス名</param>
 	/// <param name="variableName">JSONファイルの変数名</param>

@@ -72,7 +72,7 @@ void FileAccessor::Save() {
 }
 
 /// <summary>
-/// Vector3を読み込むための特殊化
+/// Vector3を読み込む
 /// </summary>
 /// <param name="desiredClass">JSONファイルのクラス名</param>
 /// <param name="variableName">JSONファイルの変数名</param>
@@ -191,7 +191,7 @@ void FileAccessor::WriteCsvData(const std::string& desiredClass, const std::stri
 	}
 }
 /// <summary>
-/// Vector3を書き込むための特殊化
+/// Vector3を書き込む
 /// </summary>
 /// <param name="desiredClass">JSONファイルのクラス名</param>
 /// <param name="variableName">JSONファイルの変数名</param>
