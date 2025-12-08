@@ -169,6 +169,7 @@
     <ClCompile Include="engine\Scene\fade\Fade.cpp" />
     <ClCompile Include="engine\Game\Camera\GameCamera.cpp" />
     <ClCompile Include="engine\Game\Object\Goal\Goal.cpp" />
+    <ClCompile Include="Lever.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\Scene\scenes\ResetScene.cpp" />
     <ClCompile Include="engine\Scene\Scene.cpp" />
@@ -301,6 +302,7 @@
     <ClInclude Include="engine\ect\MathUtilityForText.h" />
     <ClInclude Include="engine\Game\Manager\ObjectManager.h" />
     <ClInclude Include="engine\Game\Player\Clone\PlayerClone.h" />
+    <ClInclude Include="Lever.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
