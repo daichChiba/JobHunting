@@ -2,6 +2,7 @@
 #include "../LoadJsonFile/FileJson.h"
 #include <KamataEngine.h>
 class Player;
+class MapChip;
 /// <summary>
 /// GameScene時のカメラの情報(カメラの位置など)を取り扱うクラス
 /// カメラに関する入出力を単一的に扱う
@@ -67,12 +68,21 @@ public:
 	/// </summary>
 	/// <param name="player">プレイヤーの情報</param>
 	void SetPlayer(Player* player) { player_ = player; }
+	/// <summary>
+	/// mapChipの情報を取得する
+	/// </summary>
+	/// <param name="mapChip">mapChipの情報</param>
+	void SetMapChip(MapChip* mapchip) { mapChip_ = mapchip; }
+
+	bool GetIsReactionEnd() { return isReactionEnd; }
 
 private:
 	/// <summary>
 	/// ゲームクリアしたときのカメラの動き
 	/// </summary>
 	void SetClearCamera();
+
+	void SetReactionCamera();
 
 private:
 	KamataEngine::Camera* camera_;
@@ -98,7 +108,22 @@ private:
 	const int cameraTypeMax = 3;
 	bool isMove;
 
+	int ReactionTimer;
+	static inline const int kReactionTimer = 60;
+
+	bool isReactionEnd = false;
+
+	int endReaction;
+	static inline const int kEndReaction = 60;
+
 	// KamataEngine::Vector3
 
 	Player* player_;
+
+
+	bool isReactionStart = false;
+
+	bool isReaction = false;
+
+	MapChip* mapChip_;
 };

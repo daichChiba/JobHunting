@@ -162,7 +162,7 @@
     <ClCompile Include="engine\Game\Object\PushButton\PushButton.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Lever.cpp">
+    <ClCompile Include="engine\Game\Object\Lever\Lever.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -294,7 +294,7 @@
     <ClInclude Include="engine\Game\Object\PushButton\PushButton.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Lever.h">
+    <ClInclude Include="engine\Game\Object\Lever\Lever.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

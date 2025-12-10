@@ -40,10 +40,14 @@ void PushButton::Draw(Camera& camera_) {
 
 void PushButton::DrawImGui() {
 	//
+#ifdef _DEBUG
+
 	ImGui::Begin("PushButton");
 	ImGui::Text("test");
 	ImGui::Checkbox("isPushButton", &isPushButton);
 	ImGui::End();
+#endif // _DEBUG
+
 }
 void PushButton::Delete() {
 	//

@@ -6,5 +6,6 @@ enum class MapChipID{
 	PlayerStart,
 	Button,
 	OpenBlock,
+	Lever,
 	None,
 };

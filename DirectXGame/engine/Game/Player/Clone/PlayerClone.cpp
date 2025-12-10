@@ -28,7 +28,11 @@ void PlayerClone::Delete() {
 
 void PlayerClone::DrawImGui() {
 	//
+#ifdef _DEBUG
+
 	ImGui::Begin("PlayerClone");
 	ImGui::Text("test");
 	ImGui::End();
+#endif // _DEBUG
+
 }

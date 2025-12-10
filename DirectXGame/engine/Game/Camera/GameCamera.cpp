@@ -1,4 +1,7 @@
 #include "GameCamera.h"
+#include "engine/Game/MapChip/MapChip.h"
+#include "engine/Game/Object/Lever/Lever.h"
+#include "engine/Game/Object/PushButton/PushButton.h"
 #include "engine/Game/Player/Player.h"
 #include "engine/ect/Easings.h"
 
@@ -16,6 +19,7 @@ GameCamera::~GameCamera() {
 void GameCamera::Initialize() {
 
 	isMove = false;
+
 	fileAccessor_ = new FileAccessor(filePath);
 	camera_posType = fileAccessor_->Read(fileMain, "camera_posType", int());
 	targetPos_ = fileAccessor_->Read(fileMain, "Pos1", Vector3());
@@ -39,10 +43,10 @@ void GameCamera::Update() {
 			isMove = false;
 			currentTime = 0.0f;
 		}
-
 	}
-	SetClearCamera();
+	SetReactionCamera();
 
+	SetClearCamera();
 
 	// 更新
 	camera_->UpdateMatrix();
@@ -93,7 +97,6 @@ void GameCamera::SetClearCamera() {
 	//
 	startPos_ = camera_->translation_;
 
-
 	if (player_->GetIsGoal()) {
 		float duration = static_cast<float>(kMoveTimer) / 60.0f;
 		if (currentTime < duration) {
@@ -104,5 +107,54 @@ void GameCamera::SetClearCamera() {
 			currentTime = 0.0f;
 		}
 		targetPos_ = Vector3(player_->GetPlayerPos().x, player_->GetPlayerPos().y, player_->GetPlayerPos().z - 6.0f);
+	}
+}
+
+void GameCamera::SetReactionCamera() {
+	if (player_->GetIsGoal() == false) {
+		startPos_ = camera_->translation_;
+
+		if (mapChip_->GetPushButton()->GetIsPushButton() || mapChip_->GetLever()->GetIsLever()) {
+			isReactionStart = true;
+			player_->SetIsMove(false);
+		}
+
+		if (isReactionStart) {
+			if (isReaction == false) {
+				float duration = static_cast<float>(kMoveTimer) / 60.0f;
+				if (currentTime < duration) {
+					Vector3 newPos = Easings::EaseInTime(startPos_, targetPos_, currentTime, duration);
+					camera_->translation_ = newPos;
+					currentTime += 1.0f / 60.0f; // 1フレームごとに時間を進める(60fpsを想定)
+				} else {
+					currentTime = 0.0f;
+					isReaction = true;
+				}
+				targetPos_ = Vector3(mapChip_->GetObjectPos(MapChipID::kGoal).x, mapChip_->GetObjectPos(MapChipID::kGoal).y, mapChip_->GetObjectPos(MapChipID::kGoal).z - 6.0f);
+			} else {
+				if (isReactionEnd == false) {
+					if (ReactionTimer < kReactionTimer) {
+						ReactionTimer++;
+					} else {
+						isReactionEnd = true;
+					}
+				} else {
+					if (endReaction < kEndReaction) {
+						endReaction++;
+					} else {
+						float duration = static_cast<float>(kMoveTimer) / 60.0f;
+						if (currentTime < duration) {
+							Vector3 newPos = Easings::EaseInTime(startPos_, targetPos_, currentTime, duration);
+							camera_->translation_ = newPos;
+							currentTime += 1.0f / 60.0f; // 1フレームごとに時間を進める(60fpsを想定)
+						} else {
+							currentTime = 0.0f;
+							player_->SetIsMove(true);
+						}
+						targetPos_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(2), Vector3());
+					}
+				}
+			}
+		}
 	}
 }

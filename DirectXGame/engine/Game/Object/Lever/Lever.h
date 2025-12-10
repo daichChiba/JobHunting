@@ -1,5 +1,10 @@
 #pragma once
 #include "KamataEngine.h"
+#include "ect/AABB.h"
+
+class MapChip;
+class Player;
+
 class Lever {
 public:
 	/// <summary>
@@ -13,7 +18,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initilize();
+	void Initilize(MapChip* mapChip_);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -22,7 +27,7 @@ public:
 	/// 描画
 	/// </summary>
 	/// <param name="camera_">カメラ情報を入力</param>
-	//void Draw(KamataEngine::Camera& camera_);
+	void Draw(KamataEngine::Camera& camera_);
 	/// <summary>
 	/// ImGuiの描画
 	/// </summary>
@@ -32,7 +37,20 @@ public:
 	/// </summary>
 	void Delete();
 
-private:
-	KamataEngine::Model* model_ = nullptr;
+	bool GetIsLever() const { return isLever; }
 
+	KamataEngine::Vector3 GetWorldPos();
+
+	AABB GetAABB();
+
+	void OnCollision(const Player* player);
+
+private:
+	KamataEngine::WorldTransform worldTransform_;
+
+	KamataEngine::Model* model_[2] = {nullptr};
+
+	bool isLever;
+
+	KamataEngine::Vector2 size_{1.0f, 1.0f};
 };

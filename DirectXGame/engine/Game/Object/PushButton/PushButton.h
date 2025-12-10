@@ -43,7 +43,7 @@ public:
 	/// ボタンが押されたかどうか
 	/// </summary>
 	/// <returns>ボタンが押されたときはtrue、押されていない時はfalseを返します。</returns>
-	bool IsPushButton() { return isPushButton; }
+	bool GetIsPushButton() { return isPushButton; }
 	/// <summary>
 	/// ワールド座標の位置を取得
 	/// </summary>
