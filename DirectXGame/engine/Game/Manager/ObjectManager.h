@@ -1,6 +1,8 @@
 #pragma once
 #include "KamataEngine.h"
 #include "Game/Object/Goal/Goal.h"
+#include "Game/Object/PushButton/PushButton.h"
+#include "Game/Object/Lever/Lever.h"
 
 
 class MapChip;
@@ -25,8 +27,13 @@ public:
 
 	void CheckAllCollisions(Player* player);
 
+	PushButton& GetPushButton() { return pushButton_; }
+	Lever& GetLever() { return lever_; }
+
 private:
 	MapChip* mapChipData_;
 	Goal goal_;
+	PushButton pushButton_;
+	Lever lever_;
 	Player* player_;
 };

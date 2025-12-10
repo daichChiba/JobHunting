@@ -4,6 +4,9 @@
 #include <KamataEngine.h>
 #include "engine/ect/IntVector2.h"
 
+class PushButton;
+class Lever;
+
 /// <summary>
 /// マップチップに関する情報を取り扱うクラス
 /// csvファイルなどの情報を総合的に扱う
@@ -122,6 +125,14 @@ public:
 
 	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
 
+	void SetPushButton(PushButton* pushButton) { pushButton_ = pushButton; } 
+	void SetLever(Lever* lever) { lever_ = lever; }
+
+	PushButton* GetPushButton() { return pushButton_; }
+	Lever* GetLever() { return lever_; }
+
+	void SetIsBlockReaction(bool isBlockReactionEnd_) { isBlockReactionEnd = isBlockReactionEnd_; }
+
 private:
 	void MapCreate();
 	void SetModel();
@@ -139,4 +150,9 @@ private:
 
 	// ワールドトランスフォーム
 	std::vector<std::vector<WorldTransform*>> worldTransform_;
+
+	PushButton* pushButton_;
+	Lever* lever_;
+
+	bool isBlockReactionEnd;
 };

@@ -19,6 +19,9 @@ void GameScene::Initialize() {
 	objectManager_ = new ObjectManager();
 	objectManager_->Initilize(&mapChip_);
 
+	mapChip_.SetPushButton(&objectManager_->GetPushButton());
+	mapChip_.SetLever(&objectManager_->GetLever());
+
 	for (int i = 0; i < 3; i++) {
 		countTh_[i] = TextureManager::Load(std::string("Count/count_") + std::to_string(3 - i) + std::string(".png"));
 		countSprite_[i] = Sprite::Create(countTh_[i], Vector2(640.0f, 360.0f));
@@ -36,6 +39,7 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+	camera_->SetMapChip(&mapChip_);
 
 	camera_->Update();
 	player_.Update();
@@ -43,6 +47,8 @@ void GameScene::Update() {
 	//goal_.Update();
 	mapChip_.Update();
 	objectManager_->UpDate();
+
+	mapChip_.SetIsBlockReaction(camera_->GetIsReactionEnd());
 
 	if (player_.GetIsRotateGoal()) {
 		isFadeStart = true;

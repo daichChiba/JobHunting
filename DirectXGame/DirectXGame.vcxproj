@@ -154,6 +154,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\Game\Object\PushButton\PushButton.cpp" />
     <ClCompile Include="engine\Scene\scenes\ClearScene.cpp" />
     <ClCompile Include="engine\ect\Easings.cpp" />
     <ClCompile Include="engine\Scene\scenes\DemoScene.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="engine\Scene\fade\Fade.cpp" />
     <ClCompile Include="engine\Game\Camera\GameCamera.cpp" />
     <ClCompile Include="engine\Game\Object\Goal\Goal.cpp" />
+    <ClCompile Include="engine\Game\Object\Lever\Lever.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\Scene\scenes\ResetScene.cpp" />
     <ClCompile Include="engine\Scene\Scene.cpp" />
@@ -278,6 +280,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\Game\Object\PushButton\PushButton.h" />
     <ClInclude Include="engine\Scene\scenes\ClearScene.h" />
     <ClInclude Include="engine\ect\Easings.h" />
     <ClInclude Include="engine\ect\IntVector2.h" />
@@ -299,6 +302,7 @@
     <ClInclude Include="engine\ect\MathUtilityForText.h" />
     <ClInclude Include="engine\Game\Manager\ObjectManager.h" />
     <ClInclude Include="engine\Game\Player\Clone\PlayerClone.h" />
+    <ClInclude Include="engine\Game\Object\Lever\Lever.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

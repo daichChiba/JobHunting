@@ -20,11 +20,11 @@ public:
 	/// 更新
 	/// </summary>
 	void Update();
-	///// <summary>
-	/////	描画
-	///// </summary>
-	///// <param name="camera_">カメラの情報を入力する</param>
-	//void Draw(KamataEngine::Camera& camera_);
+	/// <summary>
+	/// 描画
+	/// </summary>
+	/// <param name="camera_">カメラの情報を入力する</param>
+	void Draw(KamataEngine::Camera& camera_);
 	/// <summary>
 	/// 情報を削除する
 	/// </summary>
@@ -35,6 +35,9 @@ public:
 	void DrawImGui();
 
 private:
+	KamataEngine::Model* model_ = nullptr;///分身のモデル
+
+	KamataEngine::WorldTransform worldTransform_;
 	
 
 };

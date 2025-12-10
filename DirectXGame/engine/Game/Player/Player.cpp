@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "../MapChip/MapChip.h"
 #include "Game/Object/Goal/Goal.h"
+#include "Game/Object/PushButton/PushButton.h"
+#include "Game/Object/Lever/Lever.h"
 #include <algorithm>
 
 using namespace KamataEngine;
@@ -212,10 +214,21 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (mapChipID_==MapChipID::OpenBlock) {
+			hit = true;
+		}
+	}
+
 	indexSet = mapChipData_->GetMapChipIndexSetByPosition(NewPos[kRightTop]);
 	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
+	}
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (mapChipID_ == MapChipID::OpenBlock) {
+			hit = true;
+		}
 	}
 	if (hit) {
 		indexSet = mapChipData_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(0, +size_.y / 2.0f, 0));
@@ -245,12 +258,21 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	if (MapChipID == MapChipID::kBlock) {
 		hit = true;
 	}
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (MapChipID == MapChipID::OpenBlock) {
+			hit = true;
+		}
+	}
 	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kRightBottom]);
 	MapChipID = mapChipData_->GetMapChipID(indexSet);
 	if (MapChipID == MapChipID::kBlock) {
 		hit = true;
 	}
-
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (MapChipID == MapChipID::OpenBlock) {
+			hit = true;
+		}
+	}
 	if (hit) {
 		indexSet = mapChipData_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(0, +size_.y / 2.0f, 0));
 		MapChip::Rect rect = mapChipData_->GetRectByIndex(indexSet);
@@ -278,10 +300,20 @@ void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (mapChipID_ == MapChipID::OpenBlock) {
+			hit = true;
+		}
+	}
 	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kRightBottom]);
 	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
+	}
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (mapChipID_ == MapChipID::OpenBlock) {
+			hit = true;
+		}
 	}
 
 	if (hit) {
@@ -311,10 +343,20 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (mapChipID_ == MapChipID::OpenBlock) {
+			hit = true;
+		}
+	}
 	indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kLeftBottom]);
 	mapChipID_ = mapChipData_->GetMapChipID(indexSet);
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
+	}
+	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+		if (mapChipID_ == MapChipID::OpenBlock) {
+			hit = true;
+		}
 	}
 
 	if (hit) {
@@ -346,10 +388,20 @@ void Player::CellingSwitch(CollisionMapInfo& info) {
 			if (MapChipID == MapChipID::kBlock) {
 				hit = true;
 			}
+			if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+				if (MapChipID == MapChipID::OpenBlock) {
+					hit = true;
+				}
+			}
 			indexSet = mapChipData_->GetMapChipIndexSetByPosition(newPos[kRightBottom] + Vector3(0, -kAttennuationShift, 0));
 			MapChipID = mapChipData_->GetMapChipID(indexSet);
 			if (MapChipID == MapChipID::kBlock) {
 				hit = true;
+			}
+			if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+				if (MapChipID == MapChipID::OpenBlock) {
+					hit = true;
+				}
 			}
 
 			if (!hit) {
