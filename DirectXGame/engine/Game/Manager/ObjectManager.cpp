@@ -35,8 +35,8 @@ void ObjectManager::Draw(KamataEngine::Camera& camera) {
 }
 
 void ObjectManager::DrawImGui() {
-	goal_.DrawImGui();
-	pushButton_.DrawImGui();
+	//goal_.DrawImGui();
+	//pushButton_.DrawImGui();
 	lever_.DrawImGui();
 }
 
@@ -62,5 +62,7 @@ void ObjectManager::CheckAllCollisions(Player* player) {
 
 	if (IsCollision(playerAABB,lever_.GetAABB())) {
 		lever_.OnCollision(player);
+	} else {
+		lever_.SetIsColision(false);
 	}
 }

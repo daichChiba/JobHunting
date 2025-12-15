@@ -13,7 +13,6 @@ Lever::~Lever() {
 void Lever::Initilize(MapChip* mapChip_) {
 	//
 
-	isLever = false;
 
 	model_[0] = Model::CreateFromOBJ("LeverRight", true);
 	model_[1] = Model::CreateFromOBJ("LeverLeft", true);
@@ -44,6 +43,7 @@ void Lever::DrawImGui() {
 	ImGui::Begin("Lever");
 	ImGui::Text("test");
 	ImGui::Checkbox("isLever", &isLever);
+	ImGui::Checkbox("isColision", &isColision);
 	ImGui::End();
 #endif // _DEBUG
 
@@ -80,4 +80,5 @@ AABB Lever::GetAABB() {
 void Lever::OnCollision(const Player* player) {
 	(void)player;
 	isLever = true;
+	isColision = true;
 }

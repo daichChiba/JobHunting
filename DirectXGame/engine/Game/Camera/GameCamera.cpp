@@ -76,6 +76,7 @@ void GameCamera::ImGuiDraw() {
 	ImGui::DragFloat3("pos", &camera_->translation_.x, 0.01f);
 	ImGui::SliderFloat3("pos", &camera_->translation_.x, -50.0f, 50.0f);
 	ImGui::DragInt("listBox_", &camera_posType);
+	//ImGui::Checkbox("isAllReaction", &isAllReaction);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -148,7 +149,7 @@ void GameCamera::SetReactionCamera() {
 							currentTime += 1.0f / 60.0f; // 1フレームごとに時間を進める(60fpsを想定)
 						} else {
 							currentTime = 0.0f;
-							//player_->SetIsMove(true);
+							player_->SetIsMove(true);
 
 						}
 						targetPos_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(2), Vector3());

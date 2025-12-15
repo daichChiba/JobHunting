@@ -39,6 +39,10 @@ public:
 
 	bool GetIsLever() const { return isLever; }
 
+	bool GetIsColision() const { return isColision; }
+
+	void SetIsColision(bool isColision_) { isColision = isColision_; }
+
 	KamataEngine::Vector3 GetWorldPos();
 
 	AABB GetAABB();
@@ -50,7 +54,8 @@ private:
 
 	KamataEngine::Model* model_[2] = {nullptr};
 
-	bool isLever;
+	bool isLever = false;
+	bool isColision = false;
 
 	KamataEngine::Vector2 size_{1.0f, 1.0f};
 };

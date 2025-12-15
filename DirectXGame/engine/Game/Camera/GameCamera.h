@@ -76,7 +76,9 @@ public:
 
 	bool GetIsReactionEnd() { return isReactionEnd; }
 
-	bool GetIsReactionStart() { return isReactionStart; }
+	//bool GetIsReactionStart() { return isReactionStart; }
+
+	//bool GetIsAllReaction() { return isAllReaction; }
 
 private:
 	/// <summary>
@@ -122,7 +124,7 @@ private:
 
 	Player* player_;
 
-
+	//bool isAllReaction = false;
 
 
 	bool isReactionStart = false;
