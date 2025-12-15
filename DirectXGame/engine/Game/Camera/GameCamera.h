@@ -76,6 +76,8 @@ public:
 
 	bool GetIsReactionEnd() { return isReactionEnd; }
 
+	bool GetIsReactionStart() { return isReactionStart; }
+
 private:
 	/// <summary>
 	/// ゲームクリアしたときのカメラの動き
@@ -119,6 +121,8 @@ private:
 	// KamataEngine::Vector3
 
 	Player* player_;
+
+
 
 
 	bool isReactionStart = false;

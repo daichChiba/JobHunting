@@ -11,7 +11,7 @@ GameScene::~GameScene() {}
 void GameScene::Initialize() {
 	mapChip_.Initialize(filePath, erea, stage);
 	player_.Initialize(&mapChip_);
-	//goal_.Initialize(&mapChip_);
+	// goal_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
 	camera_->SetPlayer(&player_);
 	camera_->Initialize();
@@ -44,7 +44,7 @@ void GameScene::Update() {
 	camera_->Update();
 	player_.Update();
 	// player_.SetMapChip(&mapChip_);
-	//goal_.Update();
+	// goal_.Update();
 	mapChip_.Update();
 	objectManager_->UpDate();
 
@@ -76,7 +76,9 @@ void GameScene::Update() {
 		// camera_->SetCameraPos();
 		// count_ = 0;
 		// isStart = true;
-		player_.SetIsMove(true);
+		if (player_.GetIsMove()==false&&camera_->GetIsReactionStart()==false) {
+			player_.SetIsMove(true);
+		}
 		gameCount_++;
 		if (gameCount_ > 60) {
 			if (!isFadeStart) {
@@ -100,7 +102,7 @@ void GameScene::Update() {
 	//	isFinish = true;
 	//	nextScene_ = SceneID::Title;
 	// }
-	//CheckAllCollisions(&player_);
+	// CheckAllCollisions(&player_);
 	objectManager_->CheckAllCollisions(&player_);
 
 	fade_->Update();
@@ -131,7 +133,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_.Draw(*camera_->GetCamera());
-	//goal_.Draw(*camera_->GetCamera());
+	// goal_.Draw(*camera_->GetCamera());
 	objectManager_->Draw(*camera_->GetCamera());
 
 	mapChip_.MapDraw(*camera_->GetCamera());
@@ -161,7 +163,7 @@ void GameScene::Draw() {
 
 void GameScene::Delete() {
 	player_.Delete();
-	//goal_.Delete();
+	// goal_.Delete();
 	objectManager_->Delete();
 	delete fade_;
 }
@@ -185,21 +187,21 @@ void GameScene::DrawImGui() {
 	}
 	ImGui::End();
 	camera_->ImGuiDraw();
-	mapChip_.DrawImGui();
+	// mapChip_.DrawImGui();
 	player_.DrawImGui();
-	//goal_.DrawImGui();
-	objectManager_->DrawImGui();
+	// goal_.DrawImGui();
+	// objectManager_->DrawImGui();
 
 #endif // _DEBUG
 }
 
 SceneID GameScene::NextScene() const { return nextScene_; }
 
-//void GameScene::CheckAllCollisions(Player* player) {
+// void GameScene::CheckAllCollisions(Player* player) {
 //	//
 //	AABB playerAABB = player->GetAABB();
 //
 //	if (IsCollision(playerAABB, goal_.GetAABB())) {
 //		player->OnCollision(&goal_);
 //	}
-//}
+// }

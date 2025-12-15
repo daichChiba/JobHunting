@@ -56,12 +56,9 @@ void GameCamera::ImGuiDraw() {
 #ifdef _DEBUG
 	const char* listBox_[] = {"1stPos", "2ndPos", "3rdPos"};
 	ImGui::Begin("GameCamera");
-	// ImGui::ListBox("CameraPos", &listBox_num, listBox_, IM_ARRAYSIZE(listBox_), 3);
 	ImGui::Combo("cameraPos", &camera_posType, listBox_, IM_ARRAYSIZE(listBox_), cameraTypeMax);
 	if (ImGui::Button("save")) {
-		// if (listBox_num == 1) {
-		//	fileAccessor_->WriteVector3(fileMain, "1stPos", camera_->translation_);
-		// }
+
 		fileAccessor_->Write(fileMain, std::string("Pos") + std::to_string(camera_posType), camera_->translation_);
 		fileAccessor_->Save();
 	};
@@ -115,8 +112,10 @@ void GameCamera::SetReactionCamera() {
 		startPos_ = camera_->translation_;
 
 		if (mapChip_->GetPushButton()->GetIsPushButton() || mapChip_->GetLever()->GetIsLever()) {
+			if (isReactionStart == false) {
+				player_->SetIsMove(false);
+			}
 			isReactionStart = true;
-			player_->SetIsMove(false);
 		}
 
 		if (isReactionStart) {
@@ -149,7 +148,8 @@ void GameCamera::SetReactionCamera() {
 							currentTime += 1.0f / 60.0f; // 1フレームごとに時間を進める(60fpsを想定)
 						} else {
 							currentTime = 0.0f;
-							player_->SetIsMove(true);
+							//player_->SetIsMove(true);
+
 						}
 						targetPos_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(2), Vector3());
 					}

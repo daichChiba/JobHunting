@@ -61,6 +61,7 @@ public:
 	void DrawImGui();
 
 	void SetIsMove(bool isMove_) { isMove = isMove_; }
+	bool GetIsMove() { return isMove; }
 
 	const KamataEngine::WorldTransform& worldTransform() const { return worldTransform_; }
 	const KamataEngine::Vector3& GetVelocity() const { return velocity_; }

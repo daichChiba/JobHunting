@@ -51,6 +51,14 @@ void Player::Update() {
 	}
 	CollisionMapInfo collisionMapInfo;
 
+	if (!isMove) {
+		velocity_ = Vector3Zero();
+		collisionMapInfo.ceiling = false;
+		collisionMapInfo.hitWall = false;
+		collisionMapInfo.landing = false;
+		return;
+	}
+
 	collisionMapInfo.move = velocity_;
 
 	CheckMapCollision(collisionMapInfo);
@@ -79,6 +87,7 @@ void Player::DrawImGui() {
 	ImGui::Checkbox("collisionMapInfo.hitwall", &info_.hitWall);
 	ImGui::Checkbox("onGround", &onGround_);
 	ImGui::Checkbox("isGoal", &isGoal_);
+	ImGui::Checkbox("isMove", &isMove);
 	//ImGui::Checkbox("goalJump_", &goalJump_);
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("size", &size_.x);
@@ -178,10 +187,10 @@ void Player::InputMove() {
 //
 KamataEngine::Vector3 Player::CornerPos(const KamataEngine::Vector3& center, Corner corner) {
 	Vector3 offsetTable[] = {
-	    {+size_.x / 2.0f, -size_.y / 2.0f, 0}, // kRightBottom
-	    {-size_.x / 2.0f, -size_.y / 2.0f, 0}, // kLeftBottom
-	    {+size_.x / 2.0f, +size_.y / 2.0f, 0}, // kRightTop
-	    {-size_.x / 2.0f, +size_.y / 2.0f, 0}  // kLeftTop
+	    {+size_.x * 0.5f, -size_.y * 0.5f, 0}, // kRightBottom
+	    {-size_.x * 0.5f, -size_.y * 0.5f, 0}, // kLeftBottom
+	    {+size_.x * 0.5f, +size_.y * 0.5f, 0}, // kRightTop
+	    {-size_.x * 0.5f, +size_.y * 0.5f, 0}  // kLeftTop
 	};
 	return center + offsetTable[static_cast<uint32_t>(corner)];
 }

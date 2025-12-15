@@ -53,7 +53,7 @@ private:
 	std::unique_ptr<Scene> currentScene_;
 	SceneID currentSceneID_;
 
-
+	bool reloadRequested_ = false;
 
 	std::string filePath = "Resources/Json/Stage.json";
 	std::string erea = "stage_1";
