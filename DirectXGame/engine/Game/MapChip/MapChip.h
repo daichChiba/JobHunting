@@ -98,10 +98,10 @@ public:
 	/// <returns>指定位置に対応するマップの矩形（Rect）。</returns>
 	Rect GetMapRect(const Vector3 pos);
 	/// <summary>
-	/// 
+	/// マップチップ上のチップ位置を取得する
 	/// </summary>
-	/// <param name="pos"></param>
-	/// <returns></returns>
+	/// <param name="pos">基準となる位置ベクトル</param>
+	/// <returns>マップチップの位置(1,1)など</returns>
 	MapChipIndex GetMapChipIndex(const Vector3& pos);
 	/// <summary>
 	/// 

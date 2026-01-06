@@ -74,11 +74,11 @@ public:
 	/// <param name="mapChip">mapChipの情報</param>
 	void SetMapChip(MapChip* mapchip) { mapChip_ = mapchip; }
 
+	/// <summary>
+	/// リアクションの動作がすべて終わっているかどうかの情報を取得する
+	/// </summary>
+	/// <returns>リアクションの動作がすべて終わっていたらtrueを返し、終わっていなかったらfalseを返す</returns>
 	bool GetIsReactionEnd() { return isReactionEnd; }
-
-	//bool GetIsReactionStart() { return isReactionStart; }
-
-	//bool GetIsAllReaction() { return isAllReaction; }
 
 private:
 	/// <summary>
@@ -86,6 +86,9 @@ private:
 	/// </summary>
 	void SetClearCamera();
 
+	/// <summary>
+	/// リアクションする際のカメラの動き
+	/// </summary>
 	void SetReactionCamera();
 
 private:

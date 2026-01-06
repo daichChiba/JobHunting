@@ -62,7 +62,5 @@ void ObjectManager::CheckAllCollisions(Player* player) {
 
 	if (IsCollision(playerAABB,lever_.GetAABB())) {
 		lever_.OnCollision(player);
-	} else {
-		lever_.SetIsColision(false);
 	}
 }

@@ -43,7 +43,6 @@ void Lever::DrawImGui() {
 	ImGui::Begin("Lever");
 	ImGui::Text("test");
 	ImGui::Checkbox("isLever", &isLever);
-	ImGui::Checkbox("isColision", &isColision);
 	ImGui::End();
 #endif // _DEBUG
 
@@ -80,5 +79,4 @@ AABB Lever::GetAABB() {
 void Lever::OnCollision(const Player* player) {
 	(void)player;
 	isLever = true;
-	isColision = true;
 }

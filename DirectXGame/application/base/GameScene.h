@@ -7,7 +7,6 @@
 #include "Game/Manager/ObjectManager.h"
 /// <summary>
 /// ゲームシーンに関する状況を取得し、シーンに反映させるクラス。
-/// 
 /// </summary>
 class GameScene : public Scene {
 public:
@@ -46,7 +45,6 @@ public:
 	SceneID NextScene() const override;
 
 private:
-	//void CheckAllCollisions(Player* player);
 
 private:
 	//プレイヤー
