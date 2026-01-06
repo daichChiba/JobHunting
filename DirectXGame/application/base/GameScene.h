@@ -3,6 +3,7 @@
 #include "Game/MapChip/MapChip.h"
 //#include "Game/Object/Goal/Goal.h"
 #include "Game/Player/Player.h"
+#include "Game/Player/Clone/PlayerClone.h"
 #include "Scene/Scene.h"
 #include "Game/Manager/ObjectManager.h"
 /// <summary>
@@ -49,6 +50,8 @@ private:
 private:
 	//プレイヤー
 	Player player_;
+
+	PlayerClone playerClone_;
 	//オブジェクト
 	//Goal goal_;
 	ObjectManager* objectManager_ = nullptr;

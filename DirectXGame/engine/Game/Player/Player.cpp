@@ -1,6 +1,6 @@
 #define NOMINMAX
 #include "Player.h"
-#include "../MapChip/MapChip.h"
+#include "Game/MapChip/MapChip.h"
 #include "Game/Object/Goal/Goal.h"
 #include "Game/Object/PushButton/PushButton.h"
 #include "Game/Object/Lever/Lever.h"
@@ -72,7 +72,10 @@ void Player::Update() {
 
 	worldTransform_.UpdateMatrix();
 }
-void Player::Draw(const Camera& camera) { model_->Draw(worldTransform_, camera); }
+void Player::Draw(const Camera& camera) {
+	model_->Draw(worldTransform_, camera);
+}
+
 void Player::Delete() {
 	delete model_;
 	model_ = nullptr;
@@ -376,7 +379,9 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	}
 }
 
-void Player::CheckMapCollisionHit(CollisionMapInfo& info) { worldTransform_.translation_ += info.move; }
+void Player::CheckMapCollisionHit(CollisionMapInfo& info) {
+	worldTransform_.translation_ += info.move;
+}
 
 void Player::CellingSwitch(CollisionMapInfo& info) {
 	if (onGround_) {

@@ -11,6 +11,7 @@ GameScene::~GameScene() {}
 void GameScene::Initialize() {
 	mapChip_.Initialize(filePath, erea, stage);
 	player_.Initialize(&mapChip_);
+	playerClone_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
 	camera_->SetPlayer(&player_);
 	camera_->Initialize();
@@ -42,6 +43,7 @@ void GameScene::Update() {
 
 	camera_->Update();
 	player_.Update();
+	playerClone_.Update();
 	mapChip_.Update();
 	objectManager_->UpDate();
 
@@ -117,6 +119,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_.Draw(*camera_->GetCamera());
+	playerClone_.Draw(*camera_->GetCamera());
 	objectManager_->Draw(*camera_->GetCamera());
 
 	mapChip_.MapDraw(*camera_->GetCamera());
@@ -146,6 +149,7 @@ void GameScene::Draw() {
 
 void GameScene::Delete() {
 	player_.Delete();
+	playerClone_.Delete();
 	objectManager_->Delete();
 	delete fade_;
 }
@@ -170,6 +174,7 @@ void GameScene::DrawImGui() {
 	ImGui::End();
 	camera_->ImGuiDraw();
 	player_.DrawImGui();
+	playerClone_.DrawImGui();
 	objectManager_->DrawImGui();
 
 #endif // _DEBUG
