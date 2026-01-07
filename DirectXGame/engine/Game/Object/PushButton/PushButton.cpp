@@ -11,8 +11,8 @@ PushButton::~PushButton() {
 	//
 }
 
-void PushButton::Initilize(MapChip* mapChip_) {
-	isPushButton = false;
+void PushButton::Initilize(const KamataEngine::Vector3 pos) {
+	
 
 	model_[0] = Model::CreateFromOBJ("PushButton", true);
 	model_[1] = Model::CreateFromOBJ("PressButton", true);
@@ -20,7 +20,7 @@ void PushButton::Initilize(MapChip* mapChip_) {
 	
 	//
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = mapChip_->GetObjectPos(MapChipID::Button);
+	worldTransform_.translation_ = pos;
 
 }
 
@@ -78,9 +78,11 @@ AABB PushButton::GetAABB() {
 	return aabb;
 }
 
-void PushButton::OnCollision(const Player* player) {
+void PushButton::OnCollision(const Player* player, const PlayerClone* clone) {
 	//
 	(void)player;
+	(void)clone;
+
 	isPushButton = true;
 }
 

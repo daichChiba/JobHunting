@@ -2,10 +2,11 @@
 #include "Game/Camera/GameCamera.h"
 #include "Game/MapChip/MapChip.h"
 //#include "Game/Object/Goal/Goal.h"
-#include "Game/Player/Player.h"
-#include "Game/Player/Clone/PlayerClone.h"
+//#include "Game/Player/Player.h"
+//#include "Game/Player/Clone/PlayerClone.h"
+#include "Game/Player/PlayerManager.h"
 #include "Scene/Scene.h"
-#include "Game/Manager/ObjectManager.h"
+#include "Game/Object/ObjectManager.h"
 /// <summary>
 /// ゲームシーンに関する状況を取得し、シーンに反映させるクラス。
 /// </summary>
@@ -49,9 +50,10 @@ private:
 
 private:
 	//プレイヤー
-	Player player_;
+	//Player player_;
+	//PlayerClone playerClone_;
+	PlayerManager playerManager_;
 
-	PlayerClone playerClone_;
 	//オブジェクト
 	//Goal goal_;
 	ObjectManager* objectManager_ = nullptr;

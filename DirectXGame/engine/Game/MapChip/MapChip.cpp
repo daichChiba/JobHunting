@@ -19,6 +19,8 @@ void MapChip::Initialize(std::string file, std::string erea, std::string stage) 
 	BlockSize = fileAccessor_->Read(erea, "BlockSize", Vector3());
 	MapCreate();
 	SetModel();
+
+
 }
 void MapChip::Update() {
 	for (uint32_t y = 0; y < csvData_.size(); y++) {
@@ -137,6 +139,23 @@ MapChip::MapChipIndex MapChip::GetMapChipIndexSetByPosition(const KamataEngine::
 	return indexSet;
 }
 
+std::vector<KamataEngine::Vector3> MapChip::GetAllObjectPositions(MapChipID id) {
+	std::vector<KamataEngine::Vector3> positions;
+
+	// マップの縦横サイズ分ループ
+	for (int y = 0; y < GetMaxMapSize().y; y++) {
+		for (int x = 0; x < GetMaxMapSize().x; x++) {
+			// その場所のチップIDが一致したら
+			if (GetMapChipID(MapChipIndex{x, y}) == id) {
+				// そのブロックのワールド座標を計算してリストに追加
+				// (GetMapChipPosByIndexなどが既に計算式を持っているはず)
+				positions.push_back(GetMapChipPosByIndex({x, y}));
+			}
+		}
+	}
+	return positions;
+}
+
 void MapChip::MapCreate() {
 	// worldTransform をステージサイズにリサイズ
 	worldTransform_.resize(csvData_.size());
@@ -156,8 +175,8 @@ void MapChip::MapCreate() {
 			// BlockSize を使ってワールド座標を決定（以前は 1.0f 固定だった）
 			Vector3 BlockPos = {BlockSize.x * static_cast<float>(x), BlockSize.y * static_cast<float>(csvData_.size() - 1 - y), 0.0f};
 
-			worldTransform_[y][x]->translation_ = BlockPos;
 			worldTransform_[y][x]->Initialize();
+			worldTransform_[y][x]->translation_ = BlockPos;
 		}
 	}
 }

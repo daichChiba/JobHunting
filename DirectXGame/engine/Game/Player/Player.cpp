@@ -4,6 +4,7 @@
 #include "Game/Object/Goal/Goal.h"
 #include "Game/Object/PushButton/PushButton.h"
 #include "Game/Object/Lever/Lever.h"
+#include "Game/Object/ObjectManager.h"
 #include <algorithm>
 
 using namespace KamataEngine;
@@ -226,7 +227,7 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (mapChipID_==MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -237,7 +238,7 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (mapChipID_ == MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -270,7 +271,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	if (MapChipID == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (MapChipID == MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -280,7 +281,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	if (MapChipID == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (MapChipID == MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -312,7 +313,7 @@ void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (mapChipID_ == MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -322,7 +323,7 @@ void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (mapChipID_ == MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -355,7 +356,7 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (mapChipID_ == MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -365,7 +366,7 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	if (mapChipID_ == MapChipID::kBlock) {
 		hit = true;
 	}
-	if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 		if (mapChipID_ == MapChipID::OpenBlock) {
 			hit = true;
 		}
@@ -402,7 +403,7 @@ void Player::CellingSwitch(CollisionMapInfo& info) {
 			if (MapChipID == MapChipID::kBlock) {
 				hit = true;
 			}
-			if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+			if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 				if (MapChipID == MapChipID::OpenBlock) {
 					hit = true;
 				}
@@ -412,7 +413,7 @@ void Player::CellingSwitch(CollisionMapInfo& info) {
 			if (MapChipID == MapChipID::kBlock) {
 				hit = true;
 			}
-			if (mapChipData_->GetPushButton()->GetIsPushButton()==false&& mapChipData_->GetLever()->GetIsLever()==false) {
+			if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
 				if (MapChipID == MapChipID::OpenBlock) {
 					hit = true;
 				}

@@ -128,10 +128,12 @@ public:
 	void SetPushButton(PushButton* pushButton) { pushButton_ = pushButton; } 
 	void SetLever(Lever* lever) { lever_ = lever; }
 
-	PushButton* GetPushButton() { return pushButton_; }
-	Lever* GetLever() { return lever_; }
+	//PushButton* GetPushButton() { return pushButton_; }
+	//Lever* GetLever() { return lever_; }
 
 	void SetIsBlockReaction(bool isBlockReactionEnd_) { isBlockReactionEnd = isBlockReactionEnd_; }
+
+	std::vector<KamataEngine::Vector3> GetAllObjectPositions(MapChipID id);
 
 private:
 	void MapCreate();

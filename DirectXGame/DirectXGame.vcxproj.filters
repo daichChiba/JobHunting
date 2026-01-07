@@ -162,9 +162,6 @@
     <ClCompile Include="engine\ect\MathUtilityForText.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Game\Manager\ObjectManager.cpp">
-      <Filter>ソース ファイル\Game\Managar</Filter>
-    </ClCompile>
     <ClCompile Include="engine\Scene\scenes\ClearScene.cpp">
       <Filter>ソース ファイル\Scene\scenes</Filter>
     </ClCompile>
@@ -176,6 +173,12 @@
     </ClCompile>
     <ClCompile Include="engine\Game\Object\PushButton\PushButton.cpp">
       <Filter>ソース ファイル\Game\Object\PushButton</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Object\ObjectManager.cpp">
+      <Filter>ソース ファイル\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Player\PlayerManager.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +300,6 @@
     <ClInclude Include="engine\Scene\scenes\ClearScene.h">
       <Filter>ヘッダー ファイル\Scene\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="engine\Game\Manager\ObjectManager.h">
-      <Filter>ヘッダー ファイル\Game\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="engine\Game\Player\Clone\PlayerClone.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
@@ -308,6 +308,12 @@
     </ClInclude>
     <ClInclude Include="engine\Game\Object\PushButton\PushButton.h">
       <Filter>ヘッダー ファイル\Game\Object\PushButton</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Object\ObjectManager.h">
+      <Filter>ヘッダー ファイル\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Player\PlayerManager.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

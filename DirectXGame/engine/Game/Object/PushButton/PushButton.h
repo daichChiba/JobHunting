@@ -4,6 +4,7 @@
 
 class MapChip;
 class Player;
+class PlayerClone;
 
 /// <summary>
 /// ステージ内のギミックの開閉を管理するクラス
@@ -21,7 +22,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initilize(MapChip* mapChip_);
+	void Initilize(const KamataEngine::Vector3 pos);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -58,7 +59,7 @@ public:
 	/// プレイヤーに当たった時の処理
 	/// </summary>
 	/// <param name="player">playerを入力しする</param>
-	void OnCollision(const Player* player);
+	void OnCollision(const Player* player,const PlayerClone* clone);
 	/// <summary>
 	/// ボタンを切り替える
 	/// </summary>
@@ -71,7 +72,7 @@ private:
 
 	KamataEngine::WorldTransform worldTransform_;
 
-	bool isPushButton;
+	bool isPushButton=false;
 
 	KamataEngine::Vector2 size_{1.0f, 1.0f};
 };

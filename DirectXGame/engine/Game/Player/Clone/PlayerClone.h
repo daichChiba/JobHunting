@@ -4,6 +4,7 @@
 #include "engine/Game/LoadJsonFile/FileJson.h"
 class MapChip;
 class Goal;
+class ObjectManager;
 
 class PlayerClone {
 public:
@@ -48,7 +49,7 @@ public:
 	/// 描画
 	/// </summary>
 	/// <param name="camera_">カメラの情報を入力する</param>
-	void Draw(KamataEngine::Camera& camera_);
+	void Draw(const KamataEngine::Camera& camera_);
 	/// <summary>
 	/// 情報を削除する
 	/// </summary>
@@ -80,6 +81,8 @@ public:
 	KamataEngine::Vector3 GetPlayerPos() { return worldTransform_.translation_; }
 
 	bool GetIsRotateGoal() { return isRotateGoal; }
+
+	void SetObjectManager(ObjectManager* objectManager) { objectManager_ = objectManager; }
 
 private:
 	/// <summary>
@@ -133,7 +136,7 @@ private:
 
 	KamataEngine::Vector3 goalRotationLimit;
 
-	bool isMove = true;
+	bool isMove = false;
 
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Model* model_ = nullptr;
@@ -141,6 +144,7 @@ private:
 	CollisionMapInfo info_;
 
 	MapChip* mapChipData_;
+	ObjectManager* objectManager_;
 	LRDirection lrDirection_ = LRDirection::kRight;
 
 	bool onGround_ = true;

@@ -10,17 +10,17 @@ GameScene::~GameScene() {}
 
 void GameScene::Initialize() {
 	mapChip_.Initialize(filePath, erea, stage);
-	player_.Initialize(&mapChip_);
-	playerClone_.Initialize(&mapChip_);
+	playerManager_.Initialize(&mapChip_);
+	//player_.Initialize(&mapChip_);
+	//playerClone_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
-	camera_->SetPlayer(&player_);
+	camera_->SetPlayer(playerManager_.GetPlayer());
 	camera_->Initialize();
 
 	objectManager_ = new ObjectManager();
 	objectManager_->Initilize(&mapChip_);
 
-	mapChip_.SetPushButton(&objectManager_->GetPushButton());
-	mapChip_.SetLever(&objectManager_->GetLever());
+	playerManager_.SetObjectManager(objectManager_);
 
 	for (int i = 0; i < 3; i++) {
 		countTh_[i] = TextureManager::Load(std::string("Count/count_") + std::to_string(3 - i) + std::string(".png"));
@@ -40,22 +40,23 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 	camera_->SetMapChip(&mapChip_);
-
+	camera_->SetObjectManager(objectManager_);
 	camera_->Update();
-	player_.Update();
-	playerClone_.Update();
+	//player_.Update();
+	//playerClone_.Update();
+	playerManager_.Update();
 	mapChip_.Update();
 	objectManager_->UpDate();
 
 	mapChip_.SetIsBlockReaction(camera_->GetIsReactionEnd());
 
-	if (player_.GetIsRotateGoal()) {
+	if (playerManager_.GetPlayer()->GetIsRotateGoal()) {
 		isFadeStart = true;
 	}
 
 	if (isStart) {
 		startCount_--;
-		player_.SetIsMove(false);
+		playerManager_.GetPlayer()->SetIsMove(false);
 		if (startCount_ % 60 == 0) {
 			if (camera_->GetCamera_PosType() < camera_->GetcameraTypeMax()) {
 				count_++;
@@ -64,7 +65,7 @@ void GameScene::Update() {
 				camera_->CameraNextPos();
 			} else {
 				isStart = false;
-				player_.SetIsMove(true);
+				playerManager_.GetPlayer()->SetIsMove(true);
 			}
 		}
 	} else {
@@ -80,7 +81,7 @@ void GameScene::Update() {
 		if (isFadeStart) {
 			if (fade_->IsFinished()) {
 				isFinish = true;
-				if (player_.GetIsGoal()) {
+				if (playerManager_.GetPlayer()->GetIsGoal()) {
 					nextScene_ = SceneID::Clear;
 				} else {
 					nextScene_ = SceneID::Title;
@@ -89,7 +90,7 @@ void GameScene::Update() {
 		}
 	}
 
-	objectManager_->CheckAllCollisions(&player_);
+	objectManager_->CheckAllCollisions(playerManager_.GetPlayer(), playerManager_.GetClone());
 
 	fade_->Update();
 }
@@ -118,8 +119,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	player_.Draw(*camera_->GetCamera());
-	playerClone_.Draw(*camera_->GetCamera());
+	//player_.Draw(*camera_->GetCamera());
+	//playerClone_.Draw(*camera_->GetCamera());
+	playerManager_.Draw(*camera_->GetCamera());
 	objectManager_->Draw(*camera_->GetCamera());
 
 	mapChip_.MapDraw(*camera_->GetCamera());
@@ -148,8 +150,8 @@ void GameScene::Draw() {
 }
 
 void GameScene::Delete() {
-	player_.Delete();
-	playerClone_.Delete();
+	//player_.Delete();
+	//playerClone_.Delete();
 	objectManager_->Delete();
 	delete fade_;
 }
@@ -173,8 +175,9 @@ void GameScene::DrawImGui() {
 	}
 	ImGui::End();
 	camera_->ImGuiDraw();
-	player_.DrawImGui();
-	playerClone_.DrawImGui();
+	//player_.DrawImGui();
+	//playerClone_.DrawImGui();
+	playerManager_.DrawImGui();
 	objectManager_->DrawImGui();
 
 #endif // _DEBUG

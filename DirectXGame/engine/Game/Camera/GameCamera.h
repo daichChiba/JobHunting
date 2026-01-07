@@ -3,6 +3,7 @@
 #include <KamataEngine.h>
 class Player;
 class MapChip;
+class ObjectManager;
 /// <summary>
 /// GameScene時のカメラの情報(カメラの位置など)を取り扱うクラス
 /// カメラに関する入出力を単一的に扱う
@@ -74,6 +75,8 @@ public:
 	/// <param name="mapChip">mapChipの情報</param>
 	void SetMapChip(MapChip* mapchip) { mapChip_ = mapchip; }
 
+	void SetObjectManager(ObjectManager* objectManager) { objectManager_ = objectManager; }
+
 	/// <summary>
 	/// リアクションの動作がすべて終わっているかどうかの情報を取得する
 	/// </summary>
@@ -135,4 +138,6 @@ private:
 	bool isReaction = false;
 
 	MapChip* mapChip_;
+
+	ObjectManager* objectManager_;
 };

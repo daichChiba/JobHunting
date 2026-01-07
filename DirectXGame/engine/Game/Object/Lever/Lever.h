@@ -4,6 +4,7 @@
 
 class MapChip;
 class Player;
+class PlayerClone;
 
 class Lever {
 public:
@@ -18,7 +19,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initilize(MapChip* mapChip_);
+	void Initilize(const KamataEngine::Vector3 pos);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -39,13 +40,11 @@ public:
 
 	bool GetIsLever() const { return isLever; }
 
-
-
 	KamataEngine::Vector3 GetWorldPos();
 
 	AABB GetAABB();
 
-	void OnCollision(const Player* player);
+	void OnCollision(const Player* player, const PlayerClone* clone);
 
 private:
 	KamataEngine::WorldTransform worldTransform_;

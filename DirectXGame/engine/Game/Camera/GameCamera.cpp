@@ -4,6 +4,7 @@
 #include "engine/Game/Object/PushButton/PushButton.h"
 #include "engine/Game/Player/Player.h"
 #include "engine/ect/Easings.h"
+#include "Game/Object/ObjectManager.h"
 
 using namespace KamataEngine;
 using namespace FileJson;
@@ -112,7 +113,7 @@ void GameCamera::SetReactionCamera() {
 	if (player_->GetIsGoal() == false) {
 		startPos_ = camera_->translation_;
 
-		if (mapChip_->GetPushButton()->GetIsPushButton() || mapChip_->GetLever()->GetIsLever()) {
+		if (objectManager_->GetIsAllLever()) {
 			if (isReactionStart == false) {
 				player_->SetIsMove(false);
 			}

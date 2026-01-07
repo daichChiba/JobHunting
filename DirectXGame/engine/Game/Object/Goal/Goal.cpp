@@ -7,17 +7,16 @@ using namespace MathUtility;
 Goal::Goal() {}
 Goal::~Goal() {}
 
-void Goal::Initialize(MapChip* mapchip) {
+void Goal::Initialize(const KamataEngine::Vector3 pos) {
 	//
 
-	mapChipData_ = mapchip;
 
 	Model* model = nullptr;
 	model = Model::CreateFromOBJ("Portal", true);
 	model_ = model;
 
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = mapChipData_->GetObjectPos(MapChipID::kGoal);
+	worldTransform_.translation_ = pos;
 	worldTransform_.scale_ = Vector3(0.5f, 0.5f, 1.0f);
 
 	

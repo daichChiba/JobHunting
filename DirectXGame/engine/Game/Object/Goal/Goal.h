@@ -20,7 +20,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(MapChip* mapchip);
+	void Initialize(const KamataEngine::Vector3 pos);
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -52,7 +52,7 @@ public:
 private:
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Model* model_ = nullptr;
-	MapChip* mapChipData_;
+	//MapChip* mapChipData_;
 
 	KamataEngine::Vector2 size_{0.5f, 1.0f};
 };
