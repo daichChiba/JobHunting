@@ -1,6 +1,7 @@
 // FileJson.cpp
 #include "FileJson.h" // FileJson.hをインクルード
 #include <limits>     // 数値の限界値
+using namespace KamataEngine; // KamataEngineの名前空間を使用
 
 namespace FileJson { // FileJson名前空間を使用
 
