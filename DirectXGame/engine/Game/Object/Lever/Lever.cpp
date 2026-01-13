@@ -10,16 +10,15 @@ Lever::~Lever() {
 	//
 }
 
-void Lever::Initilize(MapChip* mapChip_) {
+void Lever::Initilize(const KamataEngine::Vector3 pos) {
 	//
 
-	isLever = false;
 
 	model_[0] = Model::CreateFromOBJ("LeverRight", true);
 	model_[1] = Model::CreateFromOBJ("LeverLeft", true);
 
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = mapChip_->GetObjectPos(MapChipID::Lever);
+	worldTransform_.translation_ = pos;
 }
 
 void Lever::Update() {
@@ -77,7 +76,8 @@ AABB Lever::GetAABB() {
 	return aabb;
 }
 
-void Lever::OnCollision(const Player* player) {
+void Lever::OnCollision(const Player* player, const PlayerClone* clone) {
 	(void)player;
+	(void)clone;
 	isLever = true;
 }

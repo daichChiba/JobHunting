@@ -4,6 +4,7 @@
 #include "engine/Game/Object/PushButton/PushButton.h"
 #include "engine/Game/Player/Player.h"
 #include "engine/ect/Easings.h"
+#include "Game/Object/ObjectManager.h"
 
 using namespace KamataEngine;
 using namespace FileJson;
@@ -56,12 +57,9 @@ void GameCamera::ImGuiDraw() {
 #ifdef _DEBUG
 	const char* listBox_[] = {"1stPos", "2ndPos", "3rdPos"};
 	ImGui::Begin("GameCamera");
-	// ImGui::ListBox("CameraPos", &listBox_num, listBox_, IM_ARRAYSIZE(listBox_), 3);
 	ImGui::Combo("cameraPos", &camera_posType, listBox_, IM_ARRAYSIZE(listBox_), cameraTypeMax);
 	if (ImGui::Button("save")) {
-		// if (listBox_num == 1) {
-		//	fileAccessor_->WriteVector3(fileMain, "1stPos", camera_->translation_);
-		// }
+
 		fileAccessor_->Write(fileMain, std::string("Pos") + std::to_string(camera_posType), camera_->translation_);
 		fileAccessor_->Save();
 	};
@@ -79,6 +77,7 @@ void GameCamera::ImGuiDraw() {
 	ImGui::DragFloat3("pos", &camera_->translation_.x, 0.01f);
 	ImGui::SliderFloat3("pos", &camera_->translation_.x, -50.0f, 50.0f);
 	ImGui::DragInt("listBox_", &camera_posType);
+	//ImGui::Checkbox("isAllReaction", &isAllReaction);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -114,9 +113,11 @@ void GameCamera::SetReactionCamera() {
 	if (player_->GetIsGoal() == false) {
 		startPos_ = camera_->translation_;
 
-		if (mapChip_->GetPushButton()->GetIsPushButton() || mapChip_->GetLever()->GetIsLever()) {
+		if (objectManager_->GetIsAllLever()) {
+			if (isReactionStart == false) {
+				player_->SetIsMove(false);
+			}
 			isReactionStart = true;
-			player_->SetIsMove(false);
 		}
 
 		if (isReactionStart) {
@@ -150,6 +151,7 @@ void GameCamera::SetReactionCamera() {
 						} else {
 							currentTime = 0.0f;
 							player_->SetIsMove(true);
+
 						}
 						targetPos_ = fileAccessor_->Read(fileMain, std::string("Pos") + std::to_string(2), Vector3());
 					}

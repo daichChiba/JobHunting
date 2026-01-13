@@ -1,16 +1,16 @@
 #include "SceneManager.h"
 
 SceneManager::SceneManager() {
-		// シーンファクトリにすべてのシーンの生成ロジックを登録
-		sceneFactory_[SceneID::Title] = []() { return std::make_unique<TitleScene>(); };
-		sceneFactory_[SceneID::Game] = []() { return std::make_unique<GameScene>(); };
-		sceneFactory_[SceneID::Reset] = []() { return std::make_unique<ResetScene>(); };
-		sceneFactory_[SceneID::Demo] = []() { return std::make_unique<DemoScene>(); };
-		sceneFactory_[SceneID::Clear] = []() { return std::make_unique<ClearScene>(); };
+	// シーンファクトリにすべてのシーンの生成ロジックを登録
+	sceneFactory_[SceneID::Title] = []() { return std::make_unique<TitleScene>(); };
+	sceneFactory_[SceneID::Game] = []() { return std::make_unique<GameScene>(); };
+	sceneFactory_[SceneID::Reset] = []() { return std::make_unique<ResetScene>(); };
+	sceneFactory_[SceneID::Demo] = []() { return std::make_unique<DemoScene>(); };
+	sceneFactory_[SceneID::Clear] = []() { return std::make_unique<ClearScene>(); };
 }
 
 void SceneManager::ChangeScene(SceneID nextScene) {
-	if (sceneFactory_.find(nextScene)==sceneFactory_.end()) {
+	if (sceneFactory_.find(nextScene) == sceneFactory_.end()) {
 		assert(!"Unknown SceneID provided to ChangeScene");
 	}
 
@@ -20,11 +20,11 @@ void SceneManager::ChangeScene(SceneID nextScene) {
 		currentScene_.reset();
 	}
 
-	//新しいシーンをファクトリから生成
-	//マップから登録済みの生成関数を取得し、実行する
+	// 新しいシーンをファクトリから生成
+	// マップから登録済みの生成関数を取得し、実行する
 	currentScene_ = sceneFactory_[nextScene]();
 
-	//シーン生成後に共通で呼び出される処理
+	// シーン生成後に共通で呼び出される処理
 	SetInformation();
 
 	currentSceneID_ = nextScene;
@@ -44,6 +44,12 @@ void SceneManager::Update() {
 		GetInformation();
 		ChangeScene(next);
 	}
+
+	if (reloadRequested_) {
+		ChangeScene(currentSceneID_);
+		GetInformation();
+		reloadRequested_ = false;
+	}
 }
 void SceneManager::Draw() {
 	if (currentScene_) {
@@ -51,6 +57,14 @@ void SceneManager::Draw() {
 	}
 }
 void SceneManager::DrawImGui() {
+#ifdef _DEBUG
+	ImGui::Begin("SceneManager");
+	if (ImGui::Button("ReLoad")) {
+		reloadRequested_ = true;
+	}
+	ImGui::End();
+#endif // _DEBUG
+
 	if (currentScene_) {
 		currentScene_->DrawImGui();
 	}

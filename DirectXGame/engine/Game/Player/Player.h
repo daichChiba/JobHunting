@@ -4,6 +4,7 @@
 #include "engine/Game/LoadJsonFile/FileJson.h"
 class MapChip;
 class Goal;
+class ObjectManager;
 /// <summary>
 /// プレイヤーに関する状態を取り扱うクラス
 /// プレイヤーの情報を単一的に扱う。
@@ -61,11 +62,14 @@ public:
 	void DrawImGui();
 
 	void SetIsMove(bool isMove_) { isMove = isMove_; }
+	bool GetIsMove() { return isMove; }
 
 	const KamataEngine::WorldTransform& worldTransform() const { return worldTransform_; }
 	const KamataEngine::Vector3& GetVelocity() const { return velocity_; }
 
 	void SetMapChip(MapChip* mapchip_) { mapChipData_ = mapchip_; }
+
+	void SetObjectManager(ObjectManager* objectManager) { objectManager_ = objectManager; }
 
 	KamataEngine::Vector3 GetWorldPos();
 
@@ -143,6 +147,8 @@ private:
 
 	MapChip* mapChipData_;
 	LRDirection lrDirection_ = LRDirection::kRight;
+
+	ObjectManager* objectManager_;
 
 	bool onGround_ = true;
 	bool isGoal_ = false;
