@@ -56,12 +56,29 @@ public:
 	Vector3 Read(const std::string& desiredClass, const std::string& variableName, const Vector3& defaultValue) const;
 
 	/// <summary>
+	/// Vector2型データを読み込む
+	/// </summary>
+	/// <param name="desiredClass">JSONファイルのクラス名</param>
+	/// <param name="variableName">JSONファイルの変数名</param>
+	/// <param name="defaultValue">値が存在しない場合のデフォルト値</param>
+	/// <returns>読み込んだVector2型の値</returns>
+	Vector2 Read(const std::string& desiredClass, const std::string& variableName, const Vector2& defaultValue) const;
+
+	/// <summary>
 	/// Vector3型データを書き込む
 	/// </summary>
 	/// <param name="desiredClass">JSONファイルのクラス名</param>
 	/// <param name="variableName">JSONファイルの変数名</param>
 	/// <param name="value">書き込むVector3型の値</param>
 	void Write(const std::string& desiredClass, const std::string& variableName, const Vector3& value);
+
+	/// <summary>
+	/// Vector2型データを書き込む
+	/// </summary>
+	/// <param name="desiredClass">JSONファイルのクラス名</param>
+	/// <param name="variableName">JSONファイルの変数名</param>
+	/// <param name="value">書き込むVector2型の値</param>
+	void Write(const std::string& desiredClass, const std::string& variableName, const Vector2& value);
 
 	/// <summary>
 	/// CSV形式のデータをJSONから読み込む関数

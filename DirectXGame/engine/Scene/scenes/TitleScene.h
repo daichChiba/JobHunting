@@ -42,7 +42,6 @@ public:
 	SceneID NextScene() const override;
 
 private:
-	KamataEngine::Vector2 ChangeToVector2(std::string stringPos);
 
 private:
 	SceneID nextScene_;

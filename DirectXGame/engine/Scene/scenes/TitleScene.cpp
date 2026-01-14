@@ -12,10 +12,10 @@ void TitleScene::Initialize() {
 	speed = fileAccessor_->Read(fileMain, "speed", float());
 	
 	resetSpeed = speed;
-	backScreenPos = ChangeToVector2("backScreenPos");
-	titelPos = ChangeToVector2("titelPos");
-	pushToSpacePos = ChangeToVector2("pushToSpacePos");
-	stopTitelPos = ChangeToVector2("stopTitelPos");
+	backScreenPos = fileAccessor_->Read(fileMain, "backScreenPos", Vector2());
+	titelPos = fileAccessor_->Read(fileMain, "titelPos", Vector2());
+	pushToSpacePos = fileAccessor_->Read(fileMain, "pushToSpacePos", Vector2());
+	stopTitelPos = fileAccessor_->Read(fileMain, "stopTitelPos", Vector2());
 
 	backScreenTh_ = TextureManager::Load("Titel/backScreen.png");
 	backScreenSpite = Sprite::Create(backScreenTh_, backScreenPos);
@@ -153,8 +153,4 @@ void TitleScene::DrawImGui() {
 
 SceneID TitleScene::NextScene() const { return nextScene_; }
 
-Vector2 TitleScene::ChangeToVector2(std::string stringPos) {
-	Vector3 pos_ = fileAccessor_->Read(fileMain, stringPos, Vector3());
-	Vector2 pos = Vector2(pos_.x, pos_.y);
-	return pos;
-}
+

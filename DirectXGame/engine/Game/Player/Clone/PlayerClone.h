@@ -6,6 +6,10 @@ class MapChip;
 class Goal;
 class ObjectManager;
 
+/// <summary>
+/// プレイヤーのクローンに関する状態を取り扱うクラス
+/// プレイヤーのクローンの情報を単一的に扱う。
+/// </summary>
 class PlayerClone {
 public:
 	enum class LRDirection {

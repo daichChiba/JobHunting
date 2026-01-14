@@ -1,4 +1,5 @@
 #pragma once
+#include "Game/LoadJsonFile/FileJson.h"
 #include "Game/Camera/GameCamera.h"
 #include "Game/MapChip/MapChip.h"
 //#include "Game/Object/Goal/Goal.h"
@@ -7,6 +8,7 @@
 #include "Game/Player/PlayerManager.h"
 #include "Scene/Scene.h"
 #include "Game/Object/ObjectManager.h"
+#include <KamataEngine.h>
 /// <summary>
 /// ゲームシーンに関する状況を取得し、シーンに反映させるクラス。
 /// </summary>
@@ -64,6 +66,10 @@ private:
 	SceneID nextScene_;
 private:
 
+	FileJson::FileAccessor* fileAccessor_ = nullptr;
+
+	const std::string filePath_ = "Resources/Json/GameScene.json";
+
 	int startCount_;
 	int count_;
 	bool isStart;
@@ -72,6 +78,17 @@ private:
 
 	bool isFadeStart;
 
+	bool isGuide = false;
+
 	uint32_t countTh_[4];
 	KamataEngine::Sprite* countSprite_[4];
+
+	KamataEngine::Vector2 guidePos_;
+	KamataEngine::Vector2 guideSize_;
+	KamataEngine::Vector2 f1ButtonPos_;
+	KamataEngine::Vector2 f1ButtonSize_;
+	uint32_t guideTh_;
+	KamataEngine::Sprite* guideSprite_;
+	uint32_t f1ButtonTh_;
+	KamataEngine::Sprite* f1ButtonSprite_;
 };
