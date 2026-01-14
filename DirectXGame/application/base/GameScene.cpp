@@ -9,10 +9,27 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {}
 
 void GameScene::Initialize() {
+	fileAccessor_ = new FileAccessor(filePath_);
+
+	guidePos_ = fileAccessor_->Read("Guide", "pos", Vector2());
+
+	guideTh_ = TextureManager::Load("Guide/Guide.png");
+	guideSprite_ = Sprite::Create(guideTh_, guidePos_);
+	guideSprite_->SetAnchorPoint({0.5f, 0.5f});
+	guideSize_ = fileAccessor_->Read("Guide", "size", Vector2());
+	guideSprite_->SetSize(guideSize_);
+
+	f1ButtonPos_ = fileAccessor_->Read("F1", "pos", Vector2());
+	f1ButtonTh_ = TextureManager::Load("Guide/F1Button.png");
+	f1ButtonSprite_ = Sprite::Create(f1ButtonTh_, f1ButtonPos_);
+	f1ButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
+	f1ButtonSize_ = fileAccessor_->Read("F1", "size", Vector2());
+	f1ButtonSprite_->SetSize(f1ButtonSize_);
+
 	mapChip_.Initialize(filePath, erea, stage);
 	playerManager_.Initialize(&mapChip_);
-	//player_.Initialize(&mapChip_);
-	//playerClone_.Initialize(&mapChip_);
+	// player_.Initialize(&mapChip_);
+	// playerClone_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
 	camera_->SetPlayer(playerManager_.GetPlayer());
 	camera_->Initialize();
@@ -42,17 +59,25 @@ void GameScene::Update() {
 	camera_->SetMapChip(&mapChip_);
 	camera_->SetObjectManager(objectManager_);
 	camera_->Update();
-	//player_.Update();
-	//playerClone_.Update();
+	// player_.Update();
+	// playerClone_.Update();
 	playerManager_.Update();
 	mapChip_.Update();
 	objectManager_->UpDate();
 
 	mapChip_.SetIsBlockReaction(camera_->GetIsReactionEnd());
 
+	if (Input::GetInstance()->ReleseKey(DIK_F1)) {
+		isGuide = !isGuide;
+	}
+
 	if (playerManager_.GetPlayer()->GetIsRotateGoal()) {
 		isFadeStart = true;
 	}
+	guideSprite_->SetPosition(guidePos_);
+	guideSprite_->SetSize(guideSize_);
+	f1ButtonSprite_->SetPosition(f1ButtonPos_);
+	f1ButtonSprite_->SetSize(f1ButtonSize_);
 
 	if (isStart) {
 		startCount_--;
@@ -69,8 +94,6 @@ void GameScene::Update() {
 			}
 		}
 	} else {
-
-
 
 		gameCount_++;
 		if (gameCount_ > 60) {
@@ -119,8 +142,8 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	//player_.Draw(*camera_->GetCamera());
-	//playerClone_.Draw(*camera_->GetCamera());
+	// player_.Draw(*camera_->GetCamera());
+	// playerClone_.Draw(*camera_->GetCamera());
 	playerManager_.Draw(*camera_->GetCamera());
 	objectManager_->Draw(*camera_->GetCamera());
 
@@ -141,6 +164,10 @@ void GameScene::Draw() {
 		countSprite_[count_]->Draw();
 	}
 
+	if (isGuide) {
+		guideSprite_->Draw();
+	}
+	f1ButtonSprite_->Draw();
 	fade_->Draw();
 
 	// スプライト描画後処理
@@ -150,8 +177,8 @@ void GameScene::Draw() {
 }
 
 void GameScene::Delete() {
-	//player_.Delete();
-	//playerClone_.Delete();
+	// player_.Delete();
+	// playerClone_.Delete();
 	objectManager_->Delete();
 	delete fade_;
 }
@@ -165,18 +192,23 @@ void GameScene::DrawImGui() {
 
 	ImGui::DragInt("CameraCount", &count_);
 	ImGui::Checkbox("isStart", &isStart);
-	if (ImGui::Button("restart")) {
-		startCount_ = 240;
-		camera_->SetCamera_PosType(0);
-		camera_->CameraNextPos();
-		camera_->SetCameraPos();
-		count_ = 0;
-		isStart = true;
+
+	ImGui::DragFloat2("guidePos", &guidePos_.x);
+	ImGui::DragFloat2("guideSize", &guideSize_.x);
+	ImGui::DragFloat2("f1ButtonPos", &f1ButtonPos_.x);
+	ImGui::DragFloat2("f1ButtonSize", &f1ButtonSize_.x);
+
+	if (ImGui::Button("save")) {
+		fileAccessor_->Write("Guide", "pos", guidePos_);
+		fileAccessor_->Write("Guide", "size", guideSize_);
+		fileAccessor_->Write("F1", "pos", f1ButtonPos_);
+		fileAccessor_->Write("F1", "size", f1ButtonSize_);
+		fileAccessor_->Save();
 	}
 	ImGui::End();
 	camera_->ImGuiDraw();
-	//player_.DrawImGui();
-	//playerClone_.DrawImGui();
+	// player_.DrawImGui();
+	// playerClone_.DrawImGui();
 	playerManager_.DrawImGui();
 	objectManager_->DrawImGui();
 
@@ -184,4 +216,3 @@ void GameScene::DrawImGui() {
 }
 
 SceneID GameScene::NextScene() const { return nextScene_; }
-

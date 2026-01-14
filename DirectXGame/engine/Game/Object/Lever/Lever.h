@@ -5,7 +5,10 @@
 class MapChip;
 class Player;
 class PlayerClone;
-
+/// <summary>
+/// Leverの状況を取得して、ゲーム内に反映させるクラス
+/// プレイヤーや分身がゴールしたかなど総合的に扱う
+/// </summary>
 class Lever {
 public:
 	/// <summary>
