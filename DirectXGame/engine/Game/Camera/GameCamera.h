@@ -75,6 +75,10 @@ public:
 	/// <param name="mapChip">mapChipの情報</param>
 	void SetMapChip(MapChip* mapchip) { mapChip_ = mapchip; }
 
+	/// <summary>
+	/// ObjectManagerの情報を取得する
+	/// </summary>
+	/// <param name="objectManager">ObjectManagerの情報</param>
 	void SetObjectManager(ObjectManager* objectManager) { objectManager_ = objectManager; }
 
 	/// <summary>

@@ -41,12 +41,29 @@ public:
 	/// </summary>
 	void Delete();
 
+	/// <summary>
+	/// レバーがオンになったかどうかの情報を取得する
+	/// </summary>
+	/// <returns>レバーがオンになっているときはtrue,なっていない時はfalse</returns>
 	bool GetIsLever() const { return isLever; }
 
+	/// <summary>
+	/// ワールド座標の位置を取得
+	/// </summary>
+	/// <returns>ワールド座標を取得しVector3型で値を返します</returns>
 	KamataEngine::Vector3 GetWorldPos();
 
+	/// <summary>
+	/// AABBを取得
+	/// </summary>
+	/// <returns>レバーのAABBを返します。</returns>
 	AABB GetAABB();
 
+	/// <summary>
+	/// 衝突判定
+	/// </summary>
+	/// <param name="player">Playerの情報を入力</param>
+	/// <param name="clone">PlayerCloneの情報を入力</param>
 	void OnCollision(const Player* player, const PlayerClone* clone);
 
 private:
