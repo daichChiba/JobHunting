@@ -1,6 +1,5 @@
 #include "MapChip.h"
-#include "engine/Game/Object/PushButton/PushButton.h"
-#include "engine/Game/Object/Lever/Lever.h"
+#include "Game/Object/ObjectManager.h"
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -19,8 +18,6 @@ void MapChip::Initialize(std::string file, std::string erea, std::string stage) 
 	BlockSize = fileAccessor_->Read(erea, "BlockSize", Vector3());
 	MapCreate();
 	SetModel();
-
-
 }
 void MapChip::Update() {
 	for (uint32_t y = 0; y < csvData_.size(); y++) {
@@ -41,12 +38,11 @@ void MapChip::MapDraw(Camera& camera) {
 				mapChipData_.model->Draw(*worldTransform_[y][x], camera);
 			}
 
-			if (isBlockReactionEnd==false) {
+			if (isBlockReactionEnd == false || (pushButton_ != nullptr && pushButton_->GetIsPushButton() == false)) {
 				if (mapChipData_.data[y][x] == MapChipID ::OpenBlock) {
 					mapChipData_.model->Draw(*worldTransform_[y][x], camera);
 				}
 			}
-
 		}
 	}
 }
@@ -109,12 +105,7 @@ MapChip::MapChipIndex MapChip::GetMapChipIndex(const Vector3& pos) {
 	return index;
 }
 
-IntVector2 MapChip::GetMaxMapSize() {
-	return IntVector2(
-		static_cast<int>(mapChipData_.data[0].size()),
-		static_cast<int>(mapChipData_.data.size())
-	);
-}
+IntVector2 MapChip::GetMaxMapSize() { return IntVector2(static_cast<int>(mapChipData_.data[0].size()), static_cast<int>(mapChipData_.data.size())); }
 
 MapChip::Rect MapChip::GetRectByIndex(MapChipIndex index_) {
 	Vector3 center = GetMapChipPosByIndex(index_);

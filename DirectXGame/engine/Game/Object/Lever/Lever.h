@@ -48,6 +48,12 @@ public:
 	bool GetIsLever() const { return isLever; }
 
 	/// <summary>
+	/// レバーがオンになったかセットする
+	/// </summary>
+	/// <param name="isLever_">レバーのフラグを取得する</param>
+	void SetIsLever(bool isLever_) { isLever = isLever_; }
+
+	/// <summary>
 	/// ワールド座標の位置を取得
 	/// </summary>
 	/// <returns>ワールド座標を取得しVector3型で値を返します</returns>

@@ -1,9 +1,9 @@
 #pragma once
 #include "GameScene.h"
-#include "Scene/scenes/ResetScene.h"
-#include "Scene/scenes/TitleScene.h"
 #include "Scene/manager/SceneID.h"
 #include "Scene/scenes/DemoScene.h"
+#include "Scene/scenes/ResetScene.h"
+#include "Scene/scenes/TitleScene.h"
 #include "Scene/scenes/clearScene.h"
 #include <KamataEngine.h>
 
@@ -17,9 +17,9 @@ public:
 	/// <summary>
 	/// インストラクタ
 	/// </summary>
-	SceneManager() ;
+	SceneManager();
 	/// <summary>
-	/// 
+	/// デストラクタ
 	/// </summary>
 	~SceneManager() = default;
 
@@ -42,12 +42,12 @@ public:
 	/// </summary>
 	void DrawImGui();
 
-
 private:
 	void SetInformation();
 
 	void GetInformation();
 
+private:
 	std::map<SceneID, SceneCreator> sceneFactory_;
 
 	std::unique_ptr<Scene> currentScene_;
@@ -59,5 +59,4 @@ private:
 	std::string erea = "stage_1";
 	std::string stage = "1_2";
 
-	std::string titelFilePath = "Resources/Json/Titel.json";
 };

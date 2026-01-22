@@ -8,7 +8,7 @@ TitleScene::~TitleScene() {}
 
 void TitleScene::Initialize() {
 
-	fileAccessor_ = new FileAccessor(titelFilePath_);
+	fileAccessor_ = new FileAccessor(file);
 	speed = fileAccessor_->Read(fileMain, "speed", float());
 	
 	resetSpeed = speed;
@@ -31,7 +31,10 @@ void TitleScene::Initialize() {
 }
 
 void TitleScene::Update() {
-	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
+	preXinput_ = xinput_;
+	XInputGetState(0, &xinput_);
+
+	if (input_->GetInstance()->ReleseKey(DIK_SPACE)||xinput_.Gamepad.wButtons&XINPUT_GAMEPAD_A) {
 		if (!isCleck) {
 			isCleck = true;
 			fade_->Start(FadeID::FadeOut, 1);

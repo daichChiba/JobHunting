@@ -12,6 +12,7 @@
         "kBlank": 0.800000011920929,
         "kDeceleration": 0.2,
         "kGoalRotatoMove": 0.4000000059604645,
+        "kGoalVibration": 15650,
         "kGravityAcceleration": 0.05,
         "kGroundSearchHeight": 0.06,
         "kJumpAcceleration": 0.6,
@@ -30,6 +31,12 @@
         "size": {
             "x": 0.5,
             "y": 0.5,
+            "z": 0.0
+        },
+        "translucentColor": {
+            "w": 0.5,
+            "x": 1.0,
+            "y": 0.0,
             "z": 0.0
         }
     }

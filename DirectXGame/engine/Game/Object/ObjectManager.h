@@ -17,28 +17,67 @@ public:
 	/// インストラクタ
 	/// </summary>
 	ObjectManager();
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
 	~ObjectManager();
-
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="mapchip">MapChipの情報を入力</param>
 	void Initilize(MapChip* mapchip);
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void UpDate();
+	/// <summary>
+	/// 描画
+	/// </summary>
+	/// <param name="camera">Cameraの情報を入力</param>
 	void Draw(KamataEngine::Camera& camera);
+	/// <summary>
+	/// ImGuiを描画する
+	/// </summary>
 	void DrawImGui();
+	/// <summary>
+	/// リソースの削除
+	/// </summary>
 	void Delete();
-
+	/// <summary>
+	/// 全てのオブジェクトの当たり判定を取得する
+	/// </summary>
+	/// <param name="player">プレイヤーの情報を入力</param>
+	/// <param name="playerClone">プレイヤークローンの情報を入力</param>
 	void CheckAllCollisions(Player* player, PlayerClone* playerClone);
-
-	std::vector<std::unique_ptr<PushButton>>& GetPushButtons() { return pushButtons_; }
-	const std::vector<std::unique_ptr<PushButton>>& GetPushButtons() const { return pushButtons_; }
-	std::vector<std::unique_ptr<Lever>>& GetLevers() { return levers_; }
-	const std::vector<std::unique_ptr<Lever>>& GetLevers() const { return levers_; }
-
+	/// <summary>
+	/// 全てのレバーの衝突が完了したかどうか
+	/// </summary>
+	/// <returns></returns>
 	bool GetIsAllLever() { return isAllLeverCollision; }
-
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
 	bool GetIsPushButton() { return isPushButton; }
 
 private:
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="player"></param>
+	/// <param name="playerClone"></param>
 	void CheckLeverCollision(Player* player, PlayerClone* playerClone);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="player"></param>
+	/// <param name="playerClone"></param>
 	void CheckButtonCollision(Player* player, PlayerClone* playerClone);
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="player"></param>
+	/// <param name="playerClone"></param>
 	void CheckGoalCollision(Player* player, PlayerClone* playerClone);
 
 private:

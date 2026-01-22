@@ -52,12 +52,9 @@ private:
 
 private:
 	//プレイヤー
-	//Player player_;
-	//PlayerClone playerClone_;
 	PlayerManager playerManager_;
 
 	//オブジェクト
-	//Goal goal_;
 	ObjectManager* objectManager_ = nullptr;
 
 	MapChip mapChip_;

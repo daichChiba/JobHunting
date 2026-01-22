@@ -19,7 +19,10 @@ void ClearScene::Initialize() {
 }
 
 void ClearScene::Update() {
-	if (input_->GetInstance()->ReleseKey(DIK_SPACE)) {
+	preXinput_ = xinput_;
+	XInputGetState(0, &xinput_);
+
+	if (input_->GetInstance()->ReleseKey(DIK_SPACE)||xinput_.Gamepad.wButtons&XINPUT_GAMEPAD_A) {
 		if (!isCleck) {
 			isCleck = true;
 			fade_->Start(FadeID::FadeOut, 1);

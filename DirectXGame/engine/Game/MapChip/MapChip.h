@@ -6,6 +6,7 @@
 
 class PushButton;
 class Lever;
+class ObjectManager;
 
 /// <summary>
 /// マップチップに関する情報を取り扱うクラス
@@ -104,39 +105,68 @@ public:
 	/// <returns>マップチップの位置(1,1)など</returns>
 	MapChipIndex GetMapChipIndex(const Vector3& pos);
 	/// <summary>
-	/// 
+	/// MapChipの最大の大きさ
 	/// </summary>
 	/// <returns>MapChipの範囲(大きさ)</returns>
 	IntVector2 GetMaxMapSize();
 	/// <summary>
-	/// 
+	/// マップの位置
 	/// </summary>
-	/// <param name="index_"></param>
-	/// <returns></returns>
+	/// <param name="index_">マップチップの位置を入力</param>
+	/// <returns>対応する各点の座標</returns>
 	Rect GetRectByIndex(MapChipIndex index_);
 	/// <summary>
-	/// 
+	/// マップチップのワールド座標の取得
 	/// </summary>
-	/// <param name="index_"></param>
-	/// <returns></returns>
+	/// <param name="index_">マップチップの位置を入力</param>
+	/// <returns>ワールド座標</returns>
 	KamataEngine::Vector3 GetMapChipPosByIndex(MapChipIndex index_);
 
+	/// <summary>
+	/// マップチップの位置の取得
+	/// </summary>
+	/// <param name="pos">ワールド座標を入力</param>
+	/// <returns>マップチップの位置</returns>
 	MapChipIndex GetMapChipIndexSetByPosition(const KamataEngine::Vector3 pos);
 
+	/// <summary>
+	/// Jsonファイルを操作するためのアクセッサの取得
+	/// </summary>
+	/// <returns>FileAccessorのポインタ</returns>
 	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
 
+	/// <summary>
+	/// プッシュボタンオブジェクトを登録
+	/// </summary>
+	/// <param name="pushButton">プッシュボタンオブジェクト</param>
 	void SetPushButton(PushButton* pushButton) { pushButton_ = pushButton; } 
+	/// <summary>
+	/// レバーオブジェクトを登録
+	/// </summary>
+	/// <param name="lever">レバーオブジェクト</param>
 	void SetLever(Lever* lever) { lever_ = lever; }
 
-	//PushButton* GetPushButton() { return pushButton_; }
-	//Lever* GetLever() { return lever_; }
-
+	/// <summary>
+	/// ブロックのリアクションが終わったかどうかを設定する
+	/// </summary>
+	/// <param name="isBlockReactionEnd_">リアクションが終わっていたらtrue,終わっていなかったらfalse</param>
 	void SetIsBlockReaction(bool isBlockReactionEnd_) { isBlockReactionEnd = isBlockReactionEnd_; }
 
+	/// <summary>
+	/// 指定したMapChipIDに該当するオブジェクトのワールド座標を取得
+	/// </summary>
+	/// <param name="id">検索対象のMapChipID</param>
+	/// <returns>座標のリスト</returns>
 	std::vector<KamataEngine::Vector3> GetAllObjectPositions(MapChipID id);
 
 private:
+	/// <summary>
+	/// マップを生成する
+	/// </summary>
 	void MapCreate();
+	/// <summary>
+	/// モデルを生成する
+	/// </summary>
 	void SetModel();
 
 private:

@@ -37,9 +37,6 @@ std::vector<Vector3> leverPos = mapchip->GetAllObjectPositions(MapChipID::Lever)
 		newGoal->Initialize(pos);
 		goals_.push_back(std::move(newGoal));
 	}
-	// goal_.Initialize(mapchip);
-	// pushButton_.Initilize(mapchip);
-	// lever_.Initilize(mapchip);
 }
 
 void ObjectManager::UpDate() {
@@ -70,8 +67,6 @@ void ObjectManager::Draw(KamataEngine::Camera& camera) {
 }
 
 void ObjectManager::DrawImGui() {
-	// goal_.DrawImGui();
-	// pushButton_.DrawImGui();
 
 	for (auto& lever : levers_) {
 		lever->DrawImGui();
@@ -94,22 +89,7 @@ void ObjectManager::Delete() {
 }
 
 void ObjectManager::CheckAllCollisions(Player* player, PlayerClone* playerClone) {
-	//
-	// AABB playerAABB = player->GetAABB();
 
-	// if (IsCollision(playerAABB, goal_.GetAABB())) {
-	//	player->OnCollision(&goal_);
-	// }
-
-	// if (IsCollision(playerAABB,pushButton_.GetAABB())) {
-	//	pushButton_.OnCollision(player);
-	// } else {
-	//	pushButton_.SetInPushButton(false);
-	// }
-
-	// if (IsCollision(playerAABB,lever_.GetAABB())) {
-	//	lever_.OnCollision(player);
-	// }
 
 	CheckLeverCollision(player, playerClone);
 	CheckButtonCollision(player, playerClone);
@@ -129,9 +109,14 @@ void ObjectManager::CheckLeverCollision(Player* player, PlayerClone* playerClone
 		bool hitClone = IsCollision(lever->GetAABB(), playerClone->GetAABB());
 
 		// 個別のレバーの接触状態を更新（アニメーション等のため）
-		if (hitPlayer || hitClone) {
-			lever->OnCollision(player, playerClone); // 接触時の処理
-			activeLeverCount++;
+		if (!isAllLeverCollision) {
+			if (hitPlayer || hitClone) {
+				lever->OnCollision(player, playerClone); // 接触時の処理
+				activeLeverCount++;
+			} else {
+				lever->SetIsLever(false);
+				activeLeverCount--;
+			}
 		}
 
 		if (hitPlayer) {
@@ -142,18 +127,12 @@ void ObjectManager::CheckLeverCollision(Player* player, PlayerClone* playerClone
 		}
 	}
 
-	// 条件: プレイヤーとクローンがそれぞれ（おそらく別々の）レバーに触れている
+	// 条件: プレイヤーとクローンがそれぞれレバーに触れている
 	if (playerHitAny && cloneHitAny && activeLeverCount >= 2) {
-		// 全体のギミック解除処理 (例: ドアを開くなど)
+		// 全体のギミック解除処理
 		isAllLeverCollision = true;
 	}
 
-	// bool hitPlayer = IsCollision(levers_.GetAABB(), player->GetAABB());
-	// bool hitClone = IsCollision(levers_.GetAABB(), playerClone->GetAABB());
-
-	// if (hitPlayer && hitClone) {
-	//	levers_.OnCollision(player, playerClone); // オンにする
-	// }
 }
 
 void ObjectManager::CheckButtonCollision(Player* player, PlayerClone* playerClone) {
@@ -180,7 +159,6 @@ void ObjectManager::CheckGoalCollision(Player* player, PlayerClone* playerClone)
 		if (hitPlayer && hitClone) {
 			// 両方接触しているのでゴール成功
 			player->OnCollision(goal.get()); // プレイヤーのゴールフラグを立てる
-			// playerClone->OnCollision(&goal); // クローン側も必要なら
 		}
 	}
 }

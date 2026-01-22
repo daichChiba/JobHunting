@@ -2,9 +2,9 @@
 #include "Player.h"
 #include "Game/MapChip/MapChip.h"
 #include "Game/Object/Goal/Goal.h"
-#include "Game/Object/PushButton/PushButton.h"
 #include "Game/Object/Lever/Lever.h"
 #include "Game/Object/ObjectManager.h"
+#include "Game/Object/PushButton/PushButton.h"
 #include <algorithm>
 
 using namespace KamataEngine;
@@ -23,7 +23,9 @@ void Player::Initialize(MapChip* mapchip) {
 	model = Model::CreateFromOBJ("Player", true);
 	model_ = model;
 
-
+	objectColor_ = new ObjectColor();
+	objectColor_->Initialize();
+	objectColor_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = mapChipData_->GetObjectPos(MapChipID::PlayerStart);
@@ -40,15 +42,25 @@ void Player::Initialize(MapChip* mapchip) {
 	kAttennuationLanding = fileAccessor_->Read(fileMain, "kAttennuationLanding", float());
 	kGoalRotatoMove = fileAccessor_->Read(fileMain, "kGoalRotatoMove", float());
 	goalRotationLimit = fileAccessor_->Read(fileMain, "goalRotationLimit", Vector3());
-
+	translucentColor = fileAccessor_->Read(fileMain, "translucentColor", Vector4());
+	kGoalVibration = fileAccessor_->Read(fileMain, "kGoalVibration", int());
 	// 後で消す
 	worldTransform_.rotation_ = fileAccessor_->Read(fileMain, "rotation", Vector3());
 }
 void Player::Update() {
+	
+
+	XInputSetState(0, &xVibration_);
+	xVibration_.wLeftMotorSpeed = static_cast<unsigned short>(leftVibration);
+	xVibration_.wRightMotorSpeed = static_cast<unsigned short>(rightVibration);
+
 	if (isMove) {
 		if (!isGoal_) {
 			InputMove();
 		}
+		objectColor_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+	} else {
+		objectColor_->SetColor(translucentColor);
 	}
 	CollisionMapInfo collisionMapInfo;
 
@@ -74,12 +86,14 @@ void Player::Update() {
 	worldTransform_.UpdateMatrix();
 }
 void Player::Draw(const Camera& camera) {
-	model_->Draw(worldTransform_, camera);
+	//
+	model_->Draw(worldTransform_, camera,objectColor_);
 }
 
 void Player::Delete() {
 	delete model_;
 	model_ = nullptr;
+	xVibration_.wLeftMotorSpeed = 0;
 }
 void Player::DrawImGui() {
 	// このまま記入しても大丈夫
@@ -92,7 +106,6 @@ void Player::DrawImGui() {
 	ImGui::Checkbox("onGround", &onGround_);
 	ImGui::Checkbox("isGoal", &isGoal_);
 	ImGui::Checkbox("isMove", &isMove);
-	//ImGui::Checkbox("goalJump_", &goalJump_);
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("size", &size_.x);
 	ImGui::DragFloat3("velocity", &velocity_.x);
@@ -100,11 +113,18 @@ void Player::DrawImGui() {
 	ImGui::DragFloat("kGoalRotatoMove", &kGoalRotatoMove);
 	ImGui::DragFloat3("goalRotationLimit", &goalRotationLimit.x);
 	ImGui::DragFloat3("rotate", &worldTransform_.rotation_.x);
+	ImGui::SliderInt("leftVibration", &leftVibration, 0, 65535);
+	ImGui::SliderInt("rightVibration", &rightVibration, 0, 65535);
+	ImGui::DragFloat4("translucentColor", &translucentColor.x);
+	ImGui::SliderFloat4("translucentColor", &translucentColor.x, 0.0f, 1.0f);
+	ImGui::SliderInt("kGoalVibration", &kGoalVibration, 0, 65535);
 	if (ImGui::Button("save")) {
 		fileAccessor_->Write(fileMain, "size", size_);
 		fileAccessor_->Write(fileMain, "kBlank", kBlank);
 		fileAccessor_->Write(fileMain, "kGoalRotatoMove", kGoalRotatoMove);
 		fileAccessor_->Write(fileMain, "goalRotationLimit", goalRotationLimit);
+		fileAccessor_->Write(fileMain, "translucentColor", translucentColor);
+		fileAccessor_->Write(fileMain, "kGoalVibration", kGoalVibration);
 		fileAccessor_->Save();
 	}
 	ImGui::End();
@@ -171,7 +191,14 @@ void Player::InputMove() {
 		} else {
 			velocity_.x *= (1.0f - kAttenuation);
 		}
-		if (Input::GetInstance()->PushKey(DIK_W)) {
+		float lx = xinput_.Gamepad.sThumbLX / 32767.0f;
+		if (lx !=0.0f) {
+			float magnitude = sqrtf(lx * lx);
+
+			velocity_.x = sin(lx) * magnitude * kLimitXSpeed;
+		}
+
+		if (Input::GetInstance()->PushKey(DIK_W)||xinput_.Gamepad.wButtons&XINPUT_GAMEPAD_A) {
 			velocity_ += Vector3(0, kJumpAcceleration, 0);
 		}
 		// ジャンプ開始
@@ -228,7 +255,7 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 		hit = true;
 	}
 	if (objectManager_->GetIsPushButton() == false && objectManager_->GetIsAllLever() == false) {
-		if (mapChipID_==MapChipID::OpenBlock) {
+		if (mapChipID_ == MapChipID::OpenBlock) {
 			hit = true;
 		}
 	}
@@ -380,9 +407,7 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	}
 }
 
-void Player::CheckMapCollisionHit(CollisionMapInfo& info) {
-	worldTransform_.translation_ += info.move;
-}
+void Player::CheckMapCollisionHit(CollisionMapInfo& info) { worldTransform_.translation_ += info.move; }
 
 void Player::CellingSwitch(CollisionMapInfo& info) {
 	if (onGround_) {
@@ -438,7 +463,9 @@ void Player::GoalPlayerMove() {
 	//
 	if (worldTransform_.rotation_.y <= goalRotationLimit.y) {
 		worldTransform_.rotation_.y += kGoalRotatoMove;
+		leftVibration = kGoalVibration;
 	} else {
 		isRotateGoal = true;
+		leftVibration = 0;
 	}
 }

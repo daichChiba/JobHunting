@@ -12,27 +12,27 @@ public:
 	/// </summary>
 	TitleScene();
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	~TitleScene();
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	void Initialize() override;
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	void Update() override;
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	void Draw() override;
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	void Delete() override;
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	void DrawImGui() override;
 	/// <summary>
@@ -42,7 +42,6 @@ public:
 	SceneID NextScene() const override;
 
 private:
-
 private:
 	SceneID nextScene_;
 
@@ -60,7 +59,7 @@ private:
 	KamataEngine::Vector2 stopTitelPos;
 
 	FileJson::FileAccessor* fileAccessor_;
-	// std::string file = "../../Resources/Json/Titel.json";
+	std::string file = "Resources/Json/Titel.json";
 	std::string fileMain = "title";
 
 	bool isJump = false;
@@ -78,7 +77,6 @@ private:
 	const int kJumpCount = 60;
 	const int kResetCount = 0;
 	float resetSpeed;
-
 
 	float speed;
 

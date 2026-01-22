@@ -72,6 +72,51 @@ void FileAccessor::Save() {
 	}
 }
 
+Vector4 FileAccessor::Read(const std::string& desiredClass, const std::string& variableName, const Vector4& /*defaultValue*/) const {
+	try {
+		// 指定されたクラスと変数から値を読み込む
+		if (jsonData_.contains(desiredClass) && jsonData_[desiredClass].contains(variableName)) {
+			// 値を返す
+			if (jsonData_[desiredClass][variableName].is_object()) {
+				auto& vecData = jsonData_[desiredClass][variableName];
+				// x, y, z, w が存在するか確認
+				if (vecData.contains("x") && vecData.contains("y") && vecData.contains("z") && vecData.contains("w")) {
+					// x, y, z の値を取得
+					return Vector4(vecData["x"].get<float>(), vecData["y"].get<float>(), vecData["z"].get<float>(), vecData["w"].get<float>());
+					// キーが見つからない場合
+				} else {
+					// 例外が発生した場合、エラーメッセージを出力
+					std::stringstream ss;
+					ss << "Error: x, y, z, w keys not found in JSON - Class: " << desiredClass << ", Variable: " << variableName;
+					throw std::runtime_error(ss.str());
+				}
+				// オブジェクトでない場合
+			} else {
+				float value = jsonData_[desiredClass][variableName].get<float>();
+				return Vector4(value, value, value,value);
+			}
+		} else {
+			// キーが見つからない場合
+			std::stringstream ss;
+			// 例外が発生した場合、エラーメッセージを出力
+			ss << "Error: Class or variable not found in JSON - Class: " << desiredClass << ", Variable: " << variableName;
+			// 例外をスローする
+			throw std::runtime_error(ss.str());
+		}
+		// 例外が発生した場合
+	} catch (const nlohmann::json::type_error& e) {
+		std::stringstream ss;
+		ss << "Error: JSON type error - " << e.what() << " Class: " << desiredClass << ", Variable: " << variableName;
+		// 例外をスローする
+		throw std::runtime_error(ss.str());
+	} catch (const std::exception& e) {
+		std::stringstream ss;
+		ss << "Error: Exception during JSON read - " << e.what() << " Class: " << desiredClass << ", Variable: " << variableName;
+		// 例外をスローする
+		throw std::runtime_error(ss.str());
+	}
+}
+
 /// <summary>
 /// Vector3を読み込む
 /// </summary>
@@ -233,6 +278,18 @@ Vector2 FileAccessor::Read(const std::string& desiredClass, const std::string& v
 		ss << "Error: Exception during JSON read - " << e.what() << " Class: " << desiredClass << ", Variable: " << variableName;
 		// 例外をスローする
 		throw std::runtime_error(ss.str());
+	}
+}
+void FileAccessor::Write(const std::string& desiredClass, const std::string& variableName, const Vector4& value) {
+	try {
+		// Vector3をJSONオブジェクトに書き込む
+		jsonData_[desiredClass][variableName]["x"] = value.x;
+		jsonData_[desiredClass][variableName]["y"] = value.y;
+		jsonData_[desiredClass][variableName]["z"] = value.z;
+		jsonData_[desiredClass][variableName]["w"] = value.w;
+	} catch (const std::exception& e) {
+		// 例外が発生した場合、エラーメッセージを出力
+		std::cerr << "Error: Exception during JSON write - " << e.what() << std::endl;
 	}
 }
 /// <summary>

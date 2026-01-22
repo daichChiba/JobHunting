@@ -28,8 +28,6 @@ void GameScene::Initialize() {
 
 	mapChip_.Initialize(filePath, erea, stage);
 	playerManager_.Initialize(&mapChip_);
-	// player_.Initialize(&mapChip_);
-	// playerClone_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
 	camera_->SetPlayer(playerManager_.GetPlayer());
 	camera_->Initialize();
@@ -56,18 +54,20 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+	preXinput_ = xinput_;
+	XInputGetState(0, &xinput_);
+	input_->SetJoystickDeadZone(0, 1, 1);
+	
 	camera_->SetMapChip(&mapChip_);
 	camera_->SetObjectManager(objectManager_);
 	camera_->Update();
-	// player_.Update();
-	// playerClone_.Update();
-	playerManager_.Update();
+	playerManager_.Update(xinput_,preXinput_);
 	mapChip_.Update();
 	objectManager_->UpDate();
 
 	mapChip_.SetIsBlockReaction(camera_->GetIsReactionEnd());
 
-	if (Input::GetInstance()->ReleseKey(DIK_F1)) {
+	if (Input::GetInstance()->ReleseKey(DIK_F1)||(xinput_.Gamepad.wButtons&XINPUT_GAMEPAD_START&&preXinput_.Gamepad.wButtons==0)) {
 		isGuide = !isGuide;
 	}
 
@@ -142,8 +142,6 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	// player_.Draw(*camera_->GetCamera());
-	// playerClone_.Draw(*camera_->GetCamera());
 	playerManager_.Draw(*camera_->GetCamera());
 	objectManager_->Draw(*camera_->GetCamera());
 
@@ -177,8 +175,6 @@ void GameScene::Draw() {
 }
 
 void GameScene::Delete() {
-	// player_.Delete();
-	// playerClone_.Delete();
 	objectManager_->Delete();
 	delete fade_;
 }
@@ -207,8 +203,6 @@ void GameScene::DrawImGui() {
 	}
 	ImGui::End();
 	camera_->ImGuiDraw();
-	// player_.DrawImGui();
-	// playerClone_.DrawImGui();
 	playerManager_.DrawImGui();
 	objectManager_->DrawImGui();
 

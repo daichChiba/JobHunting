@@ -1,11 +1,11 @@
 #pragma once
-#include "Game/Player/Player.h"
 #include "Game/Player/Clone/PlayerClone.h"
+#include "Game/Player/Player.h"
 
 class PlayerManager {
 public:
 	void Initialize(MapChip* mapChip);
-	void Update(); 
+	void Update(XINPUT_STATE xinput, XINPUT_STATE preXinput);
 	void Draw(const KamataEngine::Camera& camera);
 
 	// ゲッター（当たり判定などで外部からアクセスするため）

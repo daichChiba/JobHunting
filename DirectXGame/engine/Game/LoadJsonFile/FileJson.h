@@ -47,6 +47,15 @@ public:
 	template<typename T> void Write(const std::string& desiredClass, const std::string& variableName, const T& value);
 
 	/// <summary>
+	/// Vector4型データを読み込む
+	/// </summary>
+	/// <param name="desiredClass">JSONファイルのクラス名</param>
+	/// <param name="variableName">JSONファイルの変数名</param>
+	/// <param name="defaultValue">値が存在しない場合のデフォルト値</param>
+	/// <returns>読み込んだVector4型の値</returns>
+	Vector4 Read(const std::string& desiredClass, const std::string& variableName, const Vector4& defaultValue) const;
+
+	/// <summary>
 	/// Vector3型データを読み込む
 	/// </summary>
 	/// <param name="desiredClass">JSONファイルのクラス名</param>
@@ -63,6 +72,14 @@ public:
 	/// <param name="defaultValue">値が存在しない場合のデフォルト値</param>
 	/// <returns>読み込んだVector2型の値</returns>
 	Vector2 Read(const std::string& desiredClass, const std::string& variableName, const Vector2& defaultValue) const;
+
+	/// <summary>
+	/// Vector4型データを書き込む
+	/// </summary>
+	/// <param name="desiredClass">JSONファイルのクラス名</param>
+	/// <param name="variableName">JSONファイルの変数名</param>
+	/// <param name="value">書き込むVector4型の値</param>
+	void Write(const std::string& desiredClass, const std::string& variableName, const Vector4& value);
 
 	/// <summary>
 	/// Vector3型データを書き込む

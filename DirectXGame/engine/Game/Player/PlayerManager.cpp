@@ -6,17 +6,20 @@ void PlayerManager::Initialize(MapChip* mapChip) {
 	player_.Initialize(mapChip);
 	clone_.Initialize(mapChip);
 }
-void PlayerManager::Update() {
+void PlayerManager::Update(XINPUT_STATE xinput,XINPUT_STATE preXinput) {
 	// ここで切り替え処理や両方のUpdateを呼ぶ
 
-	if (Input::GetInstance()->PushKey(DIK_SPACE)) {
+	if (Input::GetInstance()->ReleseKey(DIK_SPACE) ||
+		(xinput.Gamepad.wButtons & XINPUT_GAMEPAD_B && preXinput.Gamepad.wButtons == 0)) {
 		isCloneActive_ = !isCloneActive_;
 
 		//動作フラグの更新
 		player_.SetIsMove(!isCloneActive_);
 		clone_.SetIsMove(isCloneActive_);
 	}
+	player_.SetXinput(xinput);
 	player_.Update();
+	clone_.SetXinput(xinput);
 	clone_.Update();
 }
 

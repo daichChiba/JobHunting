@@ -1,7 +1,7 @@
 #pragma once
-#include <KamataEngine.h>
 #include "ect/AABB.h"
 #include "engine/Game/LoadJsonFile/FileJson.h"
+#include <KamataEngine.h>
 class MapChip;
 class Goal;
 class ObjectManager;
@@ -88,6 +88,8 @@ public:
 
 	void SetObjectManager(ObjectManager* objectManager) { objectManager_ = objectManager; }
 
+	void SetXinput(XINPUT_STATE xinput) { xinput_ = xinput; }
+
 private:
 	/// <summary>
 	/// 移動処理
@@ -155,4 +157,10 @@ private:
 	bool isGoal_ = false;
 	bool isClear_ = false;
 	bool isRotateGoal = false;
+
+	KamataEngine::ObjectColor* objectColor_;
+
+	KamataEngine::Vector4 translucentColor;
+
+	XINPUT_STATE xinput_;
 };

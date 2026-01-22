@@ -2,15 +2,14 @@
 #include "PlayerClone.h"
 #include "Game/MapChip/MapChip.h"
 #include "Game/Object/Goal/Goal.h"
-#include "Game/Object/PushButton/PushButton.h"
 #include "Game/Object/Lever/Lever.h"
 #include "Game/Object/ObjectManager.h"
+#include "Game/Object/PushButton/PushButton.h"
 #include <algorithm>
 
 using namespace KamataEngine;
 using namespace FileJson;
 using namespace MathUtility;
-
 
 PlayerClone::PlayerClone() {}
 
@@ -24,6 +23,10 @@ void PlayerClone::Initialize(MapChip* mapchip) {
 	Model* model = nullptr;
 	model = Model::CreateFromOBJ("Player", true);
 	model_ = model;
+
+	objectColor_ = new ObjectColor();
+	objectColor_->Initialize();
+	objectColor_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = mapChipData_->GetObjectPos(MapChipID::PlayerStart);
@@ -40,6 +43,7 @@ void PlayerClone::Initialize(MapChip* mapchip) {
 	kAttennuationLanding = fileAccessor_->Read(fileMain, "kAttennuationLanding", float());
 	kGoalRotatoMove = fileAccessor_->Read(fileMain, "kGoalRotatoMove", float());
 	goalRotationLimit = fileAccessor_->Read(fileMain, "goalRotationLimit", Vector3());
+	translucentColor = fileAccessor_->Read(fileMain, "translucentColor", Vector4());
 
 	// 後で消す
 	worldTransform_.rotation_ = fileAccessor_->Read(fileMain, "rotation", Vector3());
@@ -50,6 +54,9 @@ void PlayerClone::Update() {
 		if (!isGoal_) {
 			InputMove();
 		}
+		objectColor_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+	} else {
+		objectColor_->SetColor(translucentColor);
 	}
 	CollisionMapInfo collisionMapInfo;
 
@@ -77,7 +84,7 @@ void PlayerClone::Update() {
 
 void PlayerClone::Draw(const Camera& camera_) {
 	//
-	model_->Draw(worldTransform_, camera_);
+	model_->Draw(worldTransform_, camera_, objectColor_);
 }
 
 void PlayerClone::Delete() {
@@ -116,7 +123,6 @@ void PlayerClone::DrawImGui() {
 
 	ImGui::End();
 #endif // _DEBUG
-
 }
 void PlayerClone::InputMove() {
 	if (onGround_) {
@@ -149,7 +155,14 @@ void PlayerClone::InputMove() {
 		} else {
 			velocity_.x *= (1.0f - kAttenuation);
 		}
-		if (Input::GetInstance()->PushKey(DIK_W)) {
+		float lx = xinput_.Gamepad.sThumbLX / 32767.0f;
+		if (lx != 0.0f) {
+			float magnitude = sqrtf(lx * lx);
+
+			velocity_.x = sin(lx) * magnitude * kLimitXSpeed;
+		}
+
+		if (Input::GetInstance()->PushKey(DIK_W) || xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A) {
 			velocity_ += Vector3(0, kJumpAcceleration, 0);
 		}
 		// ジャンプ開始
@@ -357,9 +370,7 @@ void PlayerClone::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	}
 }
 
-void PlayerClone::CheckMapCollisionHit(CollisionMapInfo& info) {
-	worldTransform_.translation_ += info.move;
-}
+void PlayerClone::CheckMapCollisionHit(CollisionMapInfo& info) { worldTransform_.translation_ += info.move; }
 
 void PlayerClone::CellingSwitch(CollisionMapInfo& info) {
 	if (onGround_) {

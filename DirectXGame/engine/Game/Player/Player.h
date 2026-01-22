@@ -1,6 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 #include "ect/AABB.h"
+#include "ect/IntVector2.h"
 #include "engine/Game/LoadJsonFile/FileJson.h"
 class MapChip;
 class Goal;
@@ -86,6 +87,8 @@ public:
 
 	bool GetIsRotateGoal() { return isRotateGoal; }
 
+	void SetXinput(XINPUT_STATE xinput) { xinput_ = xinput; }
+
 private:
 	/// <summary>
 	/// 移動処理
@@ -155,4 +158,16 @@ private:
 	bool isClear_ = false;
 	bool isRotateGoal = false;
 
+	XINPUT_VIBRATION xVibration_;
+	bool isVibration = false;
+
+	int leftVibration = 0;
+	int rightVibration = 0;
+
+	KamataEngine::ObjectColor* objectColor_;
+
+	KamataEngine::Vector4 translucentColor;
+
+	XINPUT_STATE xinput_;
+	int kGoalVibration;
 };
