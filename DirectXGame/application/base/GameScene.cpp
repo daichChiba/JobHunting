@@ -19,11 +19,11 @@ void GameScene::Initialize() {
 	guideSize_ = fileAccessor_->Read("Guide", "size", Vector2());
 	guideSprite_->SetSize(guideSize_);
 
-	guideIconPos_ = fileAccessor_->Read("F1", "pos", Vector2());
+	guideIconPos_ = fileAccessor_->Read("GuideIcon", "pos", Vector2());
 	guideIconTh_ = TextureManager::Load("Guide/GuideIcon.png");
 	guideIconSprite_ = Sprite::Create(guideIconTh_, guideIconPos_);
 	guideIconSprite_->SetAnchorPoint({0.5f, 0.5f});
-	guideIconSize_ = fileAccessor_->Read("F1", "size", Vector2());
+	guideIconSize_ = fileAccessor_->Read("GuideIcon", "size", Vector2());
 	guideIconSprite_->SetSize(guideIconSize_);
 
 	pauseBackScreenPos_ = fileAccessor_->Read("pauseBackScreen", "pos", Vector2());
@@ -115,19 +115,22 @@ void GameScene::Update() {
 	titelButtonSprite_->SetSize(titelButtonSize_);
 
 	if (isPause_) {
-		if (Input::GetInstance()->ReleseKey(DIK_W)) {
+		if (Input::GetInstance()->ReleseKey(DIK_W) || /*xinput_.Gamepad.sThumbLY > 20000 ||*/
+			(xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP && !preXinput_.Gamepad.wButtons )) {
 			pauseCursor_--;
 			if (pauseCursor_ < pauseCursorMin) {
 				pauseCursor_ = pauseCursorMax;
 			}
 		}
-		if (Input::GetInstance()->ReleseKey(DIK_S)) {
+		if (Input::GetInstance()->ReleseKey(DIK_S) || /*xinput_.Gamepad.sThumbLY < -20000 ||*/
+			(xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN && !preXinput_.Gamepad.wButtons )) {
 			pauseCursor_++;
 			if (pauseCursor_ > pauseCursorMax) {
 				pauseCursor_ = pauseCursorMin;
 			}
 		}
-		if (Input::GetInstance()->ReleseKey(DIK_SPACE)) {
+		if (Input::GetInstance()->ReleseKey(DIK_SPACE) ||
+			(xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A && !preXinput_.Gamepad.wButtons )) {
 			if (pauseCursor_ == 0) {
 				isPause_ = false;
 			}
@@ -286,8 +289,8 @@ void GameScene::DrawImGui() {
 
 	ImGui::DragFloat2("guidePos", &guidePos_.x);
 	ImGui::DragFloat2("guideSize", &guideSize_.x);
-	ImGui::DragFloat2("f1ButtonPos", &f1ButtonPos_.x);
-	ImGui::DragFloat2("f1ButtonSize", &f1ButtonSize_.x);
+	ImGui::DragFloat2("guideIconPos", &guideIconPos_.x);
+	ImGui::DragFloat2("guideIconSize", &guideIconSize_.x);
 	ImGui::Checkbox("isPause", &isPause_);
 	ImGui::DragFloat2("pauseBackScreenPos", &pauseBackScreenPos_.x);
 	ImGui::DragFloat2("pauseBackScreenSize", &pauseBackScreenSize_.x);
@@ -302,8 +305,8 @@ void GameScene::DrawImGui() {
 	if (ImGui::Button("save")) {
 		fileAccessor_->Write("Guide", "pos", guidePos_);
 		fileAccessor_->Write("Guide", "size", guideSize_);
-		fileAccessor_->Write("F1", "pos", f1ButtonPos_);
-		fileAccessor_->Write("F1", "size", f1ButtonSize_);
+		fileAccessor_->Write("GuideIcon", "pos", guideIconPos_);
+		fileAccessor_->Write("GuideIcon", "size", guideIconSize_);
 		fileAccessor_->Write("pauseBackScreen", "pos", pauseBackScreenPos_);
 		fileAccessor_->Write("pauseBackScreen", "size", pauseBackScreenSize_);
 		fileAccessor_->Write("pauseBackScreen", "Color", pauseBackScreenColor_);

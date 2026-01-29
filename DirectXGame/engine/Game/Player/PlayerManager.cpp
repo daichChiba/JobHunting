@@ -10,7 +10,7 @@ void PlayerManager::Update(XINPUT_STATE xinput,XINPUT_STATE preXinput) {
 	// ここで切り替え処理や両方のUpdateを呼ぶ
 
 	if (Input::GetInstance()->ReleseKey(DIK_SPACE) ||
-		(xinput.Gamepad.wButtons & XINPUT_GAMEPAD_B && preXinput.Gamepad.wButtons == 0)) {
+		(xinput.Gamepad.wButtons & XINPUT_GAMEPAD_B && !preXinput.Gamepad.wButtons)) {
 		isCloneActive_ = !isCloneActive_;
 
 		//動作フラグの更新

@@ -117,9 +117,9 @@ private:
 	int pauseCursorMax;
 
 	// enum class Pause {
-	//	ReturnGame,
-	//	Guide,
-	//	Titel
+	//	kReturnGame,
+	//	kGuide,
+	//	kTitel
 	// };
-	// Pause PauseID = Pause::ReturnGame;
+	// Pause pauseCursor_ = Pause::ReturnGame;
 };
