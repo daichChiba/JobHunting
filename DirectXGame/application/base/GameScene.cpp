@@ -19,12 +19,42 @@ void GameScene::Initialize() {
 	guideSize_ = fileAccessor_->Read("Guide", "size", Vector2());
 	guideSprite_->SetSize(guideSize_);
 
-	f1ButtonPos_ = fileAccessor_->Read("F1", "pos", Vector2());
-	f1ButtonTh_ = TextureManager::Load("Guide/F1Button.png");
-	f1ButtonSprite_ = Sprite::Create(f1ButtonTh_, f1ButtonPos_);
-	f1ButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
-	f1ButtonSize_ = fileAccessor_->Read("F1", "size", Vector2());
-	f1ButtonSprite_->SetSize(f1ButtonSize_);
+	guideIconPos_ = fileAccessor_->Read("F1", "pos", Vector2());
+	guideIconTh_ = TextureManager::Load("Guide/GuideIcon.png");
+	guideIconSprite_ = Sprite::Create(guideIconTh_, guideIconPos_);
+	guideIconSprite_->SetAnchorPoint({0.5f, 0.5f});
+	guideIconSize_ = fileAccessor_->Read("F1", "size", Vector2());
+	guideIconSprite_->SetSize(guideIconSize_);
+
+	pauseBackScreenPos_ = fileAccessor_->Read("pauseBackScreen", "pos", Vector2());
+	pauseBackScreenTh_ = TextureManager::Load("white1x1.png");
+	pauseBackScreenSprite_ = Sprite::Create(pauseBackScreenTh_, pauseBackScreenPos_);
+	pauseBackScreenSprite_->SetAnchorPoint({0.5f, 0.5f});
+	pauseBackScreenSize_ = fileAccessor_->Read("pauseBackScreen", "size", Vector2());
+	pauseBackScreenSprite_->SetSize(pauseBackScreenSize_);
+	pauseBackScreenColor_ = fileAccessor_->Read("pauseBackScreen", "Color", Vector4());
+	pauseBackScreenSprite_->SetColor(pauseBackScreenColor_);
+
+	gameButtonPos_ = fileAccessor_->Read("ReturnGameButton", "pos", Vector2());
+	returnGameButtonTh_ = TextureManager::Load("Pause/ReturnGame.png");
+	returnGameButtonSprite_ = Sprite::Create(returnGameButtonTh_, gameButtonPos_);
+	returnGameButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
+	gameButtonSize_ = fileAccessor_->Read("ReturnGameButton", "size", Vector2());
+	returnGameButtonSprite_->SetSize(gameButtonSize_);
+
+	guideButtonPos_ = fileAccessor_->Read("GuideButton", "pos", Vector2());
+	guideButtonTh_ = TextureManager::Load("Pause/GameGuideButton.png");
+	guideButtonSprite_ = Sprite::Create(guideButtonTh_, guideButtonPos_);
+	guideButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
+	guideButtonSize_ = fileAccessor_->Read("GuideButton", "size", Vector2());
+	guideButtonSprite_->SetSize(guideButtonSize_);
+
+	titelButtonPos_ = fileAccessor_->Read("TitelButton", "pos", Vector2());
+	titelButtonTh_ = TextureManager::Load("Pause/TitelButton.png");
+	titelButtonSprite_ = Sprite::Create(titelButtonTh_, titelButtonPos_);
+	titelButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
+	titelButtonSize_ = fileAccessor_->Read("TitelButton", "size", Vector2());
+	titelButtonSprite_->SetSize(titelButtonPos_);
 
 	mapChip_.Initialize(filePath, erea, stage);
 	playerManager_.Initialize(&mapChip_);
@@ -46,6 +76,9 @@ void GameScene::Initialize() {
 	countSprite_[3] = Sprite::Create(countTh_[3], Vector2(640.0f, 360.0f));
 	countSprite_[3]->SetAnchorPoint({0.5f, 0.5f});
 
+	pauseCursorMin = fileAccessor_->Read("Pause", "PauseCursorMin", int());
+	pauseCursorMax = fileAccessor_->Read("Pause", "PauseCursorMax", int());
+
 	startCount_ = 240;
 	isStart = true;
 	gameCount_ = 0;
@@ -57,65 +90,102 @@ void GameScene::Update() {
 	preXinput_ = xinput_;
 	XInputGetState(0, &xinput_);
 	input_->SetJoystickDeadZone(0, 1, 1);
-	
+
 	camera_->SetMapChip(&mapChip_);
 	camera_->SetObjectManager(objectManager_);
 	camera_->Update();
-	playerManager_.Update(xinput_,preXinput_);
 	mapChip_.Update();
-	objectManager_->UpDate();
-
-	mapChip_.SetIsBlockReaction(camera_->GetIsReactionEnd());
-
-	if (Input::GetInstance()->ReleseKey(DIK_F1)||(xinput_.Gamepad.wButtons&XINPUT_GAMEPAD_START&&preXinput_.Gamepad.wButtons==0)) {
-		isGuide = !isGuide;
+	if (Input::GetInstance()->ReleseKey(DIK_ESCAPE) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_START && preXinput_.Gamepad.wButtons == 0)) {
+		isPause_ = true;
+		pauseCursor_ = 0;
 	}
 
-	if (playerManager_.GetPlayer()->GetIsRotateGoal()) {
-		isFadeStart = true;
-	}
 	guideSprite_->SetPosition(guidePos_);
 	guideSprite_->SetSize(guideSize_);
-	f1ButtonSprite_->SetPosition(f1ButtonPos_);
-	f1ButtonSprite_->SetSize(f1ButtonSize_);
+	guideIconSprite_->SetPosition(guideIconPos_);
+	guideIconSprite_->SetSize(guideIconSize_);
+	pauseBackScreenSprite_->SetPosition(pauseBackScreenPos_);
+	pauseBackScreenSprite_->SetSize(pauseBackScreenSize_);
+	pauseBackScreenSprite_->SetColor(pauseBackScreenColor_);
+	returnGameButtonSprite_->SetPosition(gameButtonPos_);
+	returnGameButtonSprite_->SetSize(gameButtonSize_);
+	guideButtonSprite_->SetPosition(guideButtonPos_);
+	guideButtonSprite_->SetSize(guideButtonSize_);
+	titelButtonSprite_->SetPosition(titelButtonPos_);
+	titelButtonSprite_->SetSize(titelButtonSize_);
 
-	if (isStart) {
-		startCount_--;
-		playerManager_.GetPlayer()->SetIsMove(false);
-		if (startCount_ % 60 == 0) {
-			if (camera_->GetCamera_PosType() < camera_->GetcameraTypeMax()) {
-				count_++;
-				camera_->SetIsMove(true);
-				camera_->SetCamera_PosType(camera_->GetCamera_PosType() + 1);
-				camera_->CameraNextPos();
-			} else {
-				isStart = false;
-				playerManager_.GetPlayer()->SetIsMove(true);
+	if (isPause_) {
+		if (Input::GetInstance()->ReleseKey(DIK_W)) {
+			pauseCursor_--;
+			if (pauseCursor_ < pauseCursorMin) {
+				pauseCursor_ = pauseCursorMax;
 			}
 		}
-	} else {
-
-		gameCount_++;
-		if (gameCount_ > 60) {
-			if (!isFadeStart) {
-				fade_->Start(FadeID::FadeOut, 1);
+		if (Input::GetInstance()->ReleseKey(DIK_S)) {
+			pauseCursor_++;
+			if (pauseCursor_ > pauseCursorMax) {
+				pauseCursor_ = pauseCursorMin;
 			}
 		}
-		if (isFadeStart) {
-			if (fade_->IsFinished()) {
+		if (Input::GetInstance()->ReleseKey(DIK_SPACE)) {
+			if (pauseCursor_ == 0) {
+				isPause_ = false;
+			}
+			if (pauseCursor_ == 1) {
+				isGuide = !isGuide;
+			}
+			if (pauseCursor_ == 2) {
+				nextScene_ = SceneID::Title;
 				isFinish = true;
-				if (playerManager_.GetPlayer()->GetIsGoal()) {
-					nextScene_ = SceneID::Clear;
+			}
+		}
+
+	} else {
+		playerManager_.Update(xinput_, preXinput_);
+		objectManager_->UpDate();
+
+		mapChip_.SetIsBlockReaction(camera_->GetIsReactionEnd());
+
+		if (playerManager_.GetPlayer()->GetIsRotateGoal()) {
+			isFadeStart = true;
+		}
+
+		if (isStart) {
+			startCount_--;
+			playerManager_.GetPlayer()->SetIsMove(false);
+			if (startCount_ % 60 == 0) {
+				if (camera_->GetCamera_PosType() < camera_->GetcameraTypeMax()) {
+					count_++;
+					camera_->SetIsMove(true);
+					camera_->SetCamera_PosType(camera_->GetCamera_PosType() + 1);
+					camera_->CameraNextPos();
 				} else {
-					nextScene_ = SceneID::Title;
+					isStart = false;
+					playerManager_.GetPlayer()->SetIsMove(true);
+				}
+			}
+		} else {
+
+			gameCount_++;
+			if (gameCount_ > 60) {
+				if (!isFadeStart) {
+					fade_->Start(FadeID::FadeOut, 1);
+				}
+			}
+			if (isFadeStart) {
+				if (fade_->IsFinished()) {
+					isFinish = true;
+					if (playerManager_.GetPlayer()->GetIsGoal()) {
+						nextScene_ = SceneID::Clear;
+					} else {
+						nextScene_ = SceneID::Title;
+					}
 				}
 			}
 		}
+		objectManager_->CheckAllCollisions(playerManager_.GetPlayer(), playerManager_.GetClone());
+		fade_->Update();
 	}
-
-	objectManager_->CheckAllCollisions(playerManager_.GetPlayer(), playerManager_.GetClone());
-
-	fade_->Update();
 }
 
 void GameScene::Draw() {
@@ -158,15 +228,40 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
-	if (isStart) {
-		countSprite_[count_]->Draw();
+	guideIconSprite_->Draw();
+	if (isPause_) {
+		pauseBackScreenSprite_->Draw();
+		returnGameButtonSprite_->Draw();
+		guideButtonSprite_->Draw();
+		titelButtonSprite_->Draw();
+
+		if (pauseCursor_ == 0) {
+			returnGameButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+		} else {
+			returnGameButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 0.5f});
+		}
+		if (pauseCursor_ == 1) {
+			guideButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+		} else {
+			guideButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 0.5f});
+		}
+		if (pauseCursor_ == 2) {
+			titelButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+		} else {
+			titelButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 0.5f});
+		}
+
+	} else {
+		if (isStart) {
+			countSprite_[count_]->Draw();
+		}
+
+		fade_->Draw();
 	}
 
 	if (isGuide) {
 		guideSprite_->Draw();
 	}
-	f1ButtonSprite_->Draw();
-	fade_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -193,12 +288,31 @@ void GameScene::DrawImGui() {
 	ImGui::DragFloat2("guideSize", &guideSize_.x);
 	ImGui::DragFloat2("f1ButtonPos", &f1ButtonPos_.x);
 	ImGui::DragFloat2("f1ButtonSize", &f1ButtonSize_.x);
+	ImGui::Checkbox("isPause", &isPause_);
+	ImGui::DragFloat2("pauseBackScreenPos", &pauseBackScreenPos_.x);
+	ImGui::DragFloat2("pauseBackScreenSize", &pauseBackScreenSize_.x);
+	ImGui::DragFloat4("pauseBackScreenColor", &pauseBackScreenColor_.x);
+	ImGui::DragFloat2("gameButtonPos_", &gameButtonPos_.x);
+	ImGui::DragFloat2("gameButtonSize_", &gameButtonSize_.x);
+	ImGui::DragFloat2("guideButtonPos_", &guideButtonPos_.x);
+	ImGui::DragFloat2("guideButtonSize_", &guideButtonSize_.x);
+	ImGui::DragFloat2("titelButtonPos_", &titelButtonPos_.x);
+	ImGui::DragFloat2("titelButtonSize_", &titelButtonSize_.x);
 
 	if (ImGui::Button("save")) {
 		fileAccessor_->Write("Guide", "pos", guidePos_);
 		fileAccessor_->Write("Guide", "size", guideSize_);
 		fileAccessor_->Write("F1", "pos", f1ButtonPos_);
 		fileAccessor_->Write("F1", "size", f1ButtonSize_);
+		fileAccessor_->Write("pauseBackScreen", "pos", pauseBackScreenPos_);
+		fileAccessor_->Write("pauseBackScreen", "size", pauseBackScreenSize_);
+		fileAccessor_->Write("pauseBackScreen", "Color", pauseBackScreenColor_);
+		fileAccessor_->Write("ReturnGameButton", "pos", gameButtonPos_);
+		fileAccessor_->Write("ReturnGameButton", "size", gameButtonSize_);
+		fileAccessor_->Write("GuideButton", "pos", guideButtonPos_);
+		fileAccessor_->Write("GuideButton", "size", guideButtonSize_);
+		fileAccessor_->Write("TitelButton", "pos", titelButtonPos_);
+		fileAccessor_->Write("TitelButton", "size", titelButtonSize_);
 		fileAccessor_->Save();
 	}
 	ImGui::End();

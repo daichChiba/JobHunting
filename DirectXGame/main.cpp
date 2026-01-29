@@ -28,9 +28,9 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			break;
 		}
 
-		if (Input::GetInstance()->PushKey(DIK_ESCAPE)) {
-			break;
-		}
+		//if (Input::GetInstance()->PushKey(DIK_ESCAPE)) {
+		//	break;
+		//}
 
 		// シーンの更新
 		sceneManager_.Update();

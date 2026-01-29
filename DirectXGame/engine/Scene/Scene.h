@@ -36,8 +36,13 @@ public:
 	/// </summary>
 	virtual void DrawImGui();
 
-	// 追加：終了したら次に遷移するシーンID
+	/// <summary>
+	/// 終了したら次に遷移するシーンID
+	/// </summary>
+	/// <returns>次のシーンのSceneIDを返す</returns>
 	virtual SceneID NextScene() const = 0;
+
+
 
 	// シーン終了
 	bool IsFinish() { return isFinish; }
@@ -58,7 +63,6 @@ protected:
 
 	XINPUT_STATE xinput_;
 	XINPUT_STATE preXinput_;
-	XINPUT_VIBRATION xVibration_;
 
 	std::string filePath = "";
 	std::string erea = "";
