@@ -59,7 +59,7 @@ void GameScene::Initialize() {
 	mapChip_.Initialize(filePath, erea, stage);
 	playerManager_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
-	camera_->SetPlayer(playerManager_.GetPlayer());
+	camera_->SetPlayerManager(&playerManager_);
 	camera_->Initialize();
 
 	objectManager_ = new ObjectManager();
@@ -113,6 +113,8 @@ void GameScene::Update() {
 	guideButtonSprite_->SetSize(guideButtonSize_);
 	titelButtonSprite_->SetPosition(titelButtonPos_);
 	titelButtonSprite_->SetSize(titelButtonSize_);
+
+	playerManager_.SetGameScene(this);
 
 	if (isPause_) {
 		if (Input::GetInstance()->ReleseKey(DIK_W) || /*xinput_.Gamepad.sThumbLY > 20000 ||*/
@@ -186,7 +188,7 @@ void GameScene::Update() {
 				}
 			}
 		}
-		objectManager_->CheckAllCollisions(playerManager_.GetPlayer(), playerManager_.GetClone());
+		objectManager_->CheckAllCollisions(&playerManager_);
 		fade_->Update();
 	}
 }

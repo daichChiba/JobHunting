@@ -1,7 +1,7 @@
 #pragma once
 #include "../LoadJsonFile/FileJson.h"
 #include <KamataEngine.h>
-class Player;
+class PlayerManager;
 class MapChip;
 class ObjectManager;
 /// <summary>
@@ -68,7 +68,7 @@ public:
 	/// Playerの情報を取得する
 	/// </summary>
 	/// <param name="player">プレイヤーの情報</param>
-	void SetPlayer(Player* player) { player_ = player; }
+	void SetPlayerManager(PlayerManager* playerManager) { playerManager_ = playerManager; }
 	/// <summary>
 	/// mapChipの情報を取得する
 	/// </summary>
@@ -132,7 +132,7 @@ private:
 
 	// KamataEngine::Vector3
 
-	Player* player_;
+	PlayerManager* playerManager_;
 
 	//bool isAllReaction = false;
 

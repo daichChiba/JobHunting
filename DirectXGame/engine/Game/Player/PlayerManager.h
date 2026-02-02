@@ -2,6 +2,8 @@
 #include "Game/Player/Clone/PlayerClone.h"
 #include "Game/Player/Player.h"
 
+class GameScene;
+
 class PlayerManager {
 public:
 	void Initialize(MapChip* mapChip);
@@ -19,6 +21,12 @@ public:
 
 	void SetObjectManager(ObjectManager* objectManager);
 
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
+
+	void SetIsCloneActive(bool isActive) { isCloneActive_ = isActive; }
+
+	bool GetIsCloneActive() { return isCloneActive_; }
+
 private:
 	Player player_;
 	PlayerClone clone_;
@@ -26,4 +34,6 @@ private:
 
 	// 切り替え入力検知用
 	void CheckSwitchInput();
+
+	GameScene* gameScene_;
 };

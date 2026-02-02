@@ -48,6 +48,12 @@ public:
 	/// <returns>次のシーンを識別するSceneIDを返す。</returns>
 	SceneID NextScene() const override;
 
+	/// <summary>
+	/// ゲームが始まっているかどうかを示すisStartを返す
+	/// </summary>
+	/// <returns>始まっているのであればtrue,始まっていないのであればfalse</returns>
+	bool GetIsStart() { return isStart; }
+
 private:
 private:
 	// プレイヤー

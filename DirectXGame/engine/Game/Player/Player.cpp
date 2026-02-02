@@ -189,7 +189,8 @@ void Player::InputMove() {
 
 			velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
 		} else {
-			velocity_.x *= (1.0f - kAttenuation);
+			//velocity_.x *= (1.0f - kAttenuation);
+			velocity_.x = 0.0f;
 		}
 		float lx = xinput_.Gamepad.sThumbLX / 32767.0f;
 		if (lx !=0.0f) {

@@ -7,6 +7,7 @@
 class MapChip;
 class Player;
 class PlayerClone;
+class PlayerManager;
 /// <summary>
 /// オブジェクトに関する情報を管理するクラス
 /// オブジェクトに関する描画や出力を総合的に扱う
@@ -48,7 +49,7 @@ public:
 	/// </summary>
 	/// <param name="player">プレイヤーの情報を入力</param>
 	/// <param name="playerClone">プレイヤークローンの情報を入力</param>
-	void CheckAllCollisions(Player* player, PlayerClone* playerClone);
+	void CheckAllCollisions(PlayerManager* playerManager);
 	/// <summary>
 	/// 全てのレバーの衝突が完了したかどうか
 	/// </summary>
@@ -66,27 +67,29 @@ private:
 	/// </summary>
 	/// <param name="player"></param>
 	/// <param name="playerClone"></param>
-	void CheckLeverCollision(Player* player, PlayerClone* playerClone);
+	void CheckLeverCollision(PlayerManager* playerManager);
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	/// <param name="player"></param>
 	/// <param name="playerClone"></param>
-	void CheckButtonCollision(Player* player, PlayerClone* playerClone);
+	void CheckButtonCollision(PlayerManager* playerManager);
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	/// <param name="player"></param>
 	/// <param name="playerClone"></param>
-	void CheckGoalCollision(Player* player, PlayerClone* playerClone);
+	void CheckGoalCollision(PlayerManager* playerManager);
 
 private:
 	MapChip* mapChipData_;
 	std::vector<std::unique_ptr<Goal>> goals_;
 	std::vector<std::unique_ptr<PushButton>> pushButtons_;
 	std::vector<std::unique_ptr<Lever>> levers_;
-	Player* player_;
-	PlayerClone* playerClone_;
+	//Player* player_;
+	//PlayerClone* playerClone_;
+
+	PlayerManager* playerManager_;
 
 	bool isAllLeverCollision = false;
 	bool isPushButton;
