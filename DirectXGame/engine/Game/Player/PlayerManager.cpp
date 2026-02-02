@@ -40,9 +40,13 @@ void PlayerManager::CheckSwitchInput() {
 }
 
 void PlayerManager::DrawImGui() {
+#ifdef _DEBUG
+
 	ImGui::Begin("PlayerManager");
 	ImGui::Checkbox("isCloneActive", &isCloneActive_);
 	ImGui::End();
+#endif // _DEBUG
+
 
 	player_.DrawImGui();
 	clone_.DrawImGui();
