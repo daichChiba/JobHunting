@@ -15,7 +15,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	// シーンマネージャー
 	SceneManager sceneManager_;
-	sceneManager_.ChangeScene(SceneID::Title);
+	sceneManager_.ChangeScene(SceneID::Game);
 
 #pragma region 汎用機能初期化
 	// ImGuiManagerインスタンスの取得

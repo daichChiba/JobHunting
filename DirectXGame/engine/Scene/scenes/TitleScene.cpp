@@ -10,7 +10,7 @@ void TitleScene::Initialize() {
 
 	fileAccessor_ = new FileAccessor(file);
 	speed = fileAccessor_->Read(fileMain, "speed", float());
-	
+
 	resetSpeed = speed;
 	backScreenPos = fileAccessor_->Read(fileMain, "backScreenPos", Vector2());
 	titelPos = fileAccessor_->Read(fileMain, "titelPos", Vector2());
@@ -28,17 +28,29 @@ void TitleScene::Initialize() {
 	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.png");
 	pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, pushToSpacePos);
 	pushToSpaceSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+
+	inputWaitTimer_ = 20;
+	canAcceptInput_ = false;
 }
 
 void TitleScene::Update() {
 	preXinput_ = xinput_;
 	XInputGetState(0, &xinput_);
 
-	if (input_->GetInstance()->ReleseKey(DIK_SPACE)||xinput_.Gamepad.wButtons&XINPUT_GAMEPAD_A) {
-		if (!isCleck) {
-			isCleck = true;
-			fade_->Start(FadeID::FadeOut, 1);
-			isStart = false;
+	if (canAcceptInput_ == false) {
+		if (inputWaitTimer_ > 0) {
+			inputWaitTimer_--;
+		} else {
+			canAcceptInput_ = true;
+		}
+	}
+	if (canAcceptInput_) {
+		if (input_->GetInstance()->ReleseKey(DIK_SPACE) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A && !preXinput_.Gamepad.wButtons)) {
+			if (!isCleck) {
+				isCleck = true;
+				fade_->Start(FadeID::FadeOut, 1);
+				isStart = false;
+			}
 		}
 	}
 
@@ -155,5 +167,3 @@ void TitleScene::DrawImGui() {
 }
 
 SceneID TitleScene::NextScene() const { return nextScene_; }
-
-

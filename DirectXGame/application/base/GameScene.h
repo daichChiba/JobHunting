@@ -121,6 +121,9 @@ private:
 	int pauseCursor_ = 0;
 	int pauseCursorMin;
 	int pauseCursorMax;
+	// スティックが前回入力されていたかを保持するフラグ
+	// true: 倒しっぱなしの状態, false: 離している状態
+	bool isLStickPushed_ = false;
 
 	// enum class Pause {
 	//	kReturnGame,

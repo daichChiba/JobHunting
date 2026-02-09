@@ -81,4 +81,12 @@ private:
 	float speed;
 
 	float fadeTime_ = 1.0f;
+
+	// タイトルシーン開始直後の誤入力を防ぐためのタイマー
+	// 0より大きい間は入力を受け付けない
+	int inputWaitTimer_ = 0;
+
+	// タイトルシーンが有効（入力を受け付け可能）かどうか
+	// trueになったらボタン判定を開始する
+	bool canAcceptInput_ = false;
 };
