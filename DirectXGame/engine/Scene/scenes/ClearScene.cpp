@@ -6,14 +6,14 @@ ClearScene::ClearScene() {}
 ClearScene::~ClearScene() {}
 
 void ClearScene::Initialize() {
-	backScreenTh_ = TextureManager::Load("Titel/backScreen.png");
+	backScreenTh_ = TextureManager::Load("Titel/backScreen.dds");
 	backScreenSpite = Sprite::Create(backScreenTh_, {640.0f, 360.0f});
 	backScreenSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 
-	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.png");
+	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.dds");
 	pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, {640.0f, 550.0f});
 	pushToSpaceSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-	clearTh_ = TextureManager::Load("Clear/GameClear.png");
+	clearTh_ = TextureManager::Load("Clear/GameClear.dds");
 	clearSpite = Sprite::Create(clearTh_, {640.0f, 100.0f});
 	clearSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 }

@@ -17,15 +17,15 @@ void TitleScene::Initialize() {
 	pushToSpacePos = fileAccessor_->Read(fileMain, "pushToSpacePos", Vector2());
 	stopTitelPos = fileAccessor_->Read(fileMain, "stopTitelPos", Vector2());
 
-	backScreenTh_ = TextureManager::Load("Titel/backScreen.png");
+	backScreenTh_ = TextureManager::Load("Titel/backScreen.dds");
 	backScreenSpite = Sprite::Create(backScreenTh_, backScreenPos);
 	backScreenSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 
-	titelTh_ = TextureManager::Load("Titel/titel.png");
+	titelTh_ = TextureManager::Load("Titel/titel.dds");
 	titelSpite = Sprite::Create(titelTh_, titelPos);
 	titelSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 
-	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.png");
+	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.dds");
 	pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, pushToSpacePos);
 	pushToSpaceSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 

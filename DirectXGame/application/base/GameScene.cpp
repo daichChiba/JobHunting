@@ -13,21 +13,21 @@ void GameScene::Initialize() {
 
 	guidePos_ = fileAccessor_->Read("Guide", "pos", Vector2());
 
-	guideTh_ = TextureManager::Load("Guide/Guide.png");
+	guideTh_ = TextureManager::Load("Guide/Guide.dds");
 	guideSprite_ = Sprite::Create(guideTh_, guidePos_);
 	guideSprite_->SetAnchorPoint({0.5f, 0.5f});
 	guideSize_ = fileAccessor_->Read("Guide", "size", Vector2());
 	guideSprite_->SetSize(guideSize_);
 
 	guideIconPos_ = fileAccessor_->Read("GuideIcon", "pos", Vector2());
-	guideIconTh_ = TextureManager::Load("Guide/GuideIcon.png");
+	guideIconTh_ = TextureManager::Load("Guide/GuideIcon.dds");
 	guideIconSprite_ = Sprite::Create(guideIconTh_, guideIconPos_);
 	guideIconSprite_->SetAnchorPoint({0.5f, 0.5f});
 	guideIconSize_ = fileAccessor_->Read("GuideIcon", "size", Vector2());
 	guideIconSprite_->SetSize(guideIconSize_);
 
 	pauseBackScreenPos_ = fileAccessor_->Read("pauseBackScreen", "pos", Vector2());
-	pauseBackScreenTh_ = TextureManager::Load("white1x1.png");
+	pauseBackScreenTh_ = TextureManager::Load("white1x1.dds");
 	pauseBackScreenSprite_ = Sprite::Create(pauseBackScreenTh_, pauseBackScreenPos_);
 	pauseBackScreenSprite_->SetAnchorPoint({0.5f, 0.5f});
 	pauseBackScreenSize_ = fileAccessor_->Read("pauseBackScreen", "size", Vector2());
@@ -36,21 +36,21 @@ void GameScene::Initialize() {
 	pauseBackScreenSprite_->SetColor(pauseBackScreenColor_);
 
 	gameButtonPos_ = fileAccessor_->Read("ReturnGameButton", "pos", Vector2());
-	returnGameButtonTh_ = TextureManager::Load("Pause/ReturnGame.png");
+	returnGameButtonTh_ = TextureManager::Load("Pause/ReturnGame.dds");
 	returnGameButtonSprite_ = Sprite::Create(returnGameButtonTh_, gameButtonPos_);
 	returnGameButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
 	gameButtonSize_ = fileAccessor_->Read("ReturnGameButton", "size", Vector2());
 	returnGameButtonSprite_->SetSize(gameButtonSize_);
 
 	guideButtonPos_ = fileAccessor_->Read("GuideButton", "pos", Vector2());
-	guideButtonTh_ = TextureManager::Load("Pause/GameGuideButton.png");
+	guideButtonTh_ = TextureManager::Load("Pause/GameGuideButton.dds");
 	guideButtonSprite_ = Sprite::Create(guideButtonTh_, guideButtonPos_);
 	guideButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
 	guideButtonSize_ = fileAccessor_->Read("GuideButton", "size", Vector2());
 	guideButtonSprite_->SetSize(guideButtonSize_);
 
 	titelButtonPos_ = fileAccessor_->Read("TitelButton", "pos", Vector2());
-	titelButtonTh_ = TextureManager::Load("Pause/TitelButton.png");
+	titelButtonTh_ = TextureManager::Load("Pause/TitelButton.dds");
 	titelButtonSprite_ = Sprite::Create(titelButtonTh_, titelButtonPos_);
 	titelButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
 	titelButtonSize_ = fileAccessor_->Read("TitelButton", "size", Vector2());
@@ -68,11 +68,11 @@ void GameScene::Initialize() {
 	playerManager_.SetObjectManager(objectManager_);
 
 	for (int i = 0; i < 3; i++) {
-		countTh_[i] = TextureManager::Load(std::string("Count/count_") + std::to_string(3 - i) + std::string(".png"));
+		countTh_[i] = TextureManager::Load(std::string("Count/count_") + std::to_string(3 - i) + std::string(".dds"));
 		countSprite_[i] = Sprite::Create(countTh_[i], Vector2(640.0f, 360.0f));
 		countSprite_[i]->SetAnchorPoint({0.5f, 0.5f});
 	}
-	countTh_[3] = TextureManager::Load("Count/start.png");
+	countTh_[3] = TextureManager::Load("Count/start.dds");
 	countSprite_[3] = Sprite::Create(countTh_[3], Vector2(640.0f, 360.0f));
 	countSprite_[3]->SetAnchorPoint({0.5f, 0.5f});
 
