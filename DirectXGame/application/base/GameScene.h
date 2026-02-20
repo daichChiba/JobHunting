@@ -110,6 +110,9 @@ private:
 	KamataEngine::Vector2 guideButtonSize_;
 	KamataEngine::Vector2 titelButtonPos_;
 	KamataEngine::Vector2 titelButtonSize_;
+	KamataEngine::Vector2 restartButtonPos_;
+	KamataEngine::Vector2 restartButtonSize_;
+
 
 
 	uint32_t guideTh_;
@@ -126,6 +129,8 @@ private:
 	KamataEngine::Sprite* guideButtonSprite_;
 	uint32_t titelButtonTh_;
 	KamataEngine::Sprite* titelButtonSprite_;
+	uint32_t restartButtonTh_;
+	KamataEngine::Sprite* restartButtonSprite_;
 
 
 	int pauseCursor_ = 0;

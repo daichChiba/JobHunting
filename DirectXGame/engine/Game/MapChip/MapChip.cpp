@@ -15,7 +15,7 @@ void MapChip::Initialize(std::string file, std::string erea, std::string stage) 
 	fileAccessor_ = new FileAccessor(file);
 	erea_ = erea;
 	csvData_ = fileAccessor_->ReadCsvData(erea, stage);
-	BlockSize = fileAccessor_->Read(erea, "BlockSize", Vector3());
+	BlockSize = fileAccessor_->Read(common, "BlockSize", Vector3());
 	MapCreate();
 	SetModel();
 }

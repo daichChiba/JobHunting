@@ -184,6 +184,8 @@ private:
 
 	std::string erea_ = "";
 
+	std::string common = "Common";
+
 	KamataEngine::Vector3 BlockSize;
 
 	// ワールドトランスフォーム

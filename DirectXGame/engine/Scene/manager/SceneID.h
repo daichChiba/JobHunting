@@ -5,4 +5,5 @@ enum class SceneID {
 	Game,
 	Demo,
 	Clear,
+	Select,
 };

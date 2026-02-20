@@ -56,6 +56,13 @@ void GameScene::Initialize() {
 	titelButtonSize_ = fileAccessor_->Read("TitelButton", "size", Vector2());
 	titelButtonSprite_->SetSize(titelButtonPos_);
 
+	restartButtonPos_ = fileAccessor_->Read("RestartButton", "pos", Vector2());
+	restartButtonTh_ = TextureManager::Load("Pause/RestartButton.dds");
+	restartButtonSprite_ = Sprite::Create(restartButtonTh_, restartButtonPos_);
+	restartButtonSprite_->SetAnchorPoint({0.5f, 0.5f});
+	restartButtonSize_ = fileAccessor_->Read("RestartButton", "size", Vector2());
+	restartButtonSprite_->SetSize(restartButtonPos_);
+
 	mapChip_.Initialize(filePath, erea, stage);
 	playerManager_.Initialize(&mapChip_);
 	camera_ = new GameCamera();
@@ -118,6 +125,8 @@ void GameScene::Update() {
 	guideButtonSprite_->SetSize(guideButtonSize_);
 	titelButtonSprite_->SetPosition(titelButtonPos_);
 	titelButtonSprite_->SetSize(titelButtonSize_);
+	restartButtonSprite_->SetPosition(restartButtonPos_);
+	restartButtonSprite_->SetSize(restartButtonSize_);
 
 	if (isPause_) {
 		UpdatePause();
@@ -216,6 +225,7 @@ void GameScene::Draw() {
 		returnGameButtonSprite_->Draw();
 		guideButtonSprite_->Draw();
 		titelButtonSprite_->Draw();
+		restartButtonSprite_->Draw();
 
 		if (pauseCursor_ == 0) {
 			returnGameButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
@@ -231,6 +241,11 @@ void GameScene::Draw() {
 			titelButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 		} else {
 			titelButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 0.5f});
+		}
+		if (pauseCursor_ == 3) {
+			restartButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+		} else {
+			restartButtonSprite_->SetColor({1.0f, 1.0f, 1.0f, 0.5f});
 		}
 
 	} else {
@@ -281,6 +296,8 @@ void GameScene::DrawImGui() {
 	ImGui::DragFloat2("guideButtonSize_", &guideButtonSize_.x);
 	ImGui::DragFloat2("titelButtonPos_", &titelButtonPos_.x);
 	ImGui::DragFloat2("titelButtonSize_", &titelButtonSize_.x);
+	ImGui::DragFloat2("restartButtonPos_", &restartButtonPos_.x);
+	ImGui::DragFloat2("restartButtonSize_", &restartButtonSize_.x);
 
 	if (ImGui::Button("save")) {
 		fileAccessor_->Write("Guide", "pos", guidePos_);
@@ -296,6 +313,8 @@ void GameScene::DrawImGui() {
 		fileAccessor_->Write("GuideButton", "size", guideButtonSize_);
 		fileAccessor_->Write("TitelButton", "pos", titelButtonPos_);
 		fileAccessor_->Write("TitelButton", "size", titelButtonSize_);
+		fileAccessor_->Write("RestartButton", "pos", restartButtonPos_);
+		fileAccessor_->Write("RestartButton", "size", restartButtonSize_);
 		fileAccessor_->Save();
 	}
 	ImGui::End();
@@ -355,6 +374,10 @@ void GameScene::UpdatePause() {
 		}
 		if (pauseCursor_ == 2) {
 			nextScene_ = SceneID::Title;
+			isFinish = true;
+		}
+		if (pauseCursor_==3) {
+			nextScene_ = SceneID::Game;
 			isFinish = true;
 		}
 	}
