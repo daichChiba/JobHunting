@@ -2,8 +2,8 @@
 #include "Game/Player/Clone/PlayerClone.h"
 #include "engine/Game/MapChip/MapChip.h"
 #include "engine/Game/Player/Player.h"
-#include "engine/ect/MathUtilityForText.h"
 #include "engine/Game/Player/PlayerManager.h"
+#include "engine/ect/MathUtilityForText.h"
 
 using namespace KamataEngine;
 
@@ -19,7 +19,7 @@ void ObjectManager::Initilize(MapChip* mapchip) {
 	//
 	mapChipData_ = mapchip;
 
-std::vector<Vector3> leverPos = mapchip->GetAllObjectPositions(MapChipID::Lever);
+	std::vector<Vector3> leverPos = mapchip->GetAllObjectPositions(MapChipID::Lever);
 	for (const auto& pos : leverPos) {
 		// newで生成してunique_ptrに持たせる
 		auto newLever = std::make_unique<Lever>();
@@ -68,10 +68,29 @@ void ObjectManager::Draw(KamataEngine::Camera& camera) {
 }
 
 void ObjectManager::DrawImGui() {
+#ifdef _DEBUG
+	ImGui::Begin("ObjectManager");
+	if (ImGui::CollapsingHeader("PushButtons")) {
+		int index = 0;
+		for (auto& button : pushButtons_) {
+			std::string labal = "Button_" + std::to_string(index);
 
-	for (auto& lever : levers_) {
-		lever->DrawImGui();
+			button->DrawImGui(labal);
+			index++;
+		}
 	}
+	if (ImGui::CollapsingHeader("Lever")) {
+		int index = 0;
+		for (auto& lever : levers_) {
+			std::string labal = "Lever_" + std::to_string(index);
+			lever->DrawImGui(labal);
+			index++;
+		}
+	}
+	ImGui::Checkbox("isPushButton", &isPushButton);
+
+	ImGui::End();
+#endif // _DEBUG
 }
 
 void ObjectManager::Delete() {
@@ -90,7 +109,6 @@ void ObjectManager::Delete() {
 }
 
 void ObjectManager::CheckAllCollisions(PlayerManager* playerManager) {
-
 
 	CheckLeverCollision(playerManager);
 	CheckButtonCollision(playerManager);
@@ -133,37 +151,39 @@ void ObjectManager::CheckLeverCollision(PlayerManager* playerManager) {
 		// 全体のギミック解除処理
 		isAllLeverCollision = true;
 	}
-
 }
 
 void ObjectManager::CheckButtonCollision(PlayerManager* playerManager) {
+	bool anyPushed = false;
+
 	for (auto& button : pushButtons_) {
 		bool hitPlayer = IsCollision(button->GetAABB(), playerManager->GetPlayer()->GetAABB());
 		bool hitClone = IsCollision(button->GetAABB(), playerManager->GetClone()->GetAABB());
 
+
 		if (hitPlayer || hitClone) {
 			button->OnCollision(playerManager->GetPlayer(), playerManager->GetClone()); // ONにする
-			isPushButton = true;
-		} else {
+			anyPushed = true; 
+		}
+		else if(!hitPlayer&&!hitClone) {
 			button->SetInPushButton(false); // 離れたらOFFにする処理が必要なら
-			isPushButton = false;
 		}
 	}
+	isPushButton = anyPushed;
 }
 
 void ObjectManager::CheckGoalCollision(PlayerManager* playerManager) {
 	// 複数のゴールがあるならループ、1つなら直接参照
 	for (auto& goal : goals_) {
 		bool hitPlayer = IsCollision(goal->GetAABB(), playerManager->GetPlayer()->GetAABB());
-		bool hitClone = IsCollision(goal->GetAABB(),  playerManager->GetClone()->GetAABB());
+		bool hitClone = IsCollision(goal->GetAABB(), playerManager->GetClone()->GetAABB());
 
 		if (hitPlayer && hitClone) {
-			if (playerManager->GetIsCloneActive()==true) {
+			if (playerManager->GetIsCloneActive() == true) {
 				playerManager->SetIsCloneActive(false);
 			}
 			// 両方接触しているのでゴール成功
 			playerManager->GetPlayer()->OnCollision(goal.get()); // プレイヤーのゴールフラグを立てる
-
 		}
 	}
 }

@@ -12,16 +12,13 @@ PushButton::~PushButton() {
 }
 
 void PushButton::Initilize(const KamataEngine::Vector3 pos) {
-	
 
 	model_[0] = Model::CreateFromOBJ("PushButton", true);
 	model_[1] = Model::CreateFromOBJ("PressButton", true);
 
-	
 	//
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = pos;
-
 }
 
 void PushButton::Update() {
@@ -38,16 +35,17 @@ void PushButton::Draw(Camera& camera_) {
 	//
 }
 
-void PushButton::DrawImGui() {
+void PushButton::DrawImGui(const std::string& label) {
 	//
 #ifdef _DEBUG
 
-	ImGui::Begin("PushButton");
-	ImGui::Text("test");
-	ImGui::Checkbox("isPushButton", &isPushButton);
-	ImGui::End();
-#endif // _DEBUG
+	if (ImGui::TreeNode(label.c_str())) {
+		ImGui::Text("test");
+		ImGui::Checkbox("isPushButton", &isPushButton);
+		ImGui::TreePop();
+	}
 
+#endif // _DEBUG
 }
 void PushButton::Delete() {
 	//
@@ -85,4 +83,3 @@ void PushButton::OnCollision(const Player* player, const PlayerClone* clone) {
 
 	isPushButton = true;
 }
-

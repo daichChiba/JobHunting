@@ -64,6 +64,8 @@ protected:
 	XINPUT_STATE xinput_;
 	XINPUT_STATE preXinput_;
 
+	XINPUT_VIBRATION xVibration_;
+
 	std::string filePath = "";
 	std::string erea = "";
 	std::string stage = "";

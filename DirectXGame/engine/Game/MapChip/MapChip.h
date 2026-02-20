@@ -135,16 +135,22 @@ public:
 	/// <returns>FileAccessorのポインタ</returns>
 	FileJson::FileAccessor* GetFileAccessor() { return fileAccessor_; }
 
+	///// <summary>
+	///// プッシュボタンオブジェクトを登録
+	///// </summary>
+	///// <param name="pushButton">プッシュボタンオブジェクト</param>
+	//void SetPushButton(PushButton* pushButton) { pushButton_ = pushButton; } 
+	///// <summary>
+	///// レバーオブジェクトを登録
+	///// </summary>
+	///// <param name="lever">レバーオブジェクト</param>
+	//void SetLever(Lever* lever) { lever_ = lever; }
+
 	/// <summary>
-	/// プッシュボタンオブジェクトを登録
+	/// オブジェクトマネージャーを設定します。
 	/// </summary>
-	/// <param name="pushButton">プッシュボタンオブジェクト</param>
-	void SetPushButton(PushButton* pushButton) { pushButton_ = pushButton; } 
-	/// <summary>
-	/// レバーオブジェクトを登録
-	/// </summary>
-	/// <param name="lever">レバーオブジェクト</param>
-	void SetLever(Lever* lever) { lever_ = lever; }
+	/// <param name="objectManager">設定するオブジェクトマネージャー</param>
+	void SetObjectManager(ObjectManager* objectManager) { objectManager_ = objectManager; }
 
 	/// <summary>
 	/// ブロックのリアクションが終わったかどうかを設定する
@@ -183,8 +189,10 @@ private:
 	// ワールドトランスフォーム
 	std::vector<std::vector<WorldTransform*>> worldTransform_;
 
-	PushButton* pushButton_;
-	Lever* lever_;
+	//PushButton* pushButton_;
+	//Lever* lever_;
+
+	ObjectManager* objectManager_;
 
 	bool isBlockReactionEnd;
 };

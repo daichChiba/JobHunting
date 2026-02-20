@@ -13,7 +13,6 @@ Lever::~Lever() {
 void Lever::Initilize(const KamataEngine::Vector3 pos) {
 	//
 
-
 	model_[0] = Model::CreateFromOBJ("LeverRight", true);
 	model_[1] = Model::CreateFromOBJ("LeverLeft", true);
 
@@ -35,17 +34,16 @@ void Lever::Draw(Camera& camera_) {
 	}
 }
 
-void Lever::DrawImGui() {
+void Lever::DrawImGui(const std::string& label) {
 	//
 
-	#ifdef _DEBUG
-
-	ImGui::Begin("Lever");
-	ImGui::Text("test");
-	ImGui::Checkbox("isLever", &isLever);
-	ImGui::End();
+#ifdef _DEBUG
+	if (ImGui::TreeNode(label.c_str())) {
+		ImGui::Text("test");
+		ImGui::Checkbox("isLever", &isLever);
+		ImGui::TreePop();
+	}
 #endif // _DEBUG
-
 }
 
 void Lever::Delete() {

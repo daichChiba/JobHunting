@@ -5,6 +5,7 @@
 #include "Game/Object/Lever/Lever.h"
 #include "Game/Object/ObjectManager.h"
 #include "Game/Object/PushButton/PushButton.h"
+#include "GameScene.h"
 #include <algorithm>
 
 using namespace KamataEngine;
@@ -48,7 +49,6 @@ void Player::Initialize(MapChip* mapchip) {
 	worldTransform_.rotation_ = fileAccessor_->Read(fileMain, "rotation", Vector3());
 }
 void Player::Update() {
-	
 
 	XInputSetState(0, &xVibration_);
 	xVibration_.wLeftMotorSpeed = static_cast<unsigned short>(leftVibration);
@@ -87,7 +87,7 @@ void Player::Update() {
 }
 void Player::Draw(const Camera& camera) {
 	//
-	model_->Draw(worldTransform_, camera,objectColor_);
+	model_->Draw(worldTransform_, camera, objectColor_);
 }
 
 void Player::Delete() {
@@ -189,17 +189,16 @@ void Player::InputMove() {
 
 			velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
 		} else {
-			//velocity_.x *= (1.0f - kAttenuation);
 			velocity_.x = 0.0f;
 		}
 		float lx = xinput_.Gamepad.sThumbLX / 32767.0f;
-		if (lx !=0.0f) {
+		if (lx != 0.0f) {
 			float magnitude = sqrtf(lx * lx);
 
 			velocity_.x = sin(lx) * magnitude * kLimitXSpeed;
 		}
 
-		if (Input::GetInstance()->PushKey(DIK_W)||xinput_.Gamepad.wButtons&XINPUT_GAMEPAD_A) {
+		if (Input::GetInstance()->PushKey(DIK_W) || xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A) {
 			velocity_ += Vector3(0, kJumpAcceleration, 0);
 		}
 		// ジャンプ開始

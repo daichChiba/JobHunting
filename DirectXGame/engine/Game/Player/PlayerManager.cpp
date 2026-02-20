@@ -6,22 +6,21 @@ void PlayerManager::Initialize(MapChip* mapChip) {
 	//
 	player_.Initialize(mapChip);
 	clone_.Initialize(mapChip);
+
+
 }
 void PlayerManager::Update(XINPUT_STATE xinput, XINPUT_STATE preXinput) {
 	// ここで切り替え処理や両方のUpdateを呼ぶ
 
 	if (Input::GetInstance()->ReleseKey(DIK_SPACE) || (xinput.Gamepad.wButtons & XINPUT_GAMEPAD_B && !preXinput.Gamepad.wButtons)) {
 		isCloneActive_ = !isCloneActive_;
-
-		////動作フラグの更新
-		// player_.SetIsMove(!isCloneActive_);
-		// clone_.SetIsMove(isCloneActive_);
 	}
 	if (gameScene_->GetIsStart() == false) {
 		// 動作フラグの更新
 		player_.SetIsMove(!isCloneActive_);
 		clone_.SetIsMove(isCloneActive_);
 	}
+	player_.SetGameScene(gameScene_);
 
 	player_.SetXinput(xinput);
 	player_.Update();
@@ -52,7 +51,18 @@ void PlayerManager::DrawImGui() {
 	clone_.DrawImGui();
 }
 
+void PlayerManager::Delete() {
+	player_.Delete();
+	clone_.Delete();
+}
+
 void PlayerManager::SetObjectManager(ObjectManager* objectManager) {
 	player_.SetObjectManager(objectManager);
 	clone_.SetObjectManager(objectManager);
 }
+
+void PlayerManager::StopRumble(XINPUT_VIBRATION xVibration) {
+	xVibration.wLeftMotorSpeed = static_cast<unsigned short>(0);
+	xVibration.wRightMotorSpeed = static_cast<unsigned short>(0);
+	XInputSetState(0, &xVibration);
+ }

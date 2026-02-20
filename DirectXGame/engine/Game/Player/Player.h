@@ -6,6 +6,7 @@
 class MapChip;
 class Goal;
 class ObjectManager;
+class GameScene;
 /// <summary>
 /// プレイヤーに関する状態を取り扱うクラス
 /// プレイヤーの情報を単一的に扱う。
@@ -89,6 +90,10 @@ public:
 
 	void SetXinput(XINPUT_STATE xinput) { xinput_ = xinput; }
 
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
+
+	void SetXvibration(XINPUT_VIBRATION xVibration) { xVibration_ = xVibration; }
+
 private:
 	/// <summary>
 	/// 移動処理
@@ -170,4 +175,6 @@ private:
 
 	XINPUT_STATE xinput_;
 	int kGoalVibration;
+
+	GameScene* gameScene_;
 };

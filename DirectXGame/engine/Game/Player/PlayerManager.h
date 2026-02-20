@@ -16,6 +16,8 @@ public:
 
 	void DrawImGui();
 
+	void Delete();
+
 	// 操作状態の取得など
 	bool IsControllingClone() const { return isCloneActive_; }
 
@@ -26,6 +28,8 @@ public:
 	void SetIsCloneActive(bool isActive) { isCloneActive_ = isActive; }
 
 	bool GetIsCloneActive() { return isCloneActive_; }
+
+	void StopRumble(XINPUT_VIBRATION xVibration);
 
 private:
 	Player player_;

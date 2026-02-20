@@ -38,9 +38,11 @@ void MapChip::MapDraw(Camera& camera) {
 				mapChipData_.model->Draw(*worldTransform_[y][x], camera);
 			}
 
-			if (isBlockReactionEnd == false || (pushButton_ != nullptr && pushButton_->GetIsPushButton() == false)) {
-				if (mapChipData_.data[y][x] == MapChipID ::OpenBlock) {
-					mapChipData_.model->Draw(*worldTransform_[y][x], camera);
+			if (isBlockReactionEnd == false) {
+				if (objectManager_->GetIsPushButton() == false) {
+					if (mapChipData_.data[y][x] == MapChipID ::OpenBlock) {
+						mapChipData_.model->Draw(*worldTransform_[y][x], camera);
+					}
 				}
 			}
 		}

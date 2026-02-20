@@ -66,6 +66,9 @@ void GameScene::Initialize() {
 	objectManager_->Initilize(&mapChip_);
 
 	playerManager_.SetObjectManager(objectManager_);
+	playerManager_.SetGameScene(this);
+
+	mapChip_.SetObjectManager(objectManager_);
 
 	for (int i = 0; i < 3; i++) {
 		countTh_[i] = TextureManager::Load(std::string("Count/count_") + std::to_string(3 - i) + std::string(".dds"));
@@ -95,9 +98,11 @@ void GameScene::Update() {
 	camera_->SetObjectManager(objectManager_);
 	camera_->Update();
 	mapChip_.Update();
-	if (Input::GetInstance()->ReleseKey(DIK_ESCAPE) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_START && preXinput_.Gamepad.wButtons == 0)) {
-		isPause_ = true;
-		pauseCursor_ = 0;
+	if (!isStart) {
+		if (Input::GetInstance()->ReleseKey(DIK_ESCAPE) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_START && preXinput_.Gamepad.wButtons == 0)) {
+			isPause_ = true;
+			pauseCursor_ = 0;
+		}
 	}
 
 	guideSprite_->SetPosition(guidePos_);
@@ -114,57 +119,8 @@ void GameScene::Update() {
 	titelButtonSprite_->SetPosition(titelButtonPos_);
 	titelButtonSprite_->SetSize(titelButtonSize_);
 
-	playerManager_.SetGameScene(this);
-
 	if (isPause_) {
-		bool isMoveUp = false;
-		bool isMoveDown = false;
-		if (xinput_.Gamepad.sThumbLY > 20000) {
-			if (isLStickPushed_ == false) {
-				isMoveUp = true;
-				isLStickPushed_ = true;
-			}
-		} else if (xinput_.Gamepad.sThumbLY < -20000) {
-			if (isLStickPushed_ == false) {
-				isMoveDown = true;
-				isLStickPushed_ = true;
-			}
-		} else {
-			isLStickPushed_ = false;
-		}
-
-		if (Input::GetInstance()->ReleseKey(DIK_W) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP && !preXinput_.Gamepad.wButtons)) {
-			isMoveUp = true;
-		}
-		if (Input::GetInstance()->ReleseKey(DIK_S) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN && !preXinput_.Gamepad.wButtons)) {
-			isMoveDown = true;
-		}
-		if (isMoveUp) {
-			pauseCursor_--;
-			if (pauseCursor_ < pauseCursorMin) {
-				pauseCursor_ = pauseCursorMax;
-			}
-		}
-		if (isMoveDown) {
-			pauseCursor_++;
-			if (pauseCursor_ > pauseCursorMax) {
-				pauseCursor_ = pauseCursorMin;
-			}
-		}
-
-
-		if (Input::GetInstance()->ReleseKey(DIK_SPACE) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A && !preXinput_.Gamepad.wButtons)) {
-			if (pauseCursor_ == 0) {
-				isPause_ = false;
-			}
-			if (pauseCursor_ == 1) {
-				isGuide = !isGuide;
-			}
-			if (pauseCursor_ == 2) {
-				nextScene_ = SceneID::Title;
-				isFinish = true;
-			}
-		}
+		UpdatePause();
 
 	} else {
 		playerManager_.Update(xinput_, preXinput_);
@@ -296,6 +252,7 @@ void GameScene::Draw() {
 }
 
 void GameScene::Delete() {
+	playerManager_.Delete();
 	objectManager_->Delete();
 	delete fade_;
 }
@@ -350,3 +307,55 @@ void GameScene::DrawImGui() {
 }
 
 SceneID GameScene::NextScene() const { return nextScene_; }
+
+void GameScene::UpdatePause() {
+	playerManager_.StopRumble(xVibration_);
+
+	bool isMoveUp = false;
+	bool isMoveDown = false;
+	if (xinput_.Gamepad.sThumbLY > 20000) {
+		if (isLStickPushed_ == false) {
+			isMoveUp = true;
+			isLStickPushed_ = true;
+		}
+	} else if (xinput_.Gamepad.sThumbLY < -20000) {
+		if (isLStickPushed_ == false) {
+			isMoveDown = true;
+			isLStickPushed_ = true;
+		}
+	} else {
+		isLStickPushed_ = false;
+	}
+
+	if (Input::GetInstance()->ReleseKey(DIK_W) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP && !preXinput_.Gamepad.wButtons)) {
+		isMoveUp = true;
+	}
+	if (Input::GetInstance()->ReleseKey(DIK_S) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN && !preXinput_.Gamepad.wButtons)) {
+		isMoveDown = true;
+	}
+	if (isMoveUp) {
+		pauseCursor_--;
+		if (pauseCursor_ < pauseCursorMin) {
+			pauseCursor_ = pauseCursorMax;
+		}
+	}
+	if (isMoveDown) {
+		pauseCursor_++;
+		if (pauseCursor_ > pauseCursorMax) {
+			pauseCursor_ = pauseCursorMin;
+		}
+	}
+
+	if (Input::GetInstance()->ReleseKey(DIK_SPACE) || (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A && !preXinput_.Gamepad.wButtons)) {
+		if (pauseCursor_ == 0) {
+			isPause_ = false;
+		}
+		if (pauseCursor_ == 1) {
+			isGuide = !isGuide;
+		}
+		if (pauseCursor_ == 2) {
+			nextScene_ = SceneID::Title;
+			isFinish = true;
+		}
+	}
+}

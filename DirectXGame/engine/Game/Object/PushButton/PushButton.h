@@ -35,7 +35,8 @@ public:
 	/// <summary>
 	/// ImGuiの表示
 	/// </summary>
-	void DrawImGui();
+	/// <param name="label">ボタンごとのラベルを記入する</param>
+	void DrawImGui(const std::string& label);
 	/// <summary>
 	/// リソースの削除
 	/// </summary>

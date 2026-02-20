@@ -53,8 +53,18 @@ public:
 	/// </summary>
 	/// <returns>始まっているのであればtrue,始まっていないのであればfalse</returns>
 	bool GetIsStart() { return isStart; }
+	/// <summary>
+	/// ポーズしているかどうかを返す
+	/// </summary>
+	/// <returns>ポーズ中の場合はtrue、それ以外の場合はfalse。</returns>
+	bool GetIsPause() { return isPause_; }
 
 private:
+	/// <summary>
+	/// ポーズ時の更新処理
+	/// </summary>
+	void UpdatePause();
+
 private:
 	// プレイヤー
 	PlayerManager playerManager_;
