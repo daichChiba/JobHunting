@@ -2,13 +2,22 @@
 #include "Game/Camera/GameCamera.h"
 #include "Game/LoadJsonFile/FileJson.h"
 #include "Game/MapChip/MapChip.h"
-// #include "Game/Object/Goal/Goal.h"
-// #include "Game/Player/Player.h"
-// #include "Game/Player/Clone/PlayerClone.h"
 #include "Game/Object/ObjectManager.h"
 #include "Game/Player/PlayerManager.h"
 #include "Scene/Scene.h"
 #include <KamataEngine.h>
+enum class PauseID {
+	kReturnGame,
+	kGuide,
+	kTitel,
+	kRestart,
+};
+struct MenuButton {
+	PauseID type;
+	std::string name;
+	KamataEngine::Sprite* sprite;
+	KamataEngine::Vector2 pos;
+};
 /// <summary>
 /// ゲームシーンに関する状況を取得し、シーンに反映させるクラス。
 /// </summary>
@@ -78,6 +87,8 @@ private:
 	SceneID nextScene_;
 
 private:
+
+
 	FileJson::FileAccessor* fileAccessor_ = nullptr;
 
 	const std::string filePath_ = "Resources/Json/GameScene.json";
@@ -102,8 +113,10 @@ private:
 	KamataEngine::Vector2 guideIconPos_;
 	KamataEngine::Vector2 guideIconSize_;
 	KamataEngine::Vector2 pauseBackScreenPos_;
+
 	KamataEngine::Vector2 pauseBackScreenSize_;
 	KamataEngine::Vector4 pauseBackScreenColor_;
+
 	KamataEngine::Vector2 gameButtonPos_;
 	KamataEngine::Vector2 gameButtonSize_;
 	KamataEngine::Vector2 guideButtonPos_;
@@ -112,7 +125,6 @@ private:
 	KamataEngine::Vector2 titelButtonSize_;
 	KamataEngine::Vector2 restartButtonPos_;
 	KamataEngine::Vector2 restartButtonSize_;
-
 
 
 	uint32_t guideTh_;
@@ -132,7 +144,6 @@ private:
 	uint32_t restartButtonTh_;
 	KamataEngine::Sprite* restartButtonSprite_;
 
-
 	int pauseCursor_ = 0;
 	int pauseCursorMin;
 	int pauseCursorMax;
@@ -140,10 +151,8 @@ private:
 	// true: 倒しっぱなしの状態, false: 離している状態
 	bool isLStickPushed_ = false;
 
-	// enum class Pause {
-	//	kReturnGame,
-	//	kGuide,
-	//	kTitel
-	// };
-	// Pause pauseCursor_ = Pause::ReturnGame;
+	std::vector<MenuButton> menuItems_;
+
+
+	// Pause pauseCursor_ = Pause::kReturnGame;
 };
