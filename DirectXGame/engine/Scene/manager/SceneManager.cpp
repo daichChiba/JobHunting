@@ -59,7 +59,46 @@ void SceneManager::Draw() {
 void SceneManager::DrawImGui() {
 #ifdef _DEBUG
 	ImGui::Begin("SceneManager");
-	if (ImGui::Button("ReLoad")) {
+
+
+	/// シーン遷移機能
+	ImGui::SeparatorText("Scene Change");
+	
+	//
+	const char* sceneNames[] = {
+	    "Title", "Reset", "Game", "Demo", "Clear",
+	};
+	static int currentSceneIndex = 0;
+	//コンボボックスでシーンを切り替える
+	ImGui::Combo("Next Scene", &currentSceneIndex, sceneNames, IM_ARRAYSIZE(sceneNames));
+	//
+	if (ImGui::Button("Change Scene")) {
+		ChangeScene(static_cast<SceneID>(currentSceneIndex));
+	}
+
+	//ステージ選択機能
+	ImGui::SeparatorText("Stage Select");
+
+	// ■ エリア (erea) の選択
+	const char* areaList[] = {"stage"};
+	static int currentAreaIndex = 0;
+
+	if (ImGui::Combo("Area", &currentAreaIndex, areaList, IM_ARRAYSIZE(areaList))) {
+		// 選択が変わったらSceneManagerの変数を更新
+		erea = areaList[currentAreaIndex];
+	}
+
+	// ■ ステージ (stage) の選択
+	const char* stageList[] = {"1_1", "1_2", "1_3", "2_1", "2_2", "2_3"}; 
+	static int currentStageIndex = 0;
+
+	if (ImGui::Combo("Stage", &currentStageIndex, stageList, IM_ARRAYSIZE(stageList))) {
+		// 選択が変わったらSceneManagerの変数を更新
+		stage = stageList[currentStageIndex];
+	}
+
+
+	if (ImGui::Button("ReLoad/Apply Stage")) {
 		reloadRequested_ = true;
 	}
 	ImGui::End();

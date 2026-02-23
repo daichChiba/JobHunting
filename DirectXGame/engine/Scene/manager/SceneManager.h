@@ -56,7 +56,7 @@ private:
 	bool reloadRequested_ = false;
 
 	std::string filePath = "Resources/Json/Stage.json";
-	std::string erea = "stage_1";
+	std::string erea = "stage";
 	std::string stage = "1_1";
 
 };
