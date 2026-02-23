@@ -178,6 +178,8 @@
     <ClCompile Include="engine\Game\Object\ObjectManager.cpp" />
     <ClCompile Include="engine\Game\Player\Clone\PlayerClone.cpp" />
     <ClCompile Include="engine\Game\Player\PlayerManager.cpp" />
+    <ClCompile Include="engine\Game\Pause\PauseMenu.cpp" />
+    <ClCompile Include="engine\Game\Pause\PausePage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -198,6 +200,7 @@
     </FxCompile>
     <None Include="Resources\Json\GameCamera.json" />
     <None Include="Resources\Json\GameScene.json" />
+    <None Include="Resources\Json\PauseMenu.json" />
     <None Include="Resources\Json\Player.json" />
     <None Include="Resources\Json\Stage.json" />
     <None Include="Resources\Json\Titel.json" />
@@ -306,6 +309,8 @@
     <ClInclude Include="engine\Game\Player\Clone\PlayerClone.h" />
     <ClInclude Include="engine\Game\Object\Lever\Lever.h" />
     <ClInclude Include="engine\Game\Player\PlayerManager.h" />
+    <ClInclude Include="engine\Game\Pause\PauseMenu.h" />
+    <ClInclude Include="engine\Game\Pause\PausePage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

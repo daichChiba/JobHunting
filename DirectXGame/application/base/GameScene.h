@@ -5,19 +5,10 @@
 #include "Game/Object/ObjectManager.h"
 #include "Game/Player/PlayerManager.h"
 #include "Scene/Scene.h"
+#include "Game/Pause/PauseMenu.h"
 #include <KamataEngine.h>
-enum class PauseID {
-	kReturnGame,
-	kGuide,
-	kTitel,
-	kRestart,
-};
-struct MenuButton {
-	PauseID type;
-	std::string name;
-	KamataEngine::Sprite* sprite;
-	KamataEngine::Vector2 pos;
-};
+
+
 /// <summary>
 /// ゲームシーンに関する状況を取得し、シーンに反映させるクラス。
 /// </summary>
@@ -62,17 +53,8 @@ public:
 	/// </summary>
 	/// <returns>始まっているのであればtrue,始まっていないのであればfalse</returns>
 	bool GetIsStart() { return isStart; }
-	/// <summary>
-	/// ポーズしているかどうかを返す
-	/// </summary>
-	/// <returns>ポーズ中の場合はtrue、それ以外の場合はfalse。</returns>
-	bool GetIsPause() { return isPause_; }
 
 private:
-	/// <summary>
-	/// ポーズ時の更新処理
-	/// </summary>
-	void UpdatePause();
 
 private:
 	// プレイヤー
@@ -85,6 +67,8 @@ private:
 	GameCamera* camera_;
 	// シーン
 	SceneID nextScene_;
+
+	PauseMenu pauseMenu_;
 
 private:
 
@@ -101,58 +85,15 @@ private:
 
 	bool isFadeStart;
 
-	bool isGuide = false;
-
-	bool isPause_ = false;
 
 	uint32_t countTh_[4];
 	KamataEngine::Sprite* countSprite_[4];
 
-	KamataEngine::Vector2 guidePos_;
-	KamataEngine::Vector2 guideSize_;
 	KamataEngine::Vector2 guideIconPos_;
 	KamataEngine::Vector2 guideIconSize_;
-	KamataEngine::Vector2 pauseBackScreenPos_;
-
-	KamataEngine::Vector2 pauseBackScreenSize_;
-	KamataEngine::Vector4 pauseBackScreenColor_;
-
-	KamataEngine::Vector2 gameButtonPos_;
-	KamataEngine::Vector2 gameButtonSize_;
-	KamataEngine::Vector2 guideButtonPos_;
-	KamataEngine::Vector2 guideButtonSize_;
-	KamataEngine::Vector2 titelButtonPos_;
-	KamataEngine::Vector2 titelButtonSize_;
-	KamataEngine::Vector2 restartButtonPos_;
-	KamataEngine::Vector2 restartButtonSize_;
 
 
-	uint32_t guideTh_;
-	KamataEngine::Sprite* guideSprite_;
 	uint32_t guideIconTh_;
 	KamataEngine::Sprite* guideIconSprite_;
 
-	uint32_t pauseBackScreenTh_;
-	KamataEngine::Sprite* pauseBackScreenSprite_;
-
-	uint32_t returnGameButtonTh_;
-	KamataEngine::Sprite* returnGameButtonSprite_;
-	uint32_t guideButtonTh_;
-	KamataEngine::Sprite* guideButtonSprite_;
-	uint32_t titelButtonTh_;
-	KamataEngine::Sprite* titelButtonSprite_;
-	uint32_t restartButtonTh_;
-	KamataEngine::Sprite* restartButtonSprite_;
-
-	int pauseCursor_ = 0;
-	int pauseCursorMin;
-	int pauseCursorMax;
-	// スティックが前回入力されていたかを保持するフラグ
-	// true: 倒しっぱなしの状態, false: 離している状態
-	bool isLStickPushed_ = false;
-
-	std::vector<MenuButton> menuItems_;
-
-
-	// Pause pauseCursor_ = Pause::kReturnGame;
 };

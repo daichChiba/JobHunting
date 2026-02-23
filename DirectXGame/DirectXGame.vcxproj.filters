@@ -19,14 +19,8 @@
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{a7332e7c-3be4-440c-b8fc-b2eab9e0900d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Scene">
-      <UniqueIdentifier>{a5eff3c0-041a-40ef-a74b-9a6503c2ca17}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene\scenes">
       <UniqueIdentifier>{f0bd3a7d-246a-4a38-9f83-f99902c58d2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene\scenes">
-      <UniqueIdentifier>{5999b3e1-3eca-4515-880f-ddb46351517b}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\ect">
       <UniqueIdentifier>{5925b329-81ce-4032-a221-e074ede0721d}</UniqueIdentifier>
@@ -39,9 +33,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Game">
       <UniqueIdentifier>{b4a5ef0a-6809-416f-aafb-7d8c8e253243}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene\Manager">
-      <UniqueIdentifier>{e00c3507-5dde-40b7-8b63-517ec5ca388c}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Scene\Manager">
       <UniqueIdentifier>{ec2b4c95-271e-47e2-82e3-979c5a814c1c}</UniqueIdentifier>
@@ -63,9 +54,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Scene\Fade">
       <UniqueIdentifier>{5fbfe427-2f28-489d-a7b3-9f30904c6815}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene\Fade">
-      <UniqueIdentifier>{b969e78e-7747-476b-bb83-daaa129fb965}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Game\Camera">
       <UniqueIdentifier>{25f08c48-e4ed-4b6c-ad13-75f18d36f117}</UniqueIdentifier>
@@ -105,6 +93,24 @@
     </Filter>
     <Filter Include="ソース ファイル\Game\Object\PushButton">
       <UniqueIdentifier>{fa42ed47-96c8-4fae-b15e-4d6e4463f7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Pause">
+      <UniqueIdentifier>{6caa2928-f5cb-47fc-8b7e-cf9fed5e5f1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{a5eff3c0-041a-40ef-a74b-9a6503c2ca17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\scenes">
+      <UniqueIdentifier>{5999b3e1-3eca-4515-880f-ddb46351517b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Manager">
+      <UniqueIdentifier>{e00c3507-5dde-40b7-8b63-517ec5ca388c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Fade">
+      <UniqueIdentifier>{b969e78e-7747-476b-bb83-daaa129fb965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Pause">
+      <UniqueIdentifier>{3124c645-a6e3-4e2f-b770-c5518d8acc56}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +186,12 @@
     <ClCompile Include="engine\Game\Player\PlayerManager.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
+    <ClCompile Include="engine\Game\Pause\PauseMenu.cpp">
+      <Filter>ソース ファイル\Game\Pause</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Pause\PausePage.cpp">
+      <Filter>ソース ファイル\Game\Pause</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -242,6 +254,9 @@
       <Filter>リソース ファイル</Filter>
     </None>
     <None Include="Resources\Json\GameScene.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Resources\Json\PauseMenu.json">
       <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
@@ -317,6 +332,12 @@
     </ClInclude>
     <ClInclude Include="engine\Game\Player\PlayerManager.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Pause\PauseMenu.h">
+      <Filter>ヘッダー ファイル\Pause</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Pause\PausePage.h">
+      <Filter>ヘッダー ファイル\Pause</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
