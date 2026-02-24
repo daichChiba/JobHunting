@@ -37,6 +37,7 @@ void PushButton::Draw(Camera& camera_) {
 
 void PushButton::DrawImGui(const std::string& label) {
 	//
+	label;
 #ifdef _DEBUG
 
 	if (ImGui::TreeNode(label.c_str())) {

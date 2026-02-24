@@ -75,7 +75,7 @@ void PauseMenu::Update(const XINPUT_STATE& xinput, const XINPUT_STATE& preXinput
 	}
 
 	// Bボタンで前のページに戻る
-	bool isBack = (xinput.Gamepad.wButtons & XINPUT_GAMEPAD_B && !preXinput.Gamepad.wButtons);
+	bool isBack = Input::GetInstance()->ReleseKey(DIK_BACKSPACE)||(xinput.Gamepad.wButtons & XINPUT_GAMEPAD_B && !preXinput.Gamepad.wButtons);
 	if (isBack) {
 		PopPage();
 	}

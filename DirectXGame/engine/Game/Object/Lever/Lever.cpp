@@ -36,7 +36,7 @@ void Lever::Draw(Camera& camera_) {
 
 void Lever::DrawImGui(const std::string& label) {
 	//
-
+	label;
 #ifdef _DEBUG
 	if (ImGui::TreeNode(label.c_str())) {
 		ImGui::Text("test");
