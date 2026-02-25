@@ -47,20 +47,27 @@ private:
 
 	uint32_t backScreenTh_;
 	uint32_t titelTh_;
-	uint32_t pushToSpaceTh_;
+	//uint32_t pushToSpaceTh_;
 
 	KamataEngine::Sprite* backScreenSpite;
-	KamataEngine::Sprite* titelSpite;
-	KamataEngine::Sprite* pushToSpaceSpite;
+	//KamataEngine::Sprite* titelSpite;
+	//KamataEngine::Sprite* pushToSpaceSpite;
+
+	KamataEngine::Model* titleModel;
+	KamataEngine::Model* pushSpaceModel;
 
 	KamataEngine::Vector2 backScreenPos;
-	KamataEngine::Vector2 titelPos;
-	KamataEngine::Vector2 pushToSpacePos;
+	KamataEngine::Vector3 titelPos;
+	KamataEngine::Vector3 pushToSpacePos;
 	KamataEngine::Vector2 stopTitelPos;
 
 	FileJson::FileAccessor* fileAccessor_;
 	std::string file = "Resources/Json/Titel.json";
 	std::string fileMain = "title";
+
+	KamataEngine::WorldTransform worldTransform_[2];
+
+	KamataEngine::Camera camera_;
 
 	bool isJump = false;
 

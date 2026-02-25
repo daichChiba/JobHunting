@@ -8,26 +8,39 @@ TitleScene::~TitleScene() {}
 
 void TitleScene::Initialize() {
 
+	for (int i = 0; i < 2; i++) {
+		worldTransform_[i].Initialize();
+	}
+
 	fileAccessor_ = new FileAccessor(file);
 	speed = fileAccessor_->Read(fileMain, "speed", float());
 
 	resetSpeed = speed;
 	backScreenPos = fileAccessor_->Read(fileMain, "backScreenPos", Vector2());
-	titelPos = fileAccessor_->Read(fileMain, "titelPos", Vector2());
-	pushToSpacePos = fileAccessor_->Read(fileMain, "pushToSpacePos", Vector2());
+	titelPos = fileAccessor_->Read(fileMain, "titelPos", Vector3());
+	pushToSpacePos = fileAccessor_->Read(fileMain, "pushToSpacePos", Vector3());
 	stopTitelPos = fileAccessor_->Read(fileMain, "stopTitelPos", Vector2());
 
 	backScreenTh_ = TextureManager::Load("Titel/backScreen.dds");
 	backScreenSpite = Sprite::Create(backScreenTh_, backScreenPos);
 	backScreenSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 
-	titelTh_ = TextureManager::Load("Titel/titel.dds");
-	titelSpite = Sprite::Create(titelTh_, titelPos);
-	titelSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+	titelTh_ = TextureManager::Load("black1x1.png");
+	// titelSpite = Sprite::Create(titelTh_, titelPos);
+	// titelSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 
-	pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.dds");
-	pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, pushToSpacePos);
-	pushToSpaceSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+	Model* model = nullptr;
+	model = Model::CreateFromOBJ("Titel", true);
+	titleModel = model;
+
+	model = Model::CreateFromOBJ("PushToSpace", true);
+	pushSpaceModel = model;
+
+	camera_.Initialize();
+
+	// pushToSpaceTh_ = TextureManager::Load("Titel/PushToSpace.dds");
+	// pushToSpaceSpite = Sprite::Create(pushToSpaceTh_, pushToSpacePos);
+	// pushToSpaceSpite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 
 	inputWaitTimer_ = 20;
 	canAcceptInput_ = false;
@@ -61,9 +74,9 @@ void TitleScene::Update() {
 		}
 	}
 
-	titelSpite->SetPosition(titelPos);
+	// titelSpite->SetPosition(titelPos);
 	backScreenSpite->SetPosition(backScreenPos);
-	pushToSpaceSpite->SetPosition(pushToSpacePos);
+	// pushToSpaceSpite->SetPosition(pushToSpacePos);
 	buttonCount++;
 	if (isMove) {
 		if (!isJump) {
@@ -86,6 +99,11 @@ void TitleScene::Update() {
 				speed = resetSpeed;
 			}
 		}
+	}
+	worldTransform_[0].translation_ = titelPos;
+	worldTransform_[1].translation_ = pushToSpacePos;
+	for (int i = 0; i < 2; i++) {
+		worldTransform_[i].UpdateMatrix();
 	}
 
 	fade_->Update();
@@ -114,7 +132,13 @@ void TitleScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	titleModel->Draw(worldTransform_[0], camera_, titelTh_);
 
+	if (buttonCount % kCountFrame_ >= kDrawCount_) {
+		pushSpaceModel->Draw(worldTransform_[1], camera_, titelTh_);
+	}
+
+	Model::PostDraw();
 #pragma endregion
 
 #pragma region 前景スプライト描画
@@ -125,11 +149,11 @@ void TitleScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
-	titelSpite->Draw();
+	// titelSpite->Draw();
 
-	if (buttonCount % kCountFrame_ >= kDrawCount_) {
-		pushToSpaceSpite->Draw();
-	}
+	// if (buttonCount % kCountFrame_ >= kDrawCount_) {
+	//	//pushToSpaceSpite->Draw();
+	// }
 
 	fade_->Draw();
 
@@ -148,10 +172,10 @@ void TitleScene::DrawImGui() {
 	ImGui::Text("Test");
 	ImGui::Checkbox("isFinished", &isFinish);
 	if (ImGui::Button("save")) {
-		fileAccessor_->Write(fileMain, "backScreenPos", Vector3(backScreenPos.x, backScreenPos.y, 0.0f));
-		fileAccessor_->Write(fileMain, "titelPos", Vector3(titelPos.x, titelPos.y, 0.0f));
-		fileAccessor_->Write(fileMain, "pushToSpacePos", Vector3(pushToSpacePos.x, pushToSpacePos.y, 0.0f));
-		fileAccessor_->Write(fileMain, "stopTitelPos", Vector3(stopTitelPos.x, stopTitelPos.y, 0.0f));
+		fileAccessor_->Write(fileMain, "backScreenPos", Vector2(backScreenPos.x, backScreenPos.y));
+		fileAccessor_->Write(fileMain, "titelPos", titelPos);
+		fileAccessor_->Write(fileMain, "pushToSpacePos", pushToSpacePos);
+		fileAccessor_->Write(fileMain, "stopTitelPos", Vector2(stopTitelPos.x, stopTitelPos.y));
 		fileAccessor_->Write(fileMain, std::to_string(speed) /*"speed"*/, speed);
 		fileAccessor_->Save();
 	}
