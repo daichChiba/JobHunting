@@ -89,7 +89,7 @@ void SceneManager::DrawImGui() {
 	}
 
 	// ■ ステージ (stage) の選択
-	const char* stageList[] = {"1_1", "1_2", "1_3", "2_1", "2_2", "2_3"}; 
+	const char* stageList[] = {"1", "2", "3", "4", "5", "6"}; 
 	static int currentStageIndex = 0;
 
 	if (ImGui::Combo("Stage", &currentStageIndex, stageList, IM_ARRAYSIZE(stageList))) {

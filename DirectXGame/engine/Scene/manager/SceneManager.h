@@ -57,6 +57,6 @@ private:
 
 	std::string filePath = "Resources/Json/Stage.json";
 	std::string erea = "stage";
-	std::string stage = "1_1";
+	std::string stage = "1";
 
 };

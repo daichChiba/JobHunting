@@ -126,44 +126,40 @@ void PlayerClone::DrawImGui() {
 }
 void PlayerClone::InputMove() {
 	if (onGround_) {
+		float moveDirX = 0.0f;
+
 		// 左右移動
-		if (Input::GetInstance()->PushKey(DIK_D) || Input::GetInstance()->PushKey(DIK_A)) {
-			Vector3 acceleration = {};
+		if (Input::GetInstance()->PushKey(DIK_D)) {
+			moveDirX += 1.0f;
+		}
 
-			if (Input::GetInstance()->PushKey(DIK_D)) {
-				// 左移動中の右入力
-				if (velocity_.x < 0.0f) {
-					// 速度と逆方向に入力中は急ブレーキ
-					velocity_.x *= (1.0f - kAcceleration);
-				}
-				acceleration.x += kAcceleration;
+		if (Input::GetInstance()->PushKey(DIK_A)) {
+			moveDirX -= 1.0f;
+		}
 
-			} else if (Input::GetInstance()->PushKey(DIK_A)) {
+		float lx = xinput_.Gamepad.sThumbLX / 32767.0f;
+		const float kDeadZone = 0.2f;
+		if (std::abs(lx) > kDeadZone) {
+			moveDirX = lx;
+		}
 
-				// 右移動中の左入力
-				if (velocity_.x > 0.0f) {
-					// 速度と逆方向に入力中は急ブレーキ
-					velocity_.x *= (1.0f - kAcceleration);
-				}
-
-				acceleration.x -= kAcceleration;
+		// --- 最終的な速度計算（共通ロジック） ---
+		if (std::abs(moveDirX) > 0.01f) {
+			// 加速処理
+			if (moveDirX > 0) {
+				velocity_.x += kAcceleration;
+			} else {
+				velocity_.x -= kAcceleration;
 			}
-
-			velocity_ += acceleration;
-
-			velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
 		} else {
+			// 入力がないなら停止
 			velocity_.x = 0.0f;
 		}
-		float lx = xinput_.Gamepad.sThumbLX / 32767.0f;
-		if (lx != 0.0f) {
-			float magnitude = sqrtf(lx * lx);
 
-			velocity_.x = sin(lx) * magnitude * kLimitXSpeed;
-		}
+		velocity_.x = std::clamp(velocity_.x, -kLimitXSpeed, kLimitXSpeed);
 
 		if (Input::GetInstance()->PushKey(DIK_W) || xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A) {
-			velocity_ += Vector3(0, kJumpAcceleration, 0);
+			velocity_.y = kJumpAcceleration;
 		}
 		// ジャンプ開始
 		if (velocity_.y > 0.0f) {

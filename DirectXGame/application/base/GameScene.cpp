@@ -123,7 +123,12 @@ void GameScene::Initialize() {
 		isFinish = true;
 	});
 
-	mainPage = pauseMenu_.BuilldPage({PauseID::kReturnGame, PauseID::kGuide, PauseID::kTitel, PauseID::kRestart});
+	mainPage = pauseMenu_.BuilldPage({
+		PauseID::kReturnGame,
+		PauseID::kGuide,
+		PauseID::kTitel,
+		PauseID::kRestart
+	});
 
 	// PauseMenu内部で所持
 	pauseMenu_.SetMainPage(mainPage);
