@@ -107,7 +107,8 @@ void Player::DrawImGui() {
 	ImGui::Checkbox("isGoal", &isGoal_);
 	ImGui::Checkbox("isMove", &isMove);
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
-	ImGui::DragFloat3("size", &size_.x);
+	//ImGui::DragFloat3("size", &size_.x);
+	ImGui::SliderFloat3("size", &size_.x, 0.0f, 2.0f);
 	ImGui::DragFloat3("velocity", &velocity_.x);
 	ImGui::DragFloat("kBlank", &kBlank);
 	ImGui::DragFloat("kGoalRotatoMove", &kGoalRotatoMove);
