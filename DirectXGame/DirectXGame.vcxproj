@@ -154,6 +154,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\Game\Collision\CollisionManager.cpp" />
     <ClCompile Include="engine\Game\Object\PushButton\PushButton.cpp" />
     <ClCompile Include="engine\Scene\scenes\ClearScene.cpp" />
     <ClCompile Include="engine\ect\Easings.cpp" />
@@ -285,6 +286,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\Game\Collision\CollisionManager.h" />
     <ClInclude Include="engine\Game\Object\PushButton\PushButton.h" />
     <ClInclude Include="engine\Scene\scenes\ClearScene.h" />
     <ClInclude Include="engine\ect\Easings.h" />
