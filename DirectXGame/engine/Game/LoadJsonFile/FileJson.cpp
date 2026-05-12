@@ -4,6 +4,7 @@
 using namespace KamataEngine; // KamataEngineの名前空間を使用
 
 namespace FileJson { // FileJson名前空間を使用
+//パーサー
 
 /// <summary>
 /// コンストラクタ: ファイル名を指定して初期化し、JSONファイルをロード

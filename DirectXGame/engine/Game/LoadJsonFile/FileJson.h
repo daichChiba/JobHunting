@@ -11,7 +11,7 @@
 
 using json = nlohmann::json;  // nlohmann::json を json という名前で使用する
 using namespace KamataEngine; // KamataEngineの名前空間を使用
-
+//パーサー
 namespace FileJson { // FileJsonという名前空間を定義
 /// <summary>
 /// JSONファイルからの読み取りと書き込みを行うクラス。
