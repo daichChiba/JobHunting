@@ -160,11 +160,14 @@ void MapChip::MapCreate() {
 			if (!worldTransform_[y][x]) {
 				worldTransform_[y][x] = new WorldTransform();
 			}
+
+			//csvのデータをここで分けて入力している(データドリブン)
 			if (csvData_[y][x] == 0) {
 				mapChipData_.data[y][x] = MapChipID::kBlank;
 			} else {
 				mapChipData_.data[y][x] = static_cast<MapChipID>(csvData_[y][x]);
 			}
+
 			// BlockSize を使ってワールド座標を決定（以前は 1.0f 固定だった）
 			Vector3 BlockPos = {BlockSize.x * static_cast<float>(x), BlockSize.y * static_cast<float>(csvData_.size() - 1 - y), 0.0f};
 
