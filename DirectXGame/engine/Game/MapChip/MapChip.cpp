@@ -161,7 +161,7 @@ void MapChip::MapCreate() {
 				worldTransform_[y][x] = new WorldTransform();
 			}
 
-			//csvのデータをここで分けて入力している(データドリブン)
+			
 			if (csvData_[y][x] == 0) {
 				mapChipData_.data[y][x] = MapChipID::kBlank;
 			} else {

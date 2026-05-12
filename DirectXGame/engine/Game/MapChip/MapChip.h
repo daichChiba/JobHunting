@@ -64,6 +64,7 @@ public:
 	/// <summary>
 	/// マップチップのデータを保持する構造体
 	/// </summary>
+	/// データドリブン
 	struct MapChipData {
 		std::vector<std::vector<MapChipID>> data;
 		KamataEngine::Model* model;
