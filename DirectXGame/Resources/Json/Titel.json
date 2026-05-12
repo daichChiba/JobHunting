@@ -1,25 +1,26 @@
 {
-    "title": {
-        "backScreenPos": {
-            "x": 640.0,
-            "y": 360.0,
-            "z": 0.0
-        },
-        "pushToSpacePos": {
-            "x": 0.0,
-            "y": -10.0,
-            "z": 0.0
-        },
-        "speed": 0.05,
-        "stopTitelPos": {
-            "x": 0.0,
-            "y": 10.0,
-            "z": 0.0
-        },
-        "titelPos": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": 0.0
-        }
+  "": "タイトル",
+  "title": {
+    "backScreenPos": {
+      "x": 640.0,
+      "y": 360.0,
+      "z": 0.0
+    },
+    "pushToSpacePos": {
+      "x": 0.0,
+      "y": -10.0,
+      "z": 0.0
+    },
+    "speed": 0.05,
+    "stopTitelPos": {
+      "x": 0.0,
+      "y": 10.0,
+      "z": 0.0
+    },
+    "titelPos": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
     }
+  }
 }
