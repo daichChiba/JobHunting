@@ -170,6 +170,7 @@ void MapChip::MapCreate() {
 
 			worldTransform_[y][x]->Initialize();
 			worldTransform_[y][x]->translation_ = BlockPos;
+
 		}
 	}
 }
