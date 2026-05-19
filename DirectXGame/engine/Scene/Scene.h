@@ -44,7 +44,6 @@ public:
 	virtual SceneID NextScene() const = 0;
 
 
-
 	// シーン終了
 	bool IsFinish() { return isFinish; }
 

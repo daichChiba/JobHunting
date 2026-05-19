@@ -8,6 +8,7 @@
 #include <KamataEngine.h>
 
 using SceneCreator = std::function<std::unique_ptr<Scene>()>;
+
 /// <summary>
 /// 全てのシーンの情報を管理するクラス
 /// シーンに関する情報を統合的に管理し扱う

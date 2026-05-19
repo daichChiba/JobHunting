@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 
+
 SceneManager::SceneManager() {
 	// シーンファクトリにすべてのシーンの生成ロジックを登録
 	sceneFactory_[SceneID::Title] = []() { return std::make_unique<TitleScene>(); };
