@@ -2,7 +2,7 @@
 
 
 SceneManager::SceneManager() {
-	// シーンファクトリにすべてのシーンの生成ロジックを登録
+	// シーンファクトリにすべてのシーンの生成ロジックを登録(FactoryPattern)
 	sceneFactory_[SceneID::Title] = []() { return std::make_unique<TitleScene>(); };
 	sceneFactory_[SceneID::Game] = []() { return std::make_unique<GameScene>(); };
 	sceneFactory_[SceneID::Reset] = []() { return std::make_unique<ResetScene>(); };
