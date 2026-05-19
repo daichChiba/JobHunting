@@ -8,6 +8,7 @@ class MapChip;
 class Player;
 class PlayerClone;
 class PlayerManager;
+
 /// <summary>
 /// オブジェクトに関する情報を管理するクラス
 /// オブジェクトに関する描画や出力を総合的に扱う
