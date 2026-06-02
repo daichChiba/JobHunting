@@ -55,7 +55,6 @@ void ObjectManager::UpDate() {
 
 void ObjectManager::Draw(KamataEngine::Camera& camera) {
 	//
-
 	for (auto& goal : goals_) {
 		goal->Draw(camera);
 	}
