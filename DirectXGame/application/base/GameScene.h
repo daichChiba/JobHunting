@@ -2,7 +2,7 @@
 #include "Game/Camera/GameCamera.h"
 #include "Game/LoadJsonFile/FileJson.h"
 #include "Game/MapChip/MapChip.h"
-#include "Game/Object/ObjectManager.h"
+#include "Game/Object/Manager/ObjectManager.h"
 #include "Game/Player/PlayerManager.h"
 #include "Scene/Scene.h"
 #include "Game/Pause/PauseMenu.h"

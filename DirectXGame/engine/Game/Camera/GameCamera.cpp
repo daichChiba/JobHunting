@@ -1,11 +1,11 @@
 #include "GameCamera.h"
-#include "Game/Object/ObjectManager.h"
+#include "Game/Object/Manager/ObjectManager.h"
 #include "Game/Player/PlayerManager.h"
-#include "engine/Game/MapChip/MapChip.h"
-#include "engine/Game/Object/Lever/Lever.h"
-#include "engine/Game/Object/PushButton/PushButton.h"
-#include "engine/Game/Player/Player.h"
-#include "engine/ect/Easings.h"
+#include "Game/MapChip/MapChip.h"
+#include "Game/Object/Objects/Lever/Lever.h"
+#include "Game/Object/Objects/PushButton/PushButton.h"
+#include "Game/Player/Player.h"
+#include "ect/Easings.h"
 
 using namespace KamataEngine;
 using namespace FileJson;

@@ -1,5 +1,5 @@
 #include "MapChip.h"
-#include "Game/Object/ObjectManager.h"
+#include "Game/Object/Manager/ObjectManager.h"
 #include <fstream>
 #include <iostream>
 #include <memory>

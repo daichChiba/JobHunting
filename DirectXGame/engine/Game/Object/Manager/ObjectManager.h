@@ -1,7 +1,8 @@
 #pragma once
-#include "Game/Object/Goal/Goal.h"
-#include "Game/Object/Lever/Lever.h"
-#include "Game/Object/PushButton/PushButton.h"
+//#include "Game/Object/Objects/Goal/Goal.h"
+//#include "Game/Object/Objects/Lever/Lever.h"
+//#include "Game/Object/Objects/PushButton/PushButton.h"
+#include "Game/Object/IGameObject.h"
 #include "KamataEngine.h"
 
 class MapChip;
@@ -69,28 +70,12 @@ private:
 	/// <param name="player"></param>
 	/// <param name="playerClone"></param>
 	void CheckLeverCollision(PlayerManager* playerManager);
-	/// <summary>
-	///
-	/// </summary>
-	/// <param name="player"></param>
-	/// <param name="playerClone"></param>
-	void CheckButtonCollision(PlayerManager* playerManager);
-	/// <summary>
-	///
-	/// </summary>
-	/// <param name="player"></param>
-	/// <param name="playerClone"></param>
-	void CheckGoalCollision(PlayerManager* playerManager);
 
 private:
 	MapChip* mapChipData_;
-	std::vector<std::unique_ptr<Goal>> goals_;
-	std::vector<std::unique_ptr<PushButton>> pushButtons_;
-	std::vector<std::unique_ptr<Lever>> levers_;
-	//Player* player_;
-	//PlayerClone* playerClone_;
-
 	PlayerManager* playerManager_;
+
+	std::vector<std::unique_ptr<IGameObject>> objects_;
 
 	bool isAllLeverCollision = false;
 	bool isPushButton;

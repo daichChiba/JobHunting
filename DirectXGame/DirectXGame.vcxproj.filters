@@ -70,29 +70,11 @@
     <Filter Include="ヘッダー ファイル\Game\Object">
       <UniqueIdentifier>{42b3fadb-f758-4908-90e4-94f4e5a0afd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Object\Goal">
-      <UniqueIdentifier>{f4c6236f-31e9-49ba-9c64-fffbafeeb01a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Object\Goal">
-      <UniqueIdentifier>{c2615873-0507-47bc-a5fa-6c89f53bc4a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\Managar">
       <UniqueIdentifier>{3f6fc996-4d2e-439e-9e08-5dbd7af20c42}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\Manager">
       <UniqueIdentifier>{6368ac98-86da-439a-8261-237b1ca0d784}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Object\Lever">
-      <UniqueIdentifier>{6364d4da-89a4-4eb9-8269-8832a1839c18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Object\PushButton">
-      <UniqueIdentifier>{156ce316-cdcb-439c-ac66-3c8210f63a12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\Object\Lever">
-      <UniqueIdentifier>{b64214ca-9905-439c-9a61-6557ad470f54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\Object\PushButton">
-      <UniqueIdentifier>{fa42ed47-96c8-4fae-b15e-4d6e4463f7dd}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Pause">
       <UniqueIdentifier>{6caa2928-f5cb-47fc-8b7e-cf9fed5e5f1d}</UniqueIdentifier>
@@ -111,6 +93,36 @@
     </Filter>
     <Filter Include="ソース ファイル\Game\Pause">
       <UniqueIdentifier>{3124c645-a6e3-4e2f-b770-c5518d8acc56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\Objects">
+      <UniqueIdentifier>{09af2ea3-df8a-4fa7-9851-f71811ef306b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\Objects\Goal">
+      <UniqueIdentifier>{f4c6236f-31e9-49ba-9c64-fffbafeeb01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\Objects\Lever">
+      <UniqueIdentifier>{b64214ca-9905-439c-9a61-6557ad470f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\Objects\PushButton">
+      <UniqueIdentifier>{fa42ed47-96c8-4fae-b15e-4d6e4463f7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\Manager">
+      <UniqueIdentifier>{63516620-3693-4967-a22c-2166d7b9ed6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object\Objects">
+      <UniqueIdentifier>{ef3f8b64-f1ed-4ddc-b635-9e665c2146e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object\Objects\Goal">
+      <UniqueIdentifier>{c2615873-0507-47bc-a5fa-6c89f53bc4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object\Objects\Lever">
+      <UniqueIdentifier>{6364d4da-89a4-4eb9-8269-8832a1839c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object\Objects\PushButton">
+      <UniqueIdentifier>{156ce316-cdcb-439c-ac66-3c8210f63a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Object\Manager">
+      <UniqueIdentifier>{4795aef9-197b-4b20-b8bb-b8f7f1176ff5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,8 +174,8 @@
     <ClCompile Include="engine\ect\Easings.cpp">
       <Filter>ソース ファイル\ect</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Game\Object\Goal\Goal.cpp">
-      <Filter>ソース ファイル\Game\Object\Goal</Filter>
+    <ClCompile Include="engine\Game\Object\Objects\Goal\Goal.cpp">
+      <Filter>ソース ファイル\Game\Object\Objects\Goal</Filter>
     </ClCompile>
     <ClCompile Include="engine\ect\MathUtilityForText.cpp">
       <Filter>ソース ファイル\ect</Filter>
@@ -174,14 +186,11 @@
     <ClCompile Include="engine\Game\Player\Clone\PlayerClone.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Game\Object\Lever\Lever.cpp">
-      <Filter>ソース ファイル\Game\Object\Lever</Filter>
+    <ClCompile Include="engine\Game\Object\Objects\Lever\Lever.cpp">
+      <Filter>ソース ファイル\Game\Object\Objects\Lever</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Game\Object\PushButton\PushButton.cpp">
-      <Filter>ソース ファイル\Game\Object\PushButton</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\Game\Object\ObjectManager.cpp">
-      <Filter>ソース ファイル\Game\Object</Filter>
+    <ClCompile Include="engine\Game\Object\Objects\PushButton\PushButton.cpp">
+      <Filter>ソース ファイル\Game\Object\Objects\PushButton</Filter>
     </ClCompile>
     <ClCompile Include="engine\Game\Player\PlayerManager.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
@@ -194,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="engine\Game\Collision\CollisionManager.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Object\IGameObject.cpp">
+      <Filter>ソース ファイル\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Game\Object\Manager\ObjectManager.cpp">
+      <Filter>ソース ファイル\Game\Object\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -312,8 +327,8 @@
     <ClInclude Include="engine\ect\IntVector2.h">
       <Filter>ヘッダー ファイル\ect</Filter>
     </ClInclude>
-    <ClInclude Include="engine\Game\Object\Goal\Goal.h">
-      <Filter>ヘッダー ファイル\Game\Object\Goal</Filter>
+    <ClInclude Include="engine\Game\Object\Objects\Goal\Goal.h">
+      <Filter>ヘッダー ファイル\Game\Object\Objects\Goal</Filter>
     </ClInclude>
     <ClInclude Include="engine\ect\MathUtilityForText.h">
       <Filter>ヘッダー ファイル\ect</Filter>
@@ -324,14 +339,11 @@
     <ClInclude Include="engine\Game\Player\Clone\PlayerClone.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="engine\Game\Object\Lever\Lever.h">
-      <Filter>ヘッダー ファイル\Game\Object\Lever</Filter>
+    <ClInclude Include="engine\Game\Object\Objects\Lever\Lever.h">
+      <Filter>ヘッダー ファイル\Game\Object\Objects\Lever</Filter>
     </ClInclude>
-    <ClInclude Include="engine\Game\Object\PushButton\PushButton.h">
-      <Filter>ヘッダー ファイル\Game\Object\PushButton</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\Game\Object\ObjectManager.h">
-      <Filter>ヘッダー ファイル\Game\Object</Filter>
+    <ClInclude Include="engine\Game\Object\Objects\PushButton\PushButton.h">
+      <Filter>ヘッダー ファイル\Game\Object\Objects\PushButton</Filter>
     </ClInclude>
     <ClInclude Include="engine\Game\Player\PlayerManager.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
@@ -344,6 +356,12 @@
     </ClInclude>
     <ClInclude Include="engine\Game\Collision\CollisionManager.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Object\IGameObject.h">
+      <Filter>ヘッダー ファイル\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Game\Object\Manager\ObjectManager.h">
+      <Filter>ヘッダー ファイル\Game\Object\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

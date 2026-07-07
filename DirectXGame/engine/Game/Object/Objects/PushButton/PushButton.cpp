@@ -1,5 +1,8 @@
 #include "PushButton.h"
 #include "engine/Game/MapChip/MapChip.h"
+#include "Game/Player/Player.h"
+#include "Game/Player/PlayerManager.h"
+#include "ect/MathUtilityForText.h"
 
 using namespace KamataEngine;
 
@@ -11,7 +14,7 @@ PushButton::~PushButton() {
 	//
 }
 
-void PushButton::Initilize(const KamataEngine::Vector3 pos) {
+void PushButton::Initialize(const KamataEngine::Vector3 pos) {
 
 	model_[0] = Model::CreateFromOBJ("PushButton", true);
 	model_[1] = Model::CreateFromOBJ("PressButton", true);
@@ -77,10 +80,22 @@ AABB PushButton::GetAABB() {
 	return aabb;
 }
 
-void PushButton::OnCollision(const Player* player, const PlayerClone* clone) {
-	//
-	(void)player;
-	(void)clone;
+void PushButton::CheckCollision(PlayerManager* playerManager) {
+	// 元のObjectManager::CheckButtonCollisionの個別ロジックをカプセル化
+	bool hitPlayer = IsCollision(GetAABB(), playerManager->GetPlayer()->GetAABB());
+	bool hitClone = IsCollision(GetAABB(), playerManager->GetClone()->GetAABB());
 
-	isPushButton = true;
+	if (hitPlayer || hitClone) {
+		isPushButton = true; // ボタンON
+	} else {
+		isPushButton = false; // 離れたらOFF
+	}
 }
+
+//void PushButton::OnCollision(const Player* player, const PlayerClone* clone) {
+//	//
+//	(void)player;
+//	(void)clone;
+//
+//	isPushButton = true;
+//}
