@@ -72,7 +72,7 @@ KamataEngine::Vector3 MapChip::GetObjectPos(const MapChipID id_) {
 	return Pos;
 }
 
-MapChipID MapChip::GetMapChipID(const KamataEngine::Vector3 pos) {
+MapChipID MapChip::GetMapChipID(const KamataEngine::Vector3& pos) {
 	//
 	MapChipIndex index = GetMapChipIndex(pos);
 	if (index.y < 0 || index.y >= static_cast<int>(mapChipData_.data.size()) || index.x < 0 || index.x >= static_cast<int>(mapChipData_.data[0].size())) {
@@ -89,7 +89,7 @@ MapChipID MapChip::GetMapChipID(const MapChipIndex& index) {
 	return mapChipData_.data[index.y][index.x];
 }
 
-MapChip::Rect MapChip::GetMapRect(const Vector3 pos) {
+MapChip::Rect MapChip::GetMapRect(const Vector3& pos) {
 	//
 	MapChipIndex index = GetMapChipIndex(pos);
 	Rect rect;
@@ -109,7 +109,7 @@ MapChip::MapChipIndex MapChip::GetMapChipIndex(const Vector3& pos) {
 
 IntVector2 MapChip::GetMaxMapSize() { return IntVector2(static_cast<int>(mapChipData_.data[0].size()), static_cast<int>(mapChipData_.data.size())); }
 
-MapChip::Rect MapChip::GetRectByIndex(MapChipIndex index_) {
+MapChip::Rect MapChip::GetRectByIndex(MapChipIndex& index_) {
 	Vector3 center = GetMapChipPosByIndex(index_);
 	Rect rect;
 	rect.left = center.x - BlockSize.x / 2.0f;
@@ -122,7 +122,7 @@ MapChip::Rect MapChip::GetRectByIndex(MapChipIndex index_) {
 
 KamataEngine::Vector3 MapChip::GetMapChipPosByIndex(MapChipIndex index_) { return Vector3(BlockSize.x * index_.x, BlockSize.y * (mapChipData_.data.size() - 1 - index_.y), 0); }
 
-MapChip::MapChipIndex MapChip::GetMapChipIndexSetByPosition(const KamataEngine::Vector3 pos) {
+MapChip::MapChipIndex MapChip::GetMapChipIndexSetByPosition(const KamataEngine::Vector3& pos) {
 	MapChipIndex indexSet = {};
 
 	indexSet.x = static_cast<uint32_t>((pos.x + BlockSize.x / 2) / BlockSize.x);

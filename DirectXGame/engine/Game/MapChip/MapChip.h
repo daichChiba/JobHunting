@@ -86,7 +86,7 @@ public:
 	/// </summary>
 	/// <param name="pos">マップ上の位置を入力。</param>
 	/// <returns>指定の位置にいるMapChipの種類を返す</returns>
-	MapChipID GetMapChipID(const KamataEngine::Vector3 pos);
+	MapChipID GetMapChipID(const KamataEngine::Vector3& pos);
 	/// <summary>
 	/// 指定したMapChipIndexに対してマップチップの種類を取得
 	/// </summary>
@@ -98,7 +98,7 @@ public:
 	/// </summary>
 	/// <param name="pos">基準となる位置ベクトル（Vector3）。この位置に対応するマップ矩形が返されます。</param>
 	/// <returns>指定位置に対応するマップの矩形（Rect）。</returns>
-	Rect GetMapRect(const Vector3 pos);
+	Rect GetMapRect(const Vector3& pos);
 	/// <summary>
 	/// マップチップ上のチップ位置を取得する
 	/// </summary>
@@ -115,7 +115,7 @@ public:
 	/// </summary>
 	/// <param name="index_">マップチップの位置を入力</param>
 	/// <returns>対応する各点の座標</returns>
-	Rect GetRectByIndex(MapChipIndex index_);
+	Rect GetRectByIndex(MapChipIndex& index_);
 	/// <summary>
 	/// マップチップのワールド座標の取得
 	/// </summary>
@@ -128,7 +128,7 @@ public:
 	/// </summary>
 	/// <param name="pos">ワールド座標を入力</param>
 	/// <returns>マップチップの位置</returns>
-	MapChipIndex GetMapChipIndexSetByPosition(const KamataEngine::Vector3 pos);
+	MapChipIndex GetMapChipIndexSetByPosition(const KamataEngine::Vector3& pos);
 
 	/// <summary>
 	/// Jsonファイルを操作するためのアクセッサの取得
