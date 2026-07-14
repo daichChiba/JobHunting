@@ -48,9 +48,9 @@ public:
 	// シーン終了
 	bool IsFinish() { return isFinish; }
 
-	void SetFilePath(std::string filePath_) { filePath = filePath_; }
-	void SetErea(std::string erea_) { erea = erea_; }
-	void SetStage(std::string stage_) { stage = stage_; }
+	void SetFilePath(const std::string filePath_) { filePath = filePath_; }
+	void SetErea(const std::string erea_) { erea = erea_; }
+	void SetStage(const std::string stage_) { stage = stage_; }
 
 	std::string GetFilePath() { return filePath; }
 	std::string GetErea() { return erea; }

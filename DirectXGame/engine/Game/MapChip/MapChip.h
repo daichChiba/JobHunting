@@ -26,7 +26,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="file"></param>
-	void Initialize(std::string file, std::string erea, std::string stage);
+	void Initialize(const std::string& file,const std::string& erea,const std::string& stage);
 	/// <summary>
 	/// 更新
 	/// </summary>
