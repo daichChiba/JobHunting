@@ -14,7 +14,7 @@ PushButton::~PushButton() {
 	//
 }
 
-void PushButton::Initialize(const KamataEngine::Vector3 pos) {
+void PushButton::Initialize(const KamataEngine::Vector3& pos) {
 
 	model_[0] = Model::CreateFromOBJ("PushButton", true);
 	model_[1] = Model::CreateFromOBJ("PressButton", true);

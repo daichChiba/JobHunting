@@ -9,7 +9,7 @@ using namespace MathUtility;
 Goal::Goal() {}
 //Goal::~Goal() {}
 
-void Goal::Initialize(const KamataEngine::Vector3 pos) {
+void Goal::Initialize(const KamataEngine::Vector3& pos) {
 	model_ = Model::CreateFromOBJ("Portal", true);
 
 	worldTransform_.Initialize();

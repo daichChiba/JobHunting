@@ -2,7 +2,7 @@
 
 using namespace KamataEngine;
 
-void IGameObject::Initialize(const KamataEngine::Vector3 pos) {
+void IGameObject::Initialize(const KamataEngine::Vector3& pos) {
 	//
 	pos;
 }

@@ -13,7 +13,7 @@ Lever::~Lever() {
 	//
 }
 
-void Lever::Initialize(const KamataEngine::Vector3 pos) {
+void Lever::Initialize(const KamataEngine::Vector3& pos) {
 	//
 
 	model_[0] = Model::CreateFromOBJ("LeverRight", true);

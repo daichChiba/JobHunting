@@ -18,7 +18,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(const KamataEngine::Vector3 pos) override;
+	void Initialize(const KamataEngine::Vector3& pos) override;
 	/// <summary>
 	/// 更新
 	/// </summary>

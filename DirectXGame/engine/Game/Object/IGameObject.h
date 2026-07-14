@@ -12,7 +12,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="pos"></param>
-	virtual void Initialize(const KamataEngine::Vector3 pos);
+	virtual void Initialize(const KamataEngine::Vector3& pos);
 	/// <summary>
 	/// 更新
 	/// </summary>
