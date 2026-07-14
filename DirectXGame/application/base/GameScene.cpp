@@ -4,6 +4,7 @@
 using namespace KamataEngine;
 using namespace MathUtility;
 using namespace FileJson;
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {}

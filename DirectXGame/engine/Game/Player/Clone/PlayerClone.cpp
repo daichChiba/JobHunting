@@ -1,10 +1,10 @@
 #define NOMINMAX
 #include "PlayerClone.h"
 #include "Game/MapChip/MapChip.h"
-#include "Game/Object/Goal/Goal.h"
-#include "Game/Object/Lever/Lever.h"
-#include "Game/Object/ObjectManager.h"
-#include "Game/Object/PushButton/PushButton.h"
+#include "Game/Object/Objects/Goal/Goal.h"
+#include "Game/Object/Objects/Lever/Lever.h"
+#include "Game/Object/Manager/ObjectManager.h"
+#include "Game/Object/Objects/PushButton/PushButton.h"
 #include <algorithm>
 
 using namespace KamataEngine;

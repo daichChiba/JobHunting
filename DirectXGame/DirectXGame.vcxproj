@@ -155,7 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\Game\Collision\CollisionManager.cpp" />
-    <ClCompile Include="engine\Game\Object\PushButton\PushButton.cpp" />
+    <ClCompile Include="engine\Game\Object\Objects\PushButton\PushButton.cpp" />
     <ClCompile Include="engine\Scene\scenes\ClearScene.cpp" />
     <ClCompile Include="engine\ect\Easings.cpp" />
     <ClCompile Include="engine\Scene\scenes\DemoScene.cpp" />
@@ -169,14 +169,15 @@
     <ClCompile Include="application\base\GameScene.cpp" />
     <ClCompile Include="engine\Scene\fade\Fade.cpp" />
     <ClCompile Include="engine\Game\Camera\GameCamera.cpp" />
-    <ClCompile Include="engine\Game\Object\Goal\Goal.cpp" />
-    <ClCompile Include="engine\Game\Object\Lever\Lever.cpp" />
+    <ClCompile Include="engine\Game\Object\Objects\Goal\Goal.cpp" />
+    <ClCompile Include="engine\Game\Object\Objects\Lever\Lever.cpp" />
+    <ClCompile Include="engine\Game\Object\IGameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\Scene\scenes\ResetScene.cpp" />
     <ClCompile Include="engine\Scene\Scene.cpp" />
     <ClCompile Include="engine\Scene\scenes\TitleScene.cpp" />
     <ClCompile Include="engine\ect\MathUtilityForText.cpp" />
-    <ClCompile Include="engine\Game\Object\ObjectManager.cpp" />
+    <ClCompile Include="engine\Game\Object\Manager\ObjectManager.cpp" />
     <ClCompile Include="engine\Game\Player\Clone\PlayerClone.cpp" />
     <ClCompile Include="engine\Game\Player\PlayerManager.cpp" />
     <ClCompile Include="engine\Game\Pause\PauseMenu.cpp" />
@@ -287,7 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\Game\Collision\CollisionManager.h" />
-    <ClInclude Include="engine\Game\Object\PushButton\PushButton.h" />
+    <ClInclude Include="engine\Game\Object\Objects\PushButton\PushButton.h" />
     <ClInclude Include="engine\Scene\scenes\ClearScene.h" />
     <ClInclude Include="engine\ect\Easings.h" />
     <ClInclude Include="engine\ect\IntVector2.h" />
@@ -305,14 +306,15 @@
     <ClInclude Include="engine\Scene\fade\FadeID.h" />
     <ClInclude Include="engine\Scene\fade\Fade.h" />
     <ClInclude Include="engine\Game\Camera\GameCamera.h" />
-    <ClInclude Include="engine\Game\Object\Goal\Goal.h" />
+    <ClInclude Include="engine\Game\Object\Objects\Goal\Goal.h" />
     <ClInclude Include="engine\ect\MathUtilityForText.h" />
-    <ClInclude Include="engine\Game\Object\ObjectManager.h" />
+    <ClInclude Include="engine\Game\Object\Manager\ObjectManager.h" />
     <ClInclude Include="engine\Game\Player\Clone\PlayerClone.h" />
-    <ClInclude Include="engine\Game\Object\Lever\Lever.h" />
+    <ClInclude Include="engine\Game\Object\Objects\Lever\Lever.h" />
     <ClInclude Include="engine\Game\Player\PlayerManager.h" />
     <ClInclude Include="engine\Game\Pause\PauseMenu.h" />
     <ClInclude Include="engine\Game\Pause\PausePage.h" />
+    <ClInclude Include="engine\Game\Object\IGameObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

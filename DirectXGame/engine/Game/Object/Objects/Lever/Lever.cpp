@@ -1,5 +1,8 @@
 #include "Lever.h"
 #include "engine/Game/MapChip/MapChip.h"
+#include "Game/Player/Player.h"
+#include "Game/Player/PlayerManager.h"
+#include "ect/MathUtilityForText.h"
 
 using namespace KamataEngine;
 Lever::Lever() {
@@ -10,7 +13,7 @@ Lever::~Lever() {
 	//
 }
 
-void Lever::Initilize(const KamataEngine::Vector3 pos) {
+void Lever::Initialize(const KamataEngine::Vector3 pos) {
 	//
 
 	model_[0] = Model::CreateFromOBJ("LeverRight", true);
@@ -74,8 +77,13 @@ AABB Lever::GetAABB() {
 	return aabb;
 }
 
-void Lever::OnCollision(const Player* player, const PlayerClone* clone) {
-	(void)player;
-	(void)clone;
-	isLever = true;
+void Lever::CheckCollision(PlayerManager* playerManager) {
+	//
+	playerManager;
 }
+
+//void Lever::OnCollision(const Player* player, const PlayerClone* clone) {
+//	(void)player;
+//	(void)clone;
+//	isLever = true;
+//}
